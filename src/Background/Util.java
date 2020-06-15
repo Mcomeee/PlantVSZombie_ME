@@ -16,6 +16,8 @@ public class Util {
   public static final Rectangle PEAREC = new Rectangle(180, 11, 46, 66);
   // 坚果框
   public static final Rectangle NUTREC = new Rectangle(235, 11, 46, 66);
+  // 寒冰射手框
+  public static final Rectangle SNPREC = new Rectangle(285, 11, 46, 66);
 
   // 是否被种植
   public static final boolean PLANTED = true;
@@ -29,8 +31,12 @@ public class Util {
   public static final int PLANTNULL_FLAG = 0;
 
   // 僵尸的标记
+  // 普通僵尸
   public static final int NORMAL_FLAG = 1;
+  // 旗帜僵尸
   public static final int FLAG_FLAG = 2;
+  // 读报僵尸
+  public static final int NEWS_FLAG = 3;
   // 空点击
   public static final int NULLZOMBIE_FLAG = 0;
 

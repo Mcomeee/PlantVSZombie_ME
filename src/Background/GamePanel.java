@@ -1,5 +1,7 @@
 package Background;
 
+import Zombies.BucketheadZombie;
+import Zombies.ConeheadZombie;
 import Zombies.NewspaperZombie;
 import java.awt.Color;
 import java.awt.Font;
@@ -206,10 +208,24 @@ public class GamePanel extends JPanel {
     // 有植物没僵尸的情况
     if (PlantList.size() >= 1 && ZombieList.size() < 1) {
       for (int i = 0; i < Zombiecnt; i++) {
-        int type = rand.nextInt(2) + 1; // 出现僵尸种类
-        if (type == 1) ZombieList.add(new NormalZombie());
-        else if (type == 2) ZombieList.add(new FlagZombie());
-        else if (type == 3) ZombieList.add(new NewspaperZombie());
+        int type = rand.nextInt(2) + 5; // 出现僵尸种类
+        switch (type) {
+          case 1:
+            ZombieList.add(new NormalZombie());
+            break;
+          case 2:
+            ZombieList.add(new FlagZombie());
+            break;
+          case 3:
+            ZombieList.add(new NewspaperZombie());
+            break;
+          case 4:
+            ZombieList.add(new ConeheadZombie());
+            break;
+          case 5:
+            ZombieList.add(new BucketheadZombie());
+            break;
+        }
       }
     }
     if (Zombiecnt < 5) Zombiecnt++;

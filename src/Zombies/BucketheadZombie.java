@@ -4,15 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-
-public class NewspaperZombie extends Zombie{
+public class BucketheadZombie extends Zombie{
   private static BufferedImage[] imgs;
 
   static {
     try {
-      imgs = new BufferedImage[18];
-      for (int i = 0; i < 18; i++) {
-        File file = new File("graphics/Zombies/NewspaperZombie/NewspaperZombie/NewspaperZombie_" + i + ".png");
+      imgs = new BufferedImage[14];
+      for (int i = 0; i < 14; i++) {
+        File file = new File("graphics/Zombies/BucketheadZombie/BucketheadZombie/BucketheadZombie_" + i + ".png");
         imgs[i] = ImageIO.read(file);
       }
     } catch (Exception e) {
@@ -20,7 +19,7 @@ public class NewspaperZombie extends Zombie{
     }
   };
 
-  public NewspaperZombie() {
+  public BucketheadZombie() {
     super(166, 144);
     this.frameNum = 12;
     this.attack = 100;
@@ -32,6 +31,6 @@ public class NewspaperZombie extends Zombie{
   int index = 1;
 
   public BufferedImage getImage() {
-    return imgs[index++ % 18];
+    return imgs[index++ % 14];
   }
 }

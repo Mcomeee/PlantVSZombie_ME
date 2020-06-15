@@ -3,24 +3,22 @@ package Plants;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-public class Null_Plant extends Plant{
+public class Null_Plant extends Plant {
 
-	public Null_Plant(Point point) {
-		super(point, 0, 0);
-		// TODO ×Ô¶¯Éú³ÉµÄ¹¹Ôìº¯Êı´æ¸ù
-	}
+  public Null_Plant(Point point) {
+    super(point, 0, 0);
+    // TODO è‡ªåŠ¨ç”Ÿæˆçš„æ„é€ å‡½æ•°å­˜æ ¹
+  }
 
-	@Override
-	public BufferedImage getImage() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
-		return null;
-	}
+  @Override
+  public BufferedImage getImage() {
+    // TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
+    return null;
+  }
 
-	@Override
-	public void setBullet() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
-		
-	}
-	
+  @Override
+  public void setBullet() {
+    // TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 
+  }
 }

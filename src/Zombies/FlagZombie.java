@@ -5,38 +5,37 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class FlagZombie extends Zombie{
+public class FlagZombie extends Zombie {
 
-	private static BufferedImage[] imgs;
-	
-	static {
-		try {
-			imgs=new BufferedImage[12];
-			for(int i=0;i<12;i++) {
-				File file=new File("graphics/Zombies/FlagZombie/FlagZombie/FlagZombie_"+i+".png");
-				imgs[i]=ImageIO.read(file);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	};
-	
-	public FlagZombie() {
-		super(166,144);
-		// TODO ×Ô¶¯Éú³ÉµÄ¹¹Ôìº¯Êý´æ¸ù
-		this.frameNum=12;
-		this.attack=100;
-		this.HitPoint=270;
-		this.blood=this.HitPoint;
-		this.speed=2;
-	}
+  private static BufferedImage[] imgs;
 
-	int index=1;
-	@Override
-	public BufferedImage getImage() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
-		return imgs[index++%12];
-	}
+  static {
+    try {
+      imgs = new BufferedImage[12];
+      for (int i = 0; i < 12; i++) {
+        File file = new File("graphics/Zombies/FlagZombie/FlagZombie/FlagZombie_" + i + ".png");
+        imgs[i] = ImageIO.read(file);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  };
 
-	
+  public FlagZombie() {
+    super(166, 144);
+    // TODO è‡ªåŠ¨ç”Ÿæˆçš„æž„é€ å‡½æ•°å­˜æ ¹
+    this.frameNum = 12;
+    this.attack = 100;
+    this.HitPoint = 270;
+    this.blood = this.HitPoint;
+    this.speed = 2;
+  }
+
+  int index = 1;
+
+  @Override
+  public BufferedImage getImage() {
+    // TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
+    return imgs[index++ % 12];
+  }
 }

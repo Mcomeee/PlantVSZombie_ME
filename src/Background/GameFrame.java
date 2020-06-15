@@ -9,35 +9,35 @@ import javax.swing.JOptionPane;
 
 import Plants.WallNut;
 
-public class GameFrame extends JFrame{
-	public GameFrame() {
-		this.setTitle("PlantVSZombie");
-		this.setSize(1200,600);
-		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//´°¿Ú¼àÌı
-		this.addWindowListener(new WindowAdapter() {
-			//¼àÌıÆ÷
-			public void windowClosing(WindowEvent e) {
-				int dialog=JOptionPane.showConfirmDialog(null, "ÊÇ·ñÍË³ö","ÍË³ö",JOptionPane.CLOSED_OPTION);
-				if(dialog==JOptionPane.OK_OPTION) System.exit(0);
-			}
-		});
-		
-		//ÒôÀÖ²¥·Å
-		MusicPlayer musicplayer=new MusicPlayer("bgm.wav");
-		musicplayer.loop(-1);
-		
-		GamePanel panel=new GamePanel();
-		this.getContentPane().add(panel);
-		this.setVisible(true);
-		
-	}
-	
-	public static void main(String[] args) {
-		GameFrame fr=new GameFrame();
-		fr.setVisible(true);
-	}
+public class GameFrame extends JFrame {
+  public GameFrame() {
+    this.setTitle("PlantVSZombie");
+    this.setSize(1200, 600);
+    this.setResizable(false);
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    // çª—å£ç›‘å¬
+    this.addWindowListener(
+        new WindowAdapter() {
+          //ç›‘å¬å™¨
+          public void windowClosing(WindowEvent e) {
+            int dialog =
+                JOptionPane.showConfirmDialog(null, "æ˜¯å¦é€€å‡º", "é€€å‡º", JOptionPane.CLOSED_OPTION);
+            if (dialog == JOptionPane.OK_OPTION) System.exit(0);
+          }
+        });
+
+    // éŸ³ä¹æ’­æ”¾
+    MusicPlayer musicplayer = new MusicPlayer("bgm.wav");
+    musicplayer.loop(-1);
+
+    GamePanel panel = new GamePanel();
+    this.getContentPane().add(panel);
+    this.setVisible(true);
+  }
+
+  public static void main(String[] args) {
+    GameFrame fr = new GameFrame();
+    fr.setVisible(true);
+  }
 }

@@ -9,98 +9,97 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class Sun {
-	
-	private Point sunPoint;		//Ñô¹âÎ»ÖÃ
-	private int num;
-	private int lastY;		//µôÂäÎ»ÖÃ
-	private boolean isclick;		//ÊÇ·ñ±»µãµ½
-	
-	private static BufferedImage images[]=new BufferedImage[22];
-	static {
-		try {
-			for(int i=0;i<22;i++) {
-				File file=new File("graphics/Plants/Sun/Sun_"+i+".png");
-				images[i]=ImageIO.read(file);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public Sun(Point p) {
-		this.sunPoint=p;
-	}
-	
-	public Sun(Point p,int y) {
-		this.sunPoint=p;
-		this.lastY=y;
-	}
-	
-	int index=1;
-	public BufferedImage getImage() {
-		return images[index++%22];
-	}
-	
-	public void placeSun(Graphics g) {
-		g.drawImage(getImage(),sunPoint.x,sunPoint.y,null);
-	}
-	
-	//»ñÈ¡Ñô¹â¾ØĞÎ
-	public Rectangle getSunRec() {
-		return new Rectangle(sunPoint.x,sunPoint.y,78,78);
-	}
-	
-	//Ñô¹â»ØÊÕ
-	public void recover() {
-		if(sunPoint.x>50) {
-			sunPoint.x-=70;
-			sunPoint.y-=70;
-		}
-	}
-	
-	//Ñô¹âµôÂä
-	public void move() {
-		if(sunPoint.y<lastY) {
-			sunPoint.y+=3;
-		}
-	}
 
-	public void setImages(BufferedImage[] images) {
-		this.images = images;
-	}
+  private Point sunPoint; // é˜³å…‰ä½ç½®
+  private int num;
+  private int lastY; // æ‰è½ä½ç½®
+  private boolean isclick; // æ˜¯å¦è¢«ç‚¹åˆ°
 
-	public Point getSunPoint() {
-		return sunPoint;
-	}
+  private static BufferedImage images[] = new BufferedImage[22];
 
-	public void setSunPoint(Point sunPoint) {
-		this.sunPoint = sunPoint;
-	}
+  static {
+    try {
+      for (int i = 0; i < 22; i++) {
+        File file = new File("graphics/Plants/Sun/Sun_" + i + ".png");
+        images[i] = ImageIO.read(file);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-	public int getNum() {
-		return num;
-	}
+  public Sun(Point p) {
+    this.sunPoint = p;
+  }
 
-	public void setNum(int num) {
-		this.num = num;
-	}
+  public Sun(Point p, int y) {
+    this.sunPoint = p;
+    this.lastY = y;
+  }
 
-	public int getLastY() {
-		return lastY;
-	}
+  int index = 1;
 
-	public void setLastY(int lastY) {
-		this.lastY = lastY;
-	}
+  public BufferedImage getImage() {
+    return images[index++ % 22];
+  }
 
-	public boolean isIsclick() {
-		return isclick;
-	}
+  public void placeSun(Graphics g) {
+    g.drawImage(getImage(), sunPoint.x, sunPoint.y, null);
+  }
 
-	public void setIsclick(boolean isclick) {
-		this.isclick = isclick;
-	}
-	
-	
+  // è·å–é˜³å…‰çŸ©å½¢
+  public Rectangle getSunRec() {
+    return new Rectangle(sunPoint.x, sunPoint.y, 78, 78);
+  }
 
+  // é˜³å…‰å›æ”¶
+  public void recover() {
+    if (sunPoint.x > 50) {
+      sunPoint.x -= 70;
+      sunPoint.y -= 70;
+    }
+  }
+
+  // é˜³å…‰æ‰è½
+  public void move() {
+    if (sunPoint.y < lastY) {
+      sunPoint.y += 3;
+    }
+  }
+
+  public void setImages(BufferedImage[] images) {
+    this.images = images;
+  }
+
+  public Point getSunPoint() {
+    return sunPoint;
+  }
+
+  public void setSunPoint(Point sunPoint) {
+    this.sunPoint = sunPoint;
+  }
+
+  public int getNum() {
+    return num;
+  }
+
+  public void setNum(int num) {
+    this.num = num;
+  }
+
+  public int getLastY() {
+    return lastY;
+  }
+
+  public void setLastY(int lastY) {
+    this.lastY = lastY;
+  }
+
+  public boolean isIsclick() {
+    return isclick;
+  }
+
+  public void setIsclick(boolean isclick) {
+    this.isclick = isclick;
+  }
 }

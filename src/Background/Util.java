@@ -5,69 +5,65 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 
-/**
- * @author zhizh
- *
- */
+/** @author zhizh */
 public class Util {
-	//·ÅÖ²ÎïµÄ¿ò
-	public static final Rectangle REC=new Rectangle(50,0,522,87);
-	
-	//ÏòÈÕ¿û¿ò
-	public static final Rectangle SUNREC=new Rectangle(130,11,46,66);
-	//Íã¶¹ÉäÊÖ¿ò
-	public static final Rectangle PEAREC=new Rectangle(180,11,46,66);
-	//¼á¹û¿ò
-	public static final Rectangle NUTREC=new Rectangle(235,11,46,66);
-	
-	//ÊÇ·ñ±»ÖÖÖ²
-	public static final boolean PLANTED=true;
-	public static final boolean NOPLANT=false;
-	
-	//Ö²ÎïµÄ±ê¼Ç
-	public static final int SUNFLOWER_FLAG=1;
-	public static final int PEASHOOTER_FLAG=2;
-	public static final int WALLNUT_FLAG=3;
-	//¿Õµã»÷
-	public static final int PLANTNULL_FLAG=0;
-	
-	//½©Ê¬µÄ±ê¼Ç
-	public static final int NORMAL_FLAG=1;
-	public static final int FLAG_FLAG=2;
-	//¿Õµã»÷
-	public static final int NULLZOMBIE_FLAG=0;
-	
-	//Í¼Æ¬Ö¡Êý
-	public static final int SUN_FRAMENUM=22;
-	public static final int PEASHOOTER_FRAMENUM=13;
-	public static final int SUNFLOWER_FRAMENUM=18;
-	
-	public static final int NORMAL_FRAMENUM=22;
-	public static final int FLAG_FRAMENUM=12;
-	
-	/*//key->Ö¡Êý
-	public static HashMap<Integer,Integer> zombieMap=new HashMap<>();
-	//Í¼Æ¬Ãû×Ö->Í¼Æ¬»º´æ
-	public static HashMap<String,BufferedImage[]> infos=new HashMap<>();
-	
-	static {
-		zombieMap.put(NORMAL_FLAG,NORMAL_FRAMENUM);
-		zombieMap.put(FLAG_FLAG,FLAG_FRAMENUM);
-		
-		File[] files=new File("graphics/Zombies").listFiles();
-		BufferedImage[] imgs;
-		for(File file:files) {
-			try {
-				imgs=new BufferedImage[12];
-				for(int i=0;i<16;i++) {
-					
-				}
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}*/
-	
+  // æ”¾æ¤ç‰©çš„æ¡†
+  public static final Rectangle REC = new Rectangle(50, 0, 522, 87);
+
+  // å‘æ—¥è‘µæ¡†
+  public static final Rectangle SUNREC = new Rectangle(130, 11, 46, 66);
+  // è±Œè±†å°„æ‰‹æ¡†
+  public static final Rectangle PEAREC = new Rectangle(180, 11, 46, 66);
+  // åšæžœæ¡†
+  public static final Rectangle NUTREC = new Rectangle(235, 11, 46, 66);
+
+  // æ˜¯å¦è¢«ç§æ¤
+  public static final boolean PLANTED = true;
+  public static final boolean NOPLANT = false;
+
+  // Ö²æ¤ç‰©çš„æ ‡è®°
+  public static final int SUNFLOWER_FLAG = 1;
+  public static final int PEASHOOTER_FLAG = 2;
+  public static final int WALLNUT_FLAG = 3;
+  // ç©ºç‚¹å‡»
+  public static final int PLANTNULL_FLAG = 0;
+
+  // åƒµå°¸çš„æ ‡è®°
+  public static final int NORMAL_FLAG = 1;
+  public static final int FLAG_FLAG = 2;
+  // ç©ºç‚¹å‡»
+  public static final int NULLZOMBIE_FLAG = 0;
+
+  // å›¾ç‰‡å¸§æ•°
+  public static final int SUN_FRAMENUM = 22;
+  public static final int PEASHOOTER_FRAMENUM = 13;
+  public static final int SUNFLOWER_FRAMENUM = 18;
+
+  public static final int NORMAL_FRAMENUM = 22;
+  public static final int FLAG_FRAMENUM = 12;
+
+  /*//key->Ö¡å¸§æ•°
+  public static HashMap<Integer,Integer> zombieMap=new HashMap<>();
+  //å›¾ç‰‡åå­—->å›¾ç‰‡ç¼“å­˜
+  public static HashMap<String,BufferedImage[]> infos=new HashMap<>();
+
+  static {
+  	zombieMap.put(NORMAL_FLAG,NORMAL_FRAMENUM);
+  	zombieMap.put(FLAG_FLAG,FLAG_FRAMENUM);
+
+  	File[] files=new File("graphics/Zombies").listFiles();
+  	BufferedImage[] imgs;
+  	for(File file:files) {
+  		try {
+  			imgs=new BufferedImage[12];
+  			for(int i=0;i<16;i++) {
+
+  			}
+
+  		}catch(Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
+  }*/
 
 }

@@ -6,7 +6,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class WallNut extends Plant{
+public class  WallNut extends Plant{
 	
 	private static BufferedImage[] imgs;
 	
@@ -37,7 +37,7 @@ public class WallNut extends Plant{
 	
 	@Override
 	public void setBullet() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	
 }

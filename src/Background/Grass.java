@@ -1,10 +1,10 @@
 package Background;
 
 import java.awt.Rectangle;
-
+ 
 public class Grass extends Rectangle{
 	
-	//ÊÇ·ñÖÖÖ²ÁËÖ²Îï
+	//ï¿½Ç·ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Ö²ï¿½ï¿½
 	private boolean planted=Util.NOPLANT;
 	
 	public Grass(int x,int y,int width,int height) {

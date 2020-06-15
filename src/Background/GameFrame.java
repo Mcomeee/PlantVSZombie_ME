@@ -9,23 +9,23 @@ import javax.swing.JOptionPane;
 
 import Plants.WallNut;
 
-public class GameFrame extends JFrame{
+public class  GameFrame extends JFrame{
 	public GameFrame() {
 		this.setTitle("PlantVSZombie");
 		this.setSize(1200,600);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//´°¿Ú¼àÌý
+		//ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½
 		this.addWindowListener(new WindowAdapter() {
-			//¼àÌýÆ÷
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void windowClosing(WindowEvent e) {
-				int dialog=JOptionPane.showConfirmDialog(null, "ÊÇ·ñÍË³ö","ÍË³ö",JOptionPane.CLOSED_OPTION);
+				int dialog=JOptionPane.showConfirmDialog(null, "ï¿½Ç·ï¿½ï¿½Ë³ï¿½","ï¿½Ë³ï¿½",JOptionPane.CLOSED_OPTION);
 				if(dialog==JOptionPane.OK_OPTION) System.exit(0);
 			}
 		});
 		
-		//ÒôÀÖ²¥·Å
+		//ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½
 		MusicPlayer musicplayer=new MusicPlayer("bgm.wav");
 		musicplayer.loop(-1);
 		

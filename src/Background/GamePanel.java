@@ -1,5 +1,6 @@
 package Background;
 
+import Zombies.NewspaperZombie;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -29,20 +30,20 @@ import Zombies.NormalZombie;
 import Zombies.Zombie;
 
 public class GamePanel extends JPanel{
-	List<Sun> sunList=new ArrayList<>();		//´æ´¢Ì«Ñô
-	Random rand=new Random();		//Ëæ»úÊý
-	private Integer SunNum=100;		//Ì«ÑôµÄ×ÜÊý
-	private Grass grass[]=new Grass[45];		//Ã¿¿éµØ
+	List<Sun> sunList=new ArrayList<>();		//ï¿½æ´¢Ì«ï¿½ï¿½
+	Random rand=new Random();		//ï¿½ï¿½ï¿½ï¿½ï¿½
+	private Integer SunNum=100;		//Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private Grass grass[]=new Grass[45];		//Ã¿ï¿½ï¿½ï¿½
 	
-	List<Plant> PlantList=new ArrayList<>();		//Ö²ÎïµÄ¼¯ºÏ
-	List<Zombie> ZombieList=new ArrayList<>();		//½©Ê¬µÄ¼¯ºÏ
+	List<Plant> PlantList=new ArrayList<>();		//Ö²ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+	List<Zombie> ZombieList=new ArrayList<>();		//ï¿½ï¿½Ê¬ï¿½Ä¼ï¿½ï¿½ï¿½
 	List<Bullet> BulletLi=new ArrayList<>();
 	
-	int flag=0;		//µã»÷ÊÂ¼þ
-	int Zombiecnt=1;		//½©Ê¬³öÏÖ¸öÊý
+	int flag=0;		//ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+	int Zombiecnt=1;		//ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½
 	
 	public GamePanel() {
-		//³õÊ¼»¯Ã¿¸ñµÄ²ÝµØ
+		//ï¿½ï¿½Ê¼ï¿½ï¿½Ã¿ï¿½ï¿½Ä²Ýµï¿½
 		for(int i=0;i<9;i++) {
 			for(int j=0;j<5;j++) {
 				grass[i+j*9]=new Grass(250+i*65,70+j*96,65,96);
@@ -59,7 +60,7 @@ public class GamePanel extends JPanel{
 	}*/
 	
 	
-	//»æÖÆ±³¾°Í¼Æ¬
+	//ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½Í¼Æ¬
 	public void drawBackground(Graphics g) {
 		try {
 			BufferedImage BackImage=ImageIO.read(new File("graphics/Items/Background/Background_0.jpg"));
@@ -75,7 +76,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	int BulletTime = 0;
-	//»æÖÆÖ²Îï
+	//ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½
 	public void drawPlant(Graphics g) {
 		for(int i=0;i<PlantList.size();i++) {
 			Plant plant=PlantList.get(i);
@@ -86,15 +87,15 @@ public class GamePanel extends JPanel{
 				
 			if(plant.getBulletList()!=null&&BulletTime++%5==0)
 				BulletLi.addAll(plant.getBulletList());
-				//×°ÔØ×Óµ¯
+				//×°ï¿½ï¿½ï¿½Óµï¿½
 			for(int j=0;null!=plant.getBulletList()&&j<plant.getBulletList().size();j++) {
 				Bullet bullet=plant.getBulletList().get(j);
 				bullet.placeImage(g);
 				bullet.move();
-				//´¦Àí×Óµ¯
+				//ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½
 				for(int k=0;k<ZombieList.size();k++) {
 					Zombie zom=ZombieList.get(k);
-					//Èç¹û¶þÕß¾ØÕóÎ»ÖÃÖØºÏ,Ôò´ú±í»÷ÖÐ
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Øºï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					if(bullet.getBullteRec().intersects(zom.getZombieRec())) {
 						plant.getBulletList().remove(bullet);
 						zom.isAttacked(bullet);
@@ -112,10 +113,10 @@ public class GamePanel extends JPanel{
 			}
 
 			
-			//½©Ê¬³ÔÖ²Îï
+			//ï¿½ï¿½Ê¬ï¿½ï¿½Ö²ï¿½ï¿½
 			for(int k=0;k<ZombieList.size();k++) {
 				Zombie zom=ZombieList.get(k);
-				//Èç¹û¶þÕß¾ØÕóÎ»ÖÃÖØºÏ£¬Ôò´ú±í½©Ê¬»á³ÔÖ²Îï
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ØºÏ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½Ö²ï¿½ï¿½
 				if(plant.getPlantRec().intersects(zom.getZombieRec())) {
 					zom.setStatus(1);
 					plant.isAttacked(zom);
@@ -129,7 +130,7 @@ public class GamePanel extends JPanel{
 		}
 	}
 		
-	//»æÖÆ½©Ê¬
+	//ï¿½ï¿½ï¿½Æ½ï¿½Ê¬
 	public void drawZombie(Graphics g) {
 		for(int i=0;null!=ZombieList&&i<ZombieList.size();i++) {
 			Zombie zom=ZombieList.get(i);
@@ -139,12 +140,12 @@ public class GamePanel extends JPanel{
 			if(zom.getPoint().x<100) {
 				g.setColor(Color.RED);
 				g.setFont(new Font("Setif",Font.BOLD,50));
-				g.drawString("ÄãµÄÄÔ×Ó±»½©Ê¬³ÔµôÁË", 330, 220);
+				g.drawString("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½Ê¬ï¿½Ôµï¿½ï¿½ï¿½", 330, 220);
 			}
 		}
 	}
 	
-	//»æÖÆÑô¹â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void drawSun(Graphics g) {
 		for(int i=0;i<sunList.size();i++) {
 			Sun sun=sunList.get(i);
@@ -152,7 +153,7 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
-	//Ñô¹â»ØÊÕ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void moveSun() {
 		for(int i=0;i<sunList.size();i++) {
 			Sun sun=sunList.get(i);
@@ -165,7 +166,7 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
-	//µã»÷Ñô¹â¡ª¡ªÊó±êÊÂ¼þ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 	public void ClickSun(MouseEvent e) {
 		for(Sun sun:sunList) {
 			Rectangle rec=sun.getSunRec();
@@ -176,7 +177,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	
-	//»æÖÆÑ¡Ïî¿¨
+	//ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½î¿¨
 	public void drawCard(Graphics g) {
 		try {
 			BufferedImage card_sunflower=ImageIO.read(new File("graphics/Cards/card_sunflower.png"));
@@ -192,7 +193,7 @@ public class GamePanel extends JPanel{
 	}
 	
 
-	//µã»÷Ñ¡Ïî¿¨¡ª¡ªÊó±êÊÂ¼þ
+	//ï¿½ï¿½ï¿½Ñ¡ï¿½î¿¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 	public void clickCard(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {
 			if(Util.SUNREC.contains(e.getPoint())) {
@@ -207,20 +208,21 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
-	//½©Ê¬µÄÌí¼Ó·½·¨
+	//ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½
 	public void addZombie() {
-		//ÓÐÖ²ÎïÃ»½©Ê¬µÄÇé¿ö
+		//ï¿½ï¿½Ö²ï¿½ï¿½Ã»ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(PlantList.size()>=1&&ZombieList.size()<1) {
 			for(int i=0;i<Zombiecnt;i++) {
-				int type=rand.nextInt(2)+1;		//³öÏÖ½©Ê¬ÖÖÀà
+				int type=rand.nextInt(2)+1;		//ï¿½ï¿½ï¿½Ö½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½
 				if(type==1) ZombieList.add(new NormalZombie());
 				else if(type==2) ZombieList.add(new FlagZombie());
+				else if(type==3) ZombieList.add(new NewspaperZombie());
 			}
 		}
 		if(Zombiecnt<5) Zombiecnt++;
 	}
 	
-	//ÖÖÖ²Ö²Îï
+	//ï¿½ï¿½Ö²Ö²ï¿½ï¿½
 	public void drawImage(int index,int type) {
 		Plant p;
 		
@@ -233,12 +235,12 @@ public class GamePanel extends JPanel{
 		SunNum-=p.getcost();
 		PlantList.add(p);
 		
-		//Êó±ê¹éÁã
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		flag=Util.PLANTNULL_FLAG;
 		repaint();
 	}
 	
-	//ÖÖÖ²Ö²Îï
+	//ï¿½ï¿½Ö²Ö²ï¿½ï¿½
 	public void addPlant(MouseEvent e) {
 		for(int i=0;i<9;i++) {
 			for(int j=0;j<5;j++) {

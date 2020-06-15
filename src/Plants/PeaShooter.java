@@ -29,7 +29,7 @@ public class PeaShooter extends Plant{
 	
 	public PeaShooter(Point point) {
 		super(point, 71, 71);
-		// TODO ×Ô¶¯Éú³ÉµÄ¹¹Ôìº¯Êý´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½
 		this.cost=100;
 		this.HitPoint=300;
 		this.blood=this.HitPoint;
@@ -46,7 +46,7 @@ public class PeaShooter extends Plant{
 	int index=1;
 	@Override
 	public BufferedImage getImage() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return imgs[index++%10];
 	}
 

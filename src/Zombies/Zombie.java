@@ -8,13 +8,13 @@ import java.util.Random;
 
 import Bullet.Bullet;
 
-//½©Ê¬µÄ³éÏó¸¸Àà
+//ï¿½ï¿½Ê¬ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½
 /**
  * @author zhizh
  *
  */
-public abstract class Zombie {
-	// ¶ÔÏóµÄ×´Ì¬
+public abstract class  Zombie {
+	// ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	public static final int ALIVE = 0;
 	public static final int ATTACK = 1;
 	public static final int DEAD = 2;
@@ -36,13 +36,13 @@ public abstract class Zombie {
 		return status==DEAD;
 	}
 	
-	protected int attack;    //¹¥»÷ÄÜÁ¦
-	protected Point point=new Point(0,0);		//×ø±ê
-	protected int width;		//¿í¶È
-	protected int length;		//³¤¶È
-	protected int HitPoint;		//ÉúÃüÖµ
-	protected int blood;		//ÑªÁ¿
-	protected int speed;		//ËÙ¶È
+	protected int attack;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected Point point=new Point(0,0);		//ï¿½ï¿½ï¿½ï¿½
+	protected int width;		//ï¿½ï¿½ï¿½
+	protected int length;		//ï¿½ï¿½ï¿½ï¿½
+	protected int HitPoint;		//ï¿½ï¿½ï¿½ï¿½Öµ
+	protected int blood;		//Ñªï¿½ï¿½
+	protected int speed;		//ï¿½Ù¶ï¿½
 	public int frameNum;
 	
 	public Zombie(int width,int length) {
@@ -53,10 +53,10 @@ public abstract class Zombie {
 		point.y=rand.nextInt(600-length);
 	}
 	
-	//»ñÈ¡Í¼Æ¬
+	//ï¿½ï¿½È¡Í¼Æ¬
 	public abstract BufferedImage getImage();
 		
-	//·ÅÖÃÍ¼Æ¬
+	//ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 	public void placeImage(Graphics g) {
 		g.drawImage(getImage(),point.x,point.y,null);
 	}
@@ -85,18 +85,18 @@ public abstract class Zombie {
 		return this.speed;
 	}
 	
-	//±»×Óµ¯¹¥»÷
+	//ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
 	public void isAttacked(Bullet b) {
 		this.blood=this.blood-b.getAttack();
 		b.setHit(true);
 	}
 	
-	//»ñÈ¡½©Ê¬µÄ¾ØÐÎ
+	//ï¿½ï¿½È¡ï¿½ï¿½Ê¬ï¿½Ä¾ï¿½ï¿½ï¿½
 	public Rectangle getZombieRec() {
 		return new Rectangle(point.x,point.y,166,144);
 	}
 	
-	//½©Ê¬ÐÐ×ß
+	//ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½
 	public void move() {
 		if(status!=ATTACK) {
 			point.x-=speed;

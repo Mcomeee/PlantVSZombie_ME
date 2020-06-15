@@ -8,12 +8,12 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class Sun {
+public class  Sun {
 	
-	private Point sunPoint;		//Ñô¹âÎ»ÖÃ
+	private Point sunPoint;		//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 	private int num;
-	private int lastY;		//µôÂäÎ»ÖÃ
-	private boolean isclick;		//ÊÇ·ñ±»µãµ½
+	private int lastY;		//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	private boolean isclick;		//ï¿½Ç·ñ±»µãµ½
 	
 	private static BufferedImage images[]=new BufferedImage[22];
 	static {
@@ -45,12 +45,12 @@ public class Sun {
 		g.drawImage(getImage(),sunPoint.x,sunPoint.y,null);
 	}
 	
-	//»ñÈ¡Ñô¹â¾ØÐÎ
+	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public Rectangle getSunRec() {
 		return new Rectangle(sunPoint.x,sunPoint.y,78,78);
 	}
 	
-	//Ñô¹â»ØÊÕ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void recover() {
 		if(sunPoint.x>50) {
 			sunPoint.x-=70;
@@ -58,7 +58,7 @@ public class Sun {
 		}
 	}
 	
-	//Ñô¹âµôÂä
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void move() {
 		if(sunPoint.y<lastY) {
 			sunPoint.y+=3;

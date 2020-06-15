@@ -5,7 +5,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class FlagZombie extends Zombie{
+public class  FlagZombie extends Zombie{
 
 	private static BufferedImage[] imgs;
 	
@@ -23,7 +23,7 @@ public class FlagZombie extends Zombie{
 	
 	public FlagZombie() {
 		super(166,144);
-		// TODO ×Ô¶¯Éú³ÉµÄ¹¹Ôìº¯Êý´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½
 		this.frameNum=12;
 		this.attack=100;
 		this.HitPoint=270;
@@ -34,7 +34,7 @@ public class FlagZombie extends Zombie{
 	int index=1;
 	@Override
 	public BufferedImage getImage() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return imgs[index++%12];
 	}
 

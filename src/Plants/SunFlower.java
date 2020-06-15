@@ -6,7 +6,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class SunFlower extends Plant{
+public class  SunFlower extends Plant{
 
 	private static BufferedImage[] imgs;
 	
@@ -24,7 +24,7 @@ public class SunFlower extends Plant{
 	
 	public SunFlower(Point point) {
 		super(point, 73, 74);
-		// TODO ×Ô¶¯Éú³ÉµÄ¹¹Ôìº¯Êý´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½
 		this.cost=50;
 		this.HitPoint=300;
 		this.blood=this.HitPoint;
@@ -34,13 +34,13 @@ public class SunFlower extends Plant{
 	int index=1;
 	@Override
 	public BufferedImage getImage() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return imgs[index++%18];
 	}
 
 	@Override
 	public void setBullet() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù	
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	}
 
 }

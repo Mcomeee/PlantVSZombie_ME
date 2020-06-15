@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public abstract class Bullet {
+public abstract class  Bullet {
 	protected Point Bulletpoint;
 	protected static int typeNum;
 	protected boolean isHit;
@@ -19,13 +19,13 @@ public abstract class Bullet {
 	
 	public abstract BufferedImage getImage();
 	
-	//·ÅÖÃÍ¼Æ¬
+	//ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 	public void placeImage(Graphics g) {
 		g.drawImage(getImage(),Bulletpoint.x,Bulletpoint.y,null);
 	}
 	
 	
-	//»ñÈ¡×Óµ¯¾ØÐÎ
+	//ï¿½ï¿½È¡ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
 	public Rectangle getBullteRec() {
 		return new Rectangle(Bulletpoint.x,Bulletpoint.y,56,34);
 	}

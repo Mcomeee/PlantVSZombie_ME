@@ -6,13 +6,13 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class MusicPlayer {
-	private Clip clip;   //È«¾ÖÒôÀÖ¶ÔÏó
+public class  MusicPlayer {
+	private Clip clip;   //È«ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½
 	public MusicPlayer(String filePath) {
 		File file=new File(filePath);
 		AudioInputStream audio;
 		
-		//µ±Ç°ÒôÆµÊäÈëÁ÷µÄ»ñÈ¡
+		//ï¿½ï¿½Ç°ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½È¡
 		try {
 			audio=AudioSystem.getAudioInputStream(file);
 			clip=AudioSystem.getClip();
@@ -24,7 +24,7 @@ public class MusicPlayer {
 		
 	}
 	
-	//-1Ñ­»· 0²»²¥·Å 1²¥·ÅÒ»´Î
+	//-1Ñ­ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 	public void loop(int type) {
 		clip.loop(type);
 	}

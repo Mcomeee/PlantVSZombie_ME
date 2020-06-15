@@ -10,34 +10,34 @@ import java.util.HashMap;
  *
  */
 public class Util {
-	//·ÅÖ²ÎïµÄ¿ò
+	//ï¿½ï¿½Ö²ï¿½ï¿½Ä¿ï¿½
 	public static final Rectangle REC=new Rectangle(50,0,522,87);
 	
-	//ÏòÈÕ¿û¿ò
+	//ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½
 	public static final Rectangle SUNREC=new Rectangle(130,11,46,66);
-	//Íã¶¹ÉäÊÖ¿ò
+	//ï¿½ã¶¹ï¿½ï¿½ï¿½Ö¿ï¿½
 	public static final Rectangle PEAREC=new Rectangle(180,11,46,66);
-	//¼á¹û¿ò
+	//ï¿½ï¿½ï¿½ï¿½ï¿½
 	public static final Rectangle NUTREC=new Rectangle(235,11,46,66);
 	
-	//ÊÇ·ñ±»ÖÖÖ²
+	//ï¿½Ç·ï¿½ï¿½ï¿½Ö²
 	public static final boolean PLANTED=true;
 	public static final boolean NOPLANT=false;
 	
-	//Ö²ÎïµÄ±ê¼Ç
+	//Ö²ï¿½ï¿½Ä±ï¿½ï¿½
 	public static final int SUNFLOWER_FLAG=1;
 	public static final int PEASHOOTER_FLAG=2;
 	public static final int WALLNUT_FLAG=3;
-	//¿Õµã»÷
+	//ï¿½Õµï¿½ï¿½
 	public static final int PLANTNULL_FLAG=0;
 	
-	//½©Ê¬µÄ±ê¼Ç
+	//ï¿½ï¿½Ê¬ï¿½Ä±ï¿½ï¿½
 	public static final int NORMAL_FLAG=1;
 	public static final int FLAG_FLAG=2;
-	//¿Õµã»÷
+	//ï¿½Õµï¿½ï¿½
 	public static final int NULLZOMBIE_FLAG=0;
 	
-	//Í¼Æ¬Ö¡Êý
+	//Í¼Æ¬Ö¡ï¿½ï¿½
 	public static final int SUN_FRAMENUM=22;
 	public static final int PEASHOOTER_FRAMENUM=13;
 	public static final int SUNFLOWER_FRAMENUM=18;
@@ -45,9 +45,9 @@ public class Util {
 	public static final int NORMAL_FRAMENUM=22;
 	public static final int FLAG_FRAMENUM=12;
 	
-	/*//key->Ö¡Êý
+	/*//key->Ö¡ï¿½ï¿½
 	public static HashMap<Integer,Integer> zombieMap=new HashMap<>();
-	//Í¼Æ¬Ãû×Ö->Í¼Æ¬»º´æ
+	//Í¼Æ¬ï¿½ï¿½ï¿½ï¿½->Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 	public static HashMap<String,BufferedImage[]> infos=new HashMap<>();
 	
 	static {

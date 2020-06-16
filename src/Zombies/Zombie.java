@@ -99,4 +99,19 @@ public abstract class Zombie {
       point.x -= speed;
     }
   }
+
+  // 判断僵尸是否活着
+  public boolean isAlive() {
+    return status == ALIVE;
+  }
+
+  // 判断僵尸是否挂了
+  public boolean isDead() {
+    return status == DEAD;
+  }
+
+  // 击中后失血
+  public void loseBlood() {
+    HitPoint--;
+  }
 }

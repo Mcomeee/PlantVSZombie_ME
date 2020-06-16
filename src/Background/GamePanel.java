@@ -208,7 +208,7 @@ public class GamePanel extends JPanel {
     // 有植物没僵尸的情况
     if (PlantList.size() >= 1 && ZombieList.size() < 1) {
       for (int i = 0; i < Zombiecnt; i++) {
-        int type = rand.nextInt(2) + 5; // 出现僵尸种类
+        int type = rand.nextInt(2) + 1; // 出现僵尸种类
         switch (type) {
           case 1:
             ZombieList.add(new NormalZombie());

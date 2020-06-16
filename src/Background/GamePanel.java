@@ -2,6 +2,7 @@ package Background;
 
 import Zombies.BucketheadZombie;
 import Zombies.ConeheadZombie;
+import Zombies.FootballZombie;
 import Zombies.NewspaperZombie;
 import java.awt.Color;
 import java.awt.Font;
@@ -224,6 +225,9 @@ public class GamePanel extends JPanel {
             break;
           case 5:
             ZombieList.add(new BucketheadZombie());
+            break;
+          case 6:
+            ZombieList.add(new FootballZombie());
             break;
         }
       }

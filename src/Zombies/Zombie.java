@@ -40,6 +40,7 @@ public abstract class Zombie {
   protected int HitPoint; // 生命值
   protected int blood; // 血量
   protected int speed; // 速度
+  protected int DeadTime;
   public int frameNum;
 
   public Zombie(int width, int length) {
@@ -82,6 +83,11 @@ public abstract class Zombie {
     return this.speed;
   }
 
+  public int getDeadTime(){return DeadTime;}
+
+  public void setDeadTime(int time){
+    this.DeadTime=time;
+  }
   // 被子弹攻击
   public void isAttacked(Bullet b) {
     this.blood = this.blood - b.getAttack();
@@ -90,7 +96,7 @@ public abstract class Zombie {
 
   // 获取僵尸的矩形
   public Rectangle getZombieRec() {
-    return new Rectangle(point.x, point.y, 166, 144);
+    return new Rectangle(point.x+60, point.y, 84, 144);
   }
 
   // 僵尸行走
@@ -100,12 +106,12 @@ public abstract class Zombie {
     }
   }
 
-  // 判断僵尸是否活着
+  /* 判断僵尸是否活着
   public boolean isAlive() {
     return status == ALIVE;
   }
 
-  // 判断僵尸是否挂了
+  /* 判断僵尸是否挂了
   public boolean isDead() {
     return status == DEAD;
   }
@@ -113,5 +119,5 @@ public abstract class Zombie {
   // 击中后失血
   public void loseBlood() {
     HitPoint--;
-  }
+  }*/
 }

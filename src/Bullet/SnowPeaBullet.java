@@ -10,7 +10,7 @@ public class SnowPeaBullet extends Bullet {
 
   static {
     try {
-      imgs = ImageIO.read(new File("graphics/Bullets/Pealce/Pealce_0.png"));
+      imgs = ImageIO.read(new File("graphics/Bullets/PeaIce/PeaIce_0.png"));
     } catch (Exception e) {
       e.printStackTrace();
     }

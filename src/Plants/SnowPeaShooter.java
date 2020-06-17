@@ -1,5 +1,6 @@
-/*package Plants;
+package Plants;
 
+import Bullet.SnowPeaBullet;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,7 +34,7 @@ public class SnowPeaShooter extends Plant {
     if (this.BulletList.size() < 1) {
       int x = point.x;
       int y = point.y;
-      this.BulletList.add(new SnowPeaShooter(new Point(x + 50, y + 5)));
+      this.BulletList.add(new SnowPeaBullet(new Point(x + 50, y + 5)));
     }
   }
 
@@ -44,4 +45,3 @@ public class SnowPeaShooter extends Plant {
     return imgs[index++ % 10];
   }
 }
-*/

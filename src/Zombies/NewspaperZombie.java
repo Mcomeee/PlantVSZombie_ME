@@ -15,6 +15,7 @@ public class NewspaperZombie extends Zombie{
         File file = new File("graphics/Zombies/NewspaperZombie/NewspaperZombie/NewspaperZombie_" + i + ".png");
         imgs[i] = ImageIO.read(file);
       }
+
     } catch (Exception e) {
       e.printStackTrace();
     }

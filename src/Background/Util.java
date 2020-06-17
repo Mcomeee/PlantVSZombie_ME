@@ -27,6 +27,7 @@ public class Util {
   public static final int SUNFLOWER_FLAG = 1;
   public static final int PEASHOOTER_FLAG = 2;
   public static final int WALLNUT_FLAG = 3;
+  public static final int SNOWPEASHOOT_FLAG=4;
   // 空点击
   public static final int PLANTNULL_FLAG = 0;
 

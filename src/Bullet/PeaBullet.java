@@ -20,7 +20,7 @@ public class PeaBullet extends Bullet {
 
   public PeaBullet(Point point) {
     super(point);
-    this.attack = 100;
+    this.attack = 20;
     this.speed = 10;
     this.isHit = false;
   }

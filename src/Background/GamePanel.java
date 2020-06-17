@@ -1,5 +1,6 @@
 package Background;
 
+import Plants.SnowPeaShooter;
 import Zombies.BucketheadZombie;
 import Zombies.ConeheadZombie;
 import Zombies.FootballZombie;
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel {
     // 初始化每格的草地
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 5; j++) {
-        grass[i + j * 9] = new Grass(250 + i * 65, 70 + j * 96, 65, 96);
+        grass[i + j * 9] = new Grass(250 + i * 86, 70 + j * 94, 86, 94);
       }
     }
     Thread t = new MyThread();
@@ -92,16 +93,21 @@ public class GamePanel extends JPanel {
       // 装载子弹
       for (int j = 0; null != plant.getBulletList() && j < plant.getBulletList().size(); j++) {
         Bullet bullet = plant.getBulletList().get(j);
-        bullet.placeImage(g);
-        bullet.move();
+        if(ZombieList.size()>=1){
+          bullet.placeImage(g);
+          bullet.move();
+        }
         // 处理子弹
         for (int k = 0; k < ZombieList.size(); k++) {
           Zombie zom = ZombieList.get(k);
           // 如果二者矩阵位置重合，则代表击中
-          if (bullet.getBullteRec().intersects(zom.getZombieRec())) {
+          if (zom.getZombieRec().intersects(bullet.getBullteRec())) {
             plant.getBulletList().remove(bullet);
             zom.isAttacked(bullet);
-            if (zom.getBlood() == 0) ZombieList.remove(zom);
+            //if (zom.getBlood() <= 0) ZombieList.remove(zom);
+          }
+          if (zom.getBlood()<=0){
+            zom.setStatus(2);
           }
         }
         if (bullet.isHit()) {
@@ -137,6 +143,11 @@ public class GamePanel extends JPanel {
       zom.placeImage(g);
       zom.move();
 
+      if (zom.isDEAD()){
+        int time=zom.getDeadTime();
+        zom.setDeadTime(time++);
+        ZombieList.remove(zom);
+      }
       if (zom.getPoint().x < 100) {
         g.setColor(Color.RED);
         g.setFont(new Font("Setif", Font.BOLD, 50));
@@ -180,10 +191,14 @@ public class GamePanel extends JPanel {
     try {
       BufferedImage card_sunflower = ImageIO.read(new File("graphics/Cards/card_sunflower.png"));
       g.drawImage(card_sunflower, 130, 11, 46, 66, this);
+
       BufferedImage card_peashooter = ImageIO.read(new File("graphics/Cards/card_peashooter.png"));
       g.drawImage(card_peashooter, 180, 11, 46, 66, this);
+
       BufferedImage card_wallnut = ImageIO.read(new File("graphics/Cards/card_wallnut.png"));
       g.drawImage(card_wallnut, 235, 11, 46, 66, this);
+
+      BufferedImage card_snowpeashooter=ImageIO.read(new File("graphics/Cards/card_snowpea.png"));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -201,6 +216,9 @@ public class GamePanel extends JPanel {
       if (Util.NUTREC.contains(e.getPoint())) {
         flag = Util.WALLNUT_FLAG;
       }
+      if (Util.SNPREC.contains(e.getPoint())){
+        flag=Util.SNOWPEASHOOT_FLAG;
+      }
     }
   }
 
@@ -209,7 +227,7 @@ public class GamePanel extends JPanel {
     // 有植物没僵尸的情况
     if (PlantList.size() >= 1 && ZombieList.size() < 1) {
       for (int i = 0; i < Zombiecnt; i++) {
-        int type = rand.nextInt(2) + 1; // 出现僵尸种类
+        int type = rand.nextInt(6) + 1; // 出现僵尸种类
         switch (type) {
           case 1:
             ZombieList.add(new NormalZombie());
@@ -238,12 +256,23 @@ public class GamePanel extends JPanel {
   // 种植植物
   public void drawImage(int index, int type) {
     Plant p;
-
-    if (type == Util.SUNFLOWER_FLAG) p = new SunFlower(new Point(grass[index].x, grass[index].y));
-    else if (type == Util.PEASHOOTER_FLAG)
-      p = new PeaShooter(new Point(grass[index].x, grass[index].y));
-    else if (type == Util.WALLNUT_FLAG) p = new WallNut(new Point(grass[index].x, grass[index].y));
-    else p = new Null_Plant(new Point(-100, -100));
+    switch (type) {
+      case Util.SUNFLOWER_FLAG:
+        p = new SunFlower(new Point(grass[index].x, grass[index].y));
+        break;
+      case Util.PEASHOOTER_FLAG:
+        p = new PeaShooter(new Point(grass[index].x, grass[index].y));
+        break;
+      case Util.WALLNUT_FLAG:
+        p = new WallNut(new Point(grass[index].x, grass[index].y));
+        break;
+      case Util.SNOWPEASHOOT_FLAG:
+        p=new SnowPeaShooter(new Point(grass[index].x,grass[index].y));
+        break;
+      default:
+        p = new Null_Plant(new Point(-100, -100));
+        break;
+    }
 
     grass[index].setPlanted(Util.PLANTED);
     SunNum -= p.getcost();

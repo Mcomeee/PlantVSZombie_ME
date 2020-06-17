@@ -27,7 +27,7 @@ public abstract class Bullet {
 
   // ��ȡ�ӵ�����
   public Rectangle getBullteRec() {
-    return new Rectangle(Bulletpoint.x, Bulletpoint.y, 56, 34);
+    return new Rectangle(Bulletpoint.x+22, Bulletpoint.y, 34, 34);
   }
 
   // 子弹的移动

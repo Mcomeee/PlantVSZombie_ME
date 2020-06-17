@@ -1,6 +1,8 @@
 package Background;
 
 import Plants.CherryBomb;
+import Plants.PotatoMine;
+import Plants.RepeaterPea;
 import Plants.SnowPeaShooter;
 import Zombies.BucketheadZombie;
 import Zombies.ConeheadZombie;
@@ -68,10 +70,9 @@ public class GamePanel extends JPanel {
   public void drawBackground(Graphics g) {
     try {
 
-        BufferedImage BackImage =
-            ImageIO.read(new File("graphics/Items/Background/Background_1.jpg"));
-        g.drawImage(BackImage, 0, 0, this);
-
+      BufferedImage BackImage =
+          ImageIO.read(new File("graphics/Items/Background/Background_1.jpg"));
+      g.drawImage(BackImage, 0, 0, this);
 
       BufferedImage ChooseRec = ImageIO.read(new File("graphics/Screen/ChooserBackground.png"));
       g.drawImage(ChooseRec, 50, 0, this);
@@ -221,6 +222,12 @@ public class GamePanel extends JPanel {
 
       BufferedImage card_cherrybomb = ImageIO.read(new File("graphics/Cards/card_cherrybomb.png"));
       g.drawImage(card_cherrybomb, 345, 11, 46, 66, this);
+
+      BufferedImage card_potatomine = ImageIO.read(new File("graphics/Cards/card_potatomine.png"));
+      g.drawImage(card_potatomine, 400, 11, 46, 66, this);
+
+      BufferedImage card_repeashooter=ImageIO.read(new File("graphics/Cards/card_repeaterpea.png"));
+      g.drawImage(card_repeashooter,454,11,46,66,this);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -243,6 +250,12 @@ public class GamePanel extends JPanel {
       }
       if (Util.CHERRYEC.contains(e.getPoint())) {
         flag = Util.CHERRYBOMB_FLAG;
+      }
+      if (Util.POTAEC.contains(e.getPoint())) {
+        flag = Util.POTATO_FLAG;
+      }
+      if (Util.REPEAREC.contains(e.getPoint())) {
+        flag = Util.REPEASHOOTER_FLAG;
       }
     }
   }
@@ -296,6 +309,12 @@ public class GamePanel extends JPanel {
         break;
       case Util.CHERRYBOMB_FLAG:
         p = new CherryBomb(new Point(grass[index].x, grass[index].y));
+        break;
+      case Util.POTATO_FLAG:
+        p = new PotatoMine(new Point(grass[index].x, grass[index].y));
+        break;
+      case Util.REPEASHOOTER_FLAG:
+        p = new RepeaterPea(new Point(grass[index].x, grass[index].y));
         break;
       default:
         p = new Null_Plant(new Point(-100, -100));

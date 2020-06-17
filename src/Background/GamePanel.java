@@ -199,6 +199,7 @@ public class GamePanel extends JPanel {
       g.drawImage(card_wallnut, 235, 11, 46, 66, this);
 
       BufferedImage card_snowpeashooter=ImageIO.read(new File("graphics/Cards/card_snowpea.png"));
+      g.drawImage(card_snowpeashooter,290,11,46,66,this);
     } catch (Exception e) {
       e.printStackTrace();
     }

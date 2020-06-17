@@ -9,18 +9,18 @@ public class ConeheadZombie extends Zombie{
 
   static {
     try {
-      imgs = new BufferedImage[20+11+10];
-      for (int i = 0; i < 20; i++) {
+      imgs = new BufferedImage[21+11+10];
+      for (int i = 0; i < 21; i++) {
         File file = new File("graphics/Zombies/ConeheadZombie/ConeheadZombie/ConeheadZombie_" + i + ".png");
         imgs[i] = ImageIO.read(file);
       }
       for (int i = 0; i < 11; i++) {
-        File file = new File("graphics/Zombies/ConheadZombie/ConheadZombieAttack/ConheadZombieAttack_" + i + ".png");
-        imgs[i+20] = ImageIO.read(file);
+        File file = new File("graphics/Zombies/ConeheadZombie/ConeheadZombieAttack/ConeheadZombieAttack_" + i + ".png");
+        imgs[i+21] = ImageIO.read(file);
       }
       for (int i = 0; i < 10; i++) {
         File file = new File("graphics/Zombies/NormalZombie/ZombieDie/ZombieDie_" + i + ".png");
-        imgs[i+20+11] = ImageIO.read(file);
+        imgs[i+21+11] = ImageIO.read(file);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -40,8 +40,8 @@ public class ConeheadZombie extends Zombie{
 
   public BufferedImage getImage() {
 
-    if (this.isALIVE())return imgs[index++ % 20];
-    else if (this.isATTACK())return imgs[(index++%11)+20];
-    else return imgs[(index++%10)+31];
+    if (this.isALIVE())return imgs[index++ % 21];
+    else if (this.isATTACK())return imgs[(index++%11)+21];
+    else return imgs[(index++%10)+42];
   }
 }

@@ -12,9 +12,9 @@ public class SnowPeaShooter extends Plant {
 
   static {
     try {
-      imgs = new BufferedImage[10];
-      for (int i = 0; i < 10; i++) {
-        File file = new File("graphics/Plants/SnowPeaBullet/SnowPea_" + i + ".png");
+      imgs = new BufferedImage[15];
+      for (int i = 0; i < 15; i++) {
+        File file = new File("graphics/Plants/SnowPea/SnowPea_" + i + ".png");
         imgs[i] = ImageIO.read(file);
       }
     } catch (Exception e) {

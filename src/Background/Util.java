@@ -18,7 +18,9 @@ public class Util {
   public static final Rectangle NUTREC = new Rectangle(235, 11, 46, 66);
   // 寒冰射手框
   public static final Rectangle SNPREC = new Rectangle(285, 11, 46, 66);
-
+  //樱桃
+  public static final Rectangle CHERRYEC =new Rectangle(345,11,46,80);
+  //345,11,46,60,80
   // 是否被种植
   public static final boolean PLANTED = true;
   public static final boolean NOPLANT = false;
@@ -28,6 +30,7 @@ public class Util {
   public static final int PEASHOOTER_FLAG = 2;//豌豆射手
   public static final int WALLNUT_FLAG = 3;//坚果
   public static final int SNOWPEASHOOT_FLAG=4;//寒冰射手
+  public static final int CHERRYBOMB_FLAG=5;//樱桃炸弹
   // 空点击
   public static final int PLANTNULL_FLAG = 0;
 

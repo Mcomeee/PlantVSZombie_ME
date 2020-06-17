@@ -1,5 +1,6 @@
 package Background;
 
+import Plants.CherryBomb;
 import Plants.SnowPeaShooter;
 import Zombies.BucketheadZombie;
 import Zombies.ConeheadZombie;
@@ -66,9 +67,12 @@ public class GamePanel extends JPanel {
   // 绘制背景图片
   public void drawBackground(Graphics g) {
     try {
-      BufferedImage BackImage =
-          ImageIO.read(new File("graphics/Items/Background/Background_1.jpg"));
-      g.drawImage(BackImage, 0, 0, this);
+
+        BufferedImage BackImage =
+            ImageIO.read(new File("graphics/Items/Background/Background_1.jpg"));
+        g.drawImage(BackImage, 0, 0, this);
+
+
       BufferedImage ChooseRec = ImageIO.read(new File("graphics/Screen/ChooserBackground.png"));
       g.drawImage(ChooseRec, 50, 0, this);
       g.setFont(new Font("Serif", Font.BOLD, 28));
@@ -163,16 +167,16 @@ public class GamePanel extends JPanel {
       sun.placeSun(g);
     }
   }
-  //绘制向日葵产生的阳光
+  // 绘制向日葵产生的阳光
   public void drawFlowerSun(Graphics g) {
     for (int i = 0; i < PlantList.size(); i++) {
       Plant flower = PlantList.get(i);
       if (flower instanceof SunFlower) {
-        int x = ((SunFlower) flower).getFlowerSunX()+10;
-        int y = ((SunFlower) flower).getFlowerSunY()+10;
-        for (int j=0;j<sunList.size();j++){
-          Sun sun=sunList.get(j);
-          sun.placeFlowerSun(g,x,y);
+        int x = ((SunFlower) flower).getFlowerSunX() + 10;
+        int y = ((SunFlower) flower).getFlowerSunY() + 10;
+        for (int j = 0; j < sunList.size(); j++) {
+          Sun sun = sunList.get(j);
+          sun.placeFlowerSun(g, x, y);
         }
       }
     }
@@ -200,7 +204,7 @@ public class GamePanel extends JPanel {
     }
   }
 
-  // 绘制选项卡
+  // 绘制选项卡向日葵 豌豆射手 坚果 冰雪射手 樱桃
   public void drawCard(Graphics g) {
     try {
       BufferedImage card_sunflower = ImageIO.read(new File("graphics/Cards/card_sunflower.png"));
@@ -214,6 +218,9 @@ public class GamePanel extends JPanel {
 
       BufferedImage card_snowpeashooter = ImageIO.read(new File("graphics/Cards/card_snowpea.png"));
       g.drawImage(card_snowpeashooter, 290, 11, 46, 66, this);
+
+      BufferedImage card_cherrybomb = ImageIO.read(new File("graphics/Cards/card_cherrybomb.png"));
+      g.drawImage(card_cherrybomb, 345, 11, 46, 66, this);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -233,6 +240,9 @@ public class GamePanel extends JPanel {
       }
       if (Util.SNPREC.contains(e.getPoint())) {
         flag = Util.SNOWPEASHOOT_FLAG;
+      }
+      if (Util.CHERRYEC.contains(e.getPoint())) {
+        flag = Util.CHERRYBOMB_FLAG;
       }
     }
   }
@@ -284,14 +294,19 @@ public class GamePanel extends JPanel {
       case Util.SNOWPEASHOOT_FLAG:
         p = new SnowPeaShooter(new Point(grass[index].x, grass[index].y));
         break;
+      case Util.CHERRYBOMB_FLAG:
+        p = new CherryBomb(new Point(grass[index].x, grass[index].y));
+        break;
       default:
         p = new Null_Plant(new Point(-100, -100));
         break;
     }
 
     grass[index].setPlanted(Util.PLANTED);
-    SunNum -= p.getcost();
-    PlantList.add(p);
+    if (SunNum > 0) {
+      SunNum -= p.getcost();
+      PlantList.add(p);
+    }
 
     // 鼠标归零
     flag = Util.PLANTNULL_FLAG;

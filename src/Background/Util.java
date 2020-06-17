@@ -25,8 +25,9 @@ public class Util {
 
   // ֲ植物的标记
   public static final int SUNFLOWER_FLAG = 1;
-  public static final int PEASHOOTER_FLAG = 2;
-  public static final int WALLNUT_FLAG = 3;
+  public static final int PEASHOOTER_FLAG = 2;//豌豆射手
+  public static final int WALLNUT_FLAG = 3;//坚果
+  public static final int SNOWPEASHOOT_FLAG=4;//寒冰射手
   // 空点击
   public static final int PLANTNULL_FLAG = 0;
 

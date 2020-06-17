@@ -1,5 +1,6 @@
-/*package Plants;
+package Plants;
 
+import Bullet.SnowPeaBullet;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,9 +12,9 @@ public class SnowPeaShooter extends Plant {
 
   static {
     try {
-      imgs = new BufferedImage[10];
-      for (int i = 0; i < 10; i++) {
-        File file = new File("graphics/Plants/SnowPeaBullet/SnowPea_" + i + ".png");
+      imgs = new BufferedImage[15];
+      for (int i = 0; i < 15; i++) {
+        File file = new File("graphics/Plants/SnowPea/SnowPea_" + i + ".png");
         imgs[i] = ImageIO.read(file);
       }
     } catch (Exception e) {
@@ -33,7 +34,7 @@ public class SnowPeaShooter extends Plant {
     if (this.BulletList.size() < 1) {
       int x = point.x;
       int y = point.y;
-      this.BulletList.add(new SnowPeaShooter(new Point(x + 50, y + 5)));
+      this.BulletList.add(new SnowPeaBullet(new Point(x + 50, y + 5)));
     }
   }
 
@@ -44,4 +45,3 @@ public class SnowPeaShooter extends Plant {
     return imgs[index++ % 10];
   }
 }
-*/

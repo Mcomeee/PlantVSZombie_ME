@@ -67,7 +67,7 @@ public class GamePanel extends JPanel {
   public void drawBackground(Graphics g) {
     try {
       BufferedImage BackImage =
-          ImageIO.read(new File("graphics/Items/Background/Background_0.jpg"));
+          ImageIO.read(new File("graphics/Items/Background/Background_1.jpg"));
       g.drawImage(BackImage, 0, 0, this);
       BufferedImage ChooseRec = ImageIO.read(new File("graphics/Screen/ChooserBackground.png"));
       g.drawImage(ChooseRec, 50, 0, this);
@@ -93,7 +93,7 @@ public class GamePanel extends JPanel {
       // 装载子弹
       for (int j = 0; null != plant.getBulletList() && j < plant.getBulletList().size(); j++) {
         Bullet bullet = plant.getBulletList().get(j);
-        if(ZombieList.size()>=1){
+        if (ZombieList.size() >= 1) {
           bullet.placeImage(g);
           bullet.move();
         }
@@ -104,9 +104,9 @@ public class GamePanel extends JPanel {
           if (zom.getZombieRec().intersects(bullet.getBullteRec())) {
             plant.getBulletList().remove(bullet);
             zom.isAttacked(bullet);
-            //if (zom.getBlood() <= 0) ZombieList.remove(zom);
+            // if (zom.getBlood() <= 0) ZombieList.remove(zom);
           }
-          if (zom.getBlood()<=0){
+          if (zom.getBlood() <= 0) {
             zom.setStatus(2);
           }
         }
@@ -143,8 +143,8 @@ public class GamePanel extends JPanel {
       zom.placeImage(g);
       zom.move();
 
-      if (zom.isDEAD()){
-        int time=zom.getDeadTime();
+      if (zom.isDEAD()) {
+        int time = zom.getDeadTime();
         zom.setDeadTime(time++);
         ZombieList.remove(zom);
       }
@@ -161,6 +161,20 @@ public class GamePanel extends JPanel {
     for (int i = 0; i < sunList.size(); i++) {
       Sun sun = sunList.get(i);
       sun.placeSun(g);
+    }
+  }
+  //绘制向日葵产生的阳光
+  public void drawFlowerSun(Graphics g) {
+    for (int i = 0; i < PlantList.size(); i++) {
+      Plant flower = PlantList.get(i);
+      if (flower instanceof SunFlower) {
+        int x = ((SunFlower) flower).getFlowerSunX()+10;
+        int y = ((SunFlower) flower).getFlowerSunY()+10;
+        for (int j=0;j<sunList.size();j++){
+          Sun sun=sunList.get(j);
+          sun.placeFlowerSun(g,x,y);
+        }
+      }
     }
   }
 
@@ -198,8 +212,8 @@ public class GamePanel extends JPanel {
       BufferedImage card_wallnut = ImageIO.read(new File("graphics/Cards/card_wallnut.png"));
       g.drawImage(card_wallnut, 235, 11, 46, 66, this);
 
-      BufferedImage card_snowpeashooter=ImageIO.read(new File("graphics/Cards/card_snowpea.png"));
-      g.drawImage(card_snowpeashooter,290,11,46,66,this);
+      BufferedImage card_snowpeashooter = ImageIO.read(new File("graphics/Cards/card_snowpea.png"));
+      g.drawImage(card_snowpeashooter, 290, 11, 46, 66, this);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -217,8 +231,8 @@ public class GamePanel extends JPanel {
       if (Util.NUTREC.contains(e.getPoint())) {
         flag = Util.WALLNUT_FLAG;
       }
-      if (Util.SNPREC.contains(e.getPoint())){
-        flag=Util.SNOWPEASHOOT_FLAG;
+      if (Util.SNPREC.contains(e.getPoint())) {
+        flag = Util.SNOWPEASHOOT_FLAG;
       }
     }
   }
@@ -268,7 +282,7 @@ public class GamePanel extends JPanel {
         p = new WallNut(new Point(grass[index].x, grass[index].y));
         break;
       case Util.SNOWPEASHOOT_FLAG:
-        p=new SnowPeaShooter(new Point(grass[index].x,grass[index].y));
+        p = new SnowPeaShooter(new Point(grass[index].x, grass[index].y));
         break;
       default:
         p = new Null_Plant(new Point(-100, -100));
@@ -340,6 +354,7 @@ public class GamePanel extends JPanel {
     drawCard(g);
     drawPlant(g);
     drawSun(g);
+    drawFlowerSun(g);
     addZombie();
     drawZombie(g);
   }

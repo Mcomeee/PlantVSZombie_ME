@@ -43,4 +43,14 @@ public class SunFlower extends Plant {
   public void setBullet() {
     // TODO 自动生成的方法存根
   }
+
+
+  //获取向日葵定点
+  public int getFlowerSunX(){
+    return point.x;
+  }
+  public int getFlowerSunY(){
+    return point.y;
+  }
+
 }

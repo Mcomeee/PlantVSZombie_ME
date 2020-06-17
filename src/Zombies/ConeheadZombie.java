@@ -47,6 +47,6 @@ public class ConeheadZombie extends Zombie {
 
     if (this.isALIVE()) return imgs[index++ % 21];
     else if (this.isATTACK()) return imgs[(index++ % 11) + 21];
-    else return imgs[(index++ % 10) + 42];
+    else return imgs[(index++ % 10) + 32];
   }
 }

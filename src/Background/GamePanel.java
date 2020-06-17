@@ -71,8 +71,8 @@ public class GamePanel extends JPanel {
       g.drawImage(BackImage, 0, 0, this);
       BufferedImage ChooseRec = ImageIO.read(new File("graphics/Screen/ChooserBackground.png"));
       g.drawImage(ChooseRec, 50, 0, this);
-      g.setFont(new Font("Serif", Font.BOLD, 32));
-      g.drawString(SunNum.toString(), 59, 70);
+      g.setFont(new Font("Serif", Font.BOLD, 28));
+      g.drawString(SunNum.toString(), 70, 76);
 
     } catch (Exception e) {
       e.printStackTrace();

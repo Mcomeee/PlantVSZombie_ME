@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -91,7 +92,18 @@ public class GamePanel extends JPanel {
   public void drawPlant(Graphics g) {
     for (int i = 0; i < PlantList.size(); i++) {
       Plant plant = PlantList.get(i);
-
+      if(plant instanceof CherryBomb ||plant instanceof PotatoMine){
+        //樱桃要专门写一个if语句，主要是相判断如果樱桃周围没有图像和周围有僵尸的图像不一样
+        for(int k = 0; k < ZombieList.size(); k++) {
+          Zombie zom = ZombieList.get(k);
+          // 如果二者矩阵位置重合，则代表樱桃爆炸炸掉僵尸
+          if (plant.getPlantRec().intersects(zom.getZombieRec())) {
+            plant.setStatus(3);
+            zom.setStatus(2);
+            ZombieList.remove(zom);
+          }
+        }
+      }
       plant.setBullet();
       plant.placeImage(g);
 
@@ -157,9 +169,15 @@ public class GamePanel extends JPanel {
         ZombieList.remove(zom);
       }
       if (zom.getPoint().x < 100) {
-        g.setColor(Color.RED);
-        g.setFont(new Font("Setif", Font.BOLD, 50));
-        g.drawString("你的脑子被僵尸吃掉了", 330, 220);
+        //g.setColor(Color.RED);
+        //g.setFont(new Font("Setif", Font.BOLD, 50));
+        //g.drawString("你的脑子被僵尸吃掉了", 330, 220);
+        File file = new File("graphics/Screen/bg2.jpg");            //这里有一个修改的
+        try{
+          g.drawImage(ImageIO.read(file),0,0,null);
+        }catch(IOException e){
+          e.printStackTrace();
+        }
       }
     }
   }
@@ -335,10 +353,10 @@ public class GamePanel extends JPanel {
     }
 
     grass[index].setPlanted(Util.PLANTED);
-    if (SunNum > 0) {
-      SunNum -= p.getcost();
-      PlantList.add(p);
-    }
+    //if (SunNum > 0) {
+    SunNum -= p.getcost();
+    PlantList.add(p);
+    //}
 
     // 鼠标归零
     flag = Util.PLANTNULL_FLAG;
@@ -365,6 +383,11 @@ public class GamePanel extends JPanel {
           // 如果僵尸在地刺上就扣血
           if (z.getZombieRec().intersects(p.getPlantRec())) {
             z.loseBlood();
+          }
+          //血量低于0，抹掉
+          if(z.getBlood()<=0){
+            z.setStatus(2);
+            ZombieList.remove(z);
           }
         }
       }
@@ -419,5 +442,12 @@ public class GamePanel extends JPanel {
     drawFlowerSun(g);
     addZombie();
     drawZombie(g);
+    SpikeRock();
+    if(SunNum<0){                                                 //hi这里有一个修改的
+      g.setColor(Color.RED);
+      g.setFont(new Font("Setif", Font.BOLD, 32));
+      g.drawString("阳光数不足", 330, 220);
+      g.draw3DRect(50,55,30,30,true);
+    }
   }
 }

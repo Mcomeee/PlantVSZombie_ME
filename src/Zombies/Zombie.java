@@ -93,6 +93,10 @@ public abstract class Zombie {
     this.blood = this.blood - b.getAttack();
     b.setHit(true);
   }
+  //被地刺攻击
+  public void loseBlood() {
+    this.blood=this.blood-100;
+  }
 
   // 获取僵尸的矩形
   public Rectangle getZombieRec() {
@@ -116,8 +120,5 @@ public abstract class Zombie {
     return status == DEAD;
   }
 
-  // 击中后失血
-  public void loseBlood() {
-    HitPoint--;
-  }*/
+  */
 }

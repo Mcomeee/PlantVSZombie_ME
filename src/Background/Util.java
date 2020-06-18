@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
+import javax.print.DocFlavor.READER;
 
 /** @author zhizh */
 public class Util {
@@ -24,6 +25,8 @@ public class Util {
   public static final Rectangle POTAEC=new Rectangle(400,11,46,80);
   //双发豌豆
   public static final Rectangle REPEAREC=new Rectangle(454,11,46,80);
+  //地刺
+  public static final Rectangle SPIKREC=new Rectangle(509,11,46,80);
   // 是否被种植
   public static final boolean PLANTED = true;
   public static final boolean NOPLANT = false;
@@ -36,6 +39,7 @@ public class Util {
   public static final int CHERRYBOMB_FLAG=5;//樱桃炸弹
   public static final int POTATO_FLAG=6;//土豆地雷
   public static final int REPEASHOOTER_FLAG=7;//双发豌豆
+  public static final int SPIKEWEED_FLAG=8;
   // 空点击
   public static final int PLANTNULL_FLAG = 0;
 

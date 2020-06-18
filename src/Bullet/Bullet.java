@@ -1,9 +1,9 @@
 package Bullet;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 public abstract class Bullet {
   protected Point Bulletpoint;
@@ -17,7 +17,7 @@ public abstract class Bullet {
     this.Bulletpoint = point;
   }
 
-  public abstract BufferedImage getImage();
+  public abstract Image getImage();
 
   // ����ͼƬ
   public void placeImage(Graphics g) {

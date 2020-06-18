@@ -21,7 +21,7 @@ public class PotatoMine extends Plant{
       }
 
       for(int i=8;i<16;i++) {
-        File file = new File("graphics/Plants/CherryBomb/Boom/Boom.png");
+        File file = new File("graphics/Plants/PotatoMine/PotatoMineExplode/PotatoMineExplode_0.png");
         imgs[i] = ImageIO.read(file);
       }
 

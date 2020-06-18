@@ -4,6 +4,7 @@ import Plants.CherryBomb;
 import Plants.PotatoMine;
 import Plants.RepeaterPea;
 import Plants.SnowPeaShooter;
+import Plants.Spikeweed;
 import Zombies.BucketheadZombie;
 import Zombies.ConeheadZombie;
 import Zombies.FootballZombie;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.JPanel;
 
 import Bullet.Bullet;
@@ -128,8 +130,9 @@ public class GamePanel extends JPanel {
       // 僵尸吃植物
       for (int k = 0; k < ZombieList.size(); k++) {
         Zombie zom = ZombieList.get(k);
-        // 如果二者矩阵位置重合，则代表僵尸会吃植物
-        if (plant.getPlantRec().intersects(zom.getZombieRec())) {
+        // 如果二者矩阵位置重合，则代表僵尸会吃植物,地刺除外
+        if (plant instanceof Spikeweed == false
+            && plant.getPlantRec().intersects(zom.getZombieRec())) {
           zom.setStatus(1);
           plant.isAttacked(zom);
           if (plant.getBlood() == 0) {
@@ -226,8 +229,12 @@ public class GamePanel extends JPanel {
       BufferedImage card_potatomine = ImageIO.read(new File("graphics/Cards/card_potatomine.png"));
       g.drawImage(card_potatomine, 400, 11, 46, 66, this);
 
-      BufferedImage card_repeashooter=ImageIO.read(new File("graphics/Cards/card_repeaterpea.png"));
-      g.drawImage(card_repeashooter,454,11,46,66,this);
+      BufferedImage card_repeashooter =
+          ImageIO.read(new File("graphics/Cards/card_repeaterpea.png"));
+      g.drawImage(card_repeashooter, 454, 11, 46, 66, this);
+
+      BufferedImage card_spikeweed = ImageIO.read(new File("graphics/Cards/card_spikeweed.png"));
+      g.drawImage(card_spikeweed, 509, 11, 46, 66, this);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -256,6 +263,9 @@ public class GamePanel extends JPanel {
       }
       if (Util.REPEAREC.contains(e.getPoint())) {
         flag = Util.REPEASHOOTER_FLAG;
+      }
+      if (Util.SPIKREC.contains(e.getPoint())) {
+        flag = Util.SPIKEWEED_FLAG;
       }
     }
   }
@@ -316,6 +326,9 @@ public class GamePanel extends JPanel {
       case Util.REPEASHOOTER_FLAG:
         p = new RepeaterPea(new Point(grass[index].x, grass[index].y));
         break;
+      case Util.SPIKEWEED_FLAG:
+        p = new Spikeweed(new Point(grass[index].x, grass[index].y));
+        break;
       default:
         p = new Null_Plant(new Point(-100, -100));
         break;
@@ -338,6 +351,21 @@ public class GamePanel extends JPanel {
       for (int j = 0; j < 5; j++) {
         if (grass[i + j * 9].contains(e.getPoint()) && !grass[i + j * 9].getPlanted()) {
           drawImage(i + j * 9, flag);
+        }
+      }
+    }
+  }
+
+  // 僵尸走到地刺上扣血
+  public void SpikeRock() {
+    for (Plant p : PlantList) {
+      // 如果植物是地刺类型就去遍历僵尸集合
+      if (p instanceof Spikeweed) {
+        for (Zombie z : ZombieList) {
+          // 如果僵尸在地刺上就扣血
+          if (z.getZombieRec().intersects(p.getPlantRec())) {
+            z.loseBlood();
+          }
         }
       }
     }

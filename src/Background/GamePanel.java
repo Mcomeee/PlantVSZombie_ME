@@ -86,7 +86,7 @@ public class GamePanel extends JPanel {
       e.printStackTrace();
     }
   }
-
+  //test
   int BulletTime = 0;
   // 绘制植物
   public void drawPlant(Graphics g) {

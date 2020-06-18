@@ -21,7 +21,7 @@ public class SnowPeaShooter extends Plant {
       e.printStackTrace();
     }
   };
-
+  //test2
   public SnowPeaShooter(Point point) {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根

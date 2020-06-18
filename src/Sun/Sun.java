@@ -37,7 +37,7 @@ public class Sun {
     this.lastY = y;
   }
 
-  int index = 1;
+  private int index = 1;
 
   public BufferedImage getImage() {
     return images[index++ % 22];

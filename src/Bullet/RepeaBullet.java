@@ -26,7 +26,7 @@ public class RepeaBullet extends Bullet {
     this.isHit = false;
   }
 
-  public Image getImage() {
+  public BufferedImage getImage() {
     return imgs;
   }
 }

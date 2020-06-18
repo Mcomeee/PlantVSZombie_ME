@@ -31,7 +31,7 @@ public class PeaShooter extends Plant {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根
     this.cost = 100;
-    this.HitPoint = 300;
+    this.HitPoint = 300;//生命值
     this.blood = this.HitPoint;
   }
 

@@ -26,7 +26,7 @@ public class PeaBullet extends Bullet {
     this.isHit = false;
   }
 
-  public Image getImage() {
+  public BufferedImage getImage() {
     return imgs;
   }
 }

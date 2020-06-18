@@ -49,10 +49,21 @@ public class CherryBomb extends Plant{
   @Override
   public BufferedImage getImage() {
     // TODO 自动生成的方法存根
-    if(index==46){
+    if(status ==3){
+      if(index>=35){
+        return null;
+      }else
+        return imgs[index++ % 35];
+    }else
+    {
+      if(index>=15) return null;
+      else return imgs[index++%15];
+    }
+
+    /*if(index==46){
       return null;
     }
-    return imgs[index++ % 47];
+    return imgs[index++ % 47];*/
 
   }
 
@@ -62,3 +73,4 @@ public class CherryBomb extends Plant{
 
   }
 }
+

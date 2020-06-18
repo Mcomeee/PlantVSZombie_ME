@@ -20,6 +20,8 @@ public abstract class Plant {
   public static final int LIFE = 0;
   public static final int ATTACK = 1;
   public static final int DEAD = 2;
+  //增加一个状态量，来判断樱桃周围有没有人
+  protected static int HASZOOBIE=3;
   protected int status = LIFE;
 
   public void setStatus(int s) {

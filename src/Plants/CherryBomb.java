@@ -42,6 +42,7 @@ public class CherryBomb extends Plant{
     this.cost = 150;
     this.HitPoint = 300;
     this.blood = this.HitPoint;
+    BulletList=null;
   }
 
   int index = 1;

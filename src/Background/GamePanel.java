@@ -366,6 +366,11 @@ public class GamePanel extends JPanel {
           if (z.getZombieRec().intersects(p.getPlantRec())) {
             z.loseBlood();
           }
+          //血量低于0，抹掉
+          if(z.getBlood()<=0){
+            z.setStatus(2);
+            ZombieList.remove(z);
+          }
         }
       }
     }
@@ -419,5 +424,6 @@ public class GamePanel extends JPanel {
     drawFlowerSun(g);
     addZombie();
     drawZombie(g);
+    SpikeRock();
   }
 }

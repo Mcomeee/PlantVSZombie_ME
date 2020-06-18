@@ -18,11 +18,11 @@ public class WallNut extends Plant {
         imgs[i] = ImageIO.read(file);
       }
       for (int i=0;i<11;i++){
-        File file=new File("graphics/Plants.WallNut/WallNut_cracked1/WallNut_cracked1_"+i+".png");
+        File file=new File("graphics/Plants/WallNut/WallNut_cracked1/WallNut_cracked1_"+i+".png");
         imgs[i+16]=ImageIO.read(file);
       }
       for (int i=0;i<15;i++){
-        File file=new File("graphics/Plants.WallNut/WallNut_cracked2/WallNut_cracked2_"+i+".png");
+        File file=new File("graphics/Plants/WallNut/WallNut_cracked2/WallNut_cracked2_"+i+".png");
         imgs[i+27]=ImageIO.read(file);
       }
     } catch (Exception e) {

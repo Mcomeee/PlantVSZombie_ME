@@ -11,43 +11,43 @@ import javax.imageio.ImageIO;
 import Bullet.Bullet;
 import Bullet.PeaBullet;
 
-public class PeaShooter extends Plant{
-	
-    private static BufferedImage[] imgs;
-	
-	static {
-		try {
-			imgs=new BufferedImage[10];
-			for(int i=0;i<10;i++) {
-				File file=new File("graphics/Plants/Peashooter/Peashooter_"+i+".png");
-				imgs[i]=ImageIO.read(file);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	};
-	
-	public PeaShooter(Point point) {
-		super(point, 71, 71);
-		// TODO ×Ô¶¯Éú³ÉµÄ¹¹Ôìº¯Êý´æ¸ù
-		this.cost=100;
-		this.HitPoint=300;
-		this.blood=this.HitPoint;
-	}
-	
-	public void setBullet() {
-		if(this.BulletList.size()<1) {
-			int x=point.x;
-			int y=point.y;
-			this.BulletList.add(new PeaBullet(new Point(x+50,y+5)));
-		}
-	}
-	
-	int index=1;
-	@Override
-	public BufferedImage getImage() {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
-		return imgs[index++%10];
-	}
+public class PeaShooter extends Plant {
 
+  private static BufferedImage[] imgs;
+
+  static {
+    try {
+      imgs = new BufferedImage[10];
+      for (int i = 0; i < 10; i++) {
+        File file = new File("graphics/Plants/Peashooter/Peashooter_" + i + ".png");
+        imgs[i] = ImageIO.read(file);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  };
+
+  public PeaShooter(Point point) {
+    super(point, 71, 71);
+    // TODO è‡ªåŠ¨ç”Ÿæˆçš„æž„é€ å‡½æ•°å­˜æ ¹
+    this.cost = 100;
+    this.HitPoint = 300;//ç”Ÿå‘½å€¼
+    this.blood = this.HitPoint;
+  }
+
+  public void setBullet() {
+    if (this.BulletList.size() < 1) {
+      int x = point.x;
+      int y = point.y;
+      this.BulletList.add(new PeaBullet(new Point(x + 50, y + 5)));
+    }
+  }
+
+  int index = 1;
+
+  @Override
+  public BufferedImage getImage() {
+    // TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
+    return imgs[index++ % 10];
+  }
 }

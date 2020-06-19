@@ -5,28 +5,30 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
 
 public class MusicPlayer {
-	private Clip clip;   //È«¾ÖÒôÀÖ¶ÔÏó
-	public MusicPlayer(String filePath) {
-		File file=new File(filePath);
-		AudioInputStream audio;
-		
-		//µ±Ç°ÒôÆµÊäÈëÁ÷µÄ»ñÈ¡
-		try {
-			audio=AudioSystem.getAudioInputStream(file);
-			clip=AudioSystem.getClip();
-			clip.open(audio);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
-	
-	//-1Ñ­»· 0²»²¥·Å 1²¥·ÅÒ»´Î
-	public void loop(int type) {
-		clip.loop(type);
-	}
+  private Clip clip; // å…¨å±€éŸ³ä¹å¯¹è±¡
 
+  public MusicPlayer(String filePath) {
+    File file = new File(filePath);
+    AudioInputStream audio;
+
+    // å½“å‰éŸ³é¢‘è¾“å…¥æµçš„è·å–
+    try {
+      audio = AudioSystem.getAudioInputStream(file);
+      clip = AudioSystem.getClip();
+      clip.open(audio);
+      FloatControl floatControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+      floatControl.setValue(-30.0f);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  // -1å¾ªç¯ 0ä¸æ’­æ”¾ 1æ’­æ”¾ä¸€æ¬¡
+  public void loop(int type) {
+    clip.loop(type);
+  }
 }

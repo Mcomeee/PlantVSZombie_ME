@@ -14,76 +14,76 @@ import javax.swing.JComponent;
 import Bullet.Bullet;
 import Zombies.Zombie;
 
-//Ö²ÎïµÄ³éÏó¸¸Àà
-public abstract class Plant{
-	// ¶ÔÏóµÄ×´Ì¬
-	public static final int LIFE = 0;
-	public static final int ATTACK = 1;
-	public static final int DEAD = 2;
-	protected int status = LIFE;
-	
-	public void setStatus(int s) {
-		status=s;
-	}
+// Ö²æ¤ç‰©çš„æŠ½è±¡çˆ¶ç±»
+public abstract class Plant {
+  // å¯¹è±¡çš„çŠ¶æ€
+  public static final int LIFE = 0;
+  public static final int ATTACK = 1;
+  public static final int DEAD = 2;
+  //å¢åŠ ä¸€ä¸ªçŠ¶æ€é‡ï¼Œæ¥åˆ¤æ–­æ¨±æ¡ƒå‘¨å›´æœ‰æ²¡æœ‰äºº
+  protected static int HASZOOBIE=3;
+  protected int status = LIFE;
 
-	protected List<Bullet> BulletList=new ArrayList<>();
-	//protected boolean ate;
-	protected int HitPoint;		//ÉúÃüÖµ
-	protected int blood;		//ÑªÁ¿
-	protected Point point;		//×ø±ê
-	protected int width;		//¿í¶È
-	protected int length;		//³¤¶È
-	protected int cost;			//Ñô¹â»¨·Ñ
-	
-	public Plant(Point point,int width,int length) {
-		this.point=point;
-		this.width=width;
-		this.length=length;
-	}
-	
-	//»ñÈ¡Í¼Æ¬
-	public abstract BufferedImage getImage();
-	
-	//·ÅÖÃÍ¼Æ¬
-	public void placeImage(Graphics g) {
-		g.drawImage(getImage(),point.x,point.y,null);
-	}
-	
-	public abstract void setBullet();
-	
-	//»ñÈ¡Ö²Îï¾ØĞÎ
-	public Rectangle getPlantRec() {
-		return new Rectangle(point.x,point.y,width,length);
-	}
-	
-	public Point getPoint() {
-		return point;
-	}
-	
-	public int getWidth() {
-		return this.width;
-	}
-	
-	public int getLength() {
-		return this.length;
-	}
-	
-	public int getBlood() {
-		return this.blood;
-	}
-	
-	public int getcost() {
-		return this.cost;
-	}
-	
-	public List<Bullet> getBulletList(){
-		return this.BulletList;
-	}
-	
-	//Ö²Îï±»½©Ê¬¹¥»÷
-	public void isAttacked(Zombie z) {
-		blood=blood-z.getAttack();
-	}
-	
+  public void setStatus(int s) {
+    status = s;
+  }
 
+  protected List<Bullet> BulletList = new ArrayList<>();
+  // protected boolean ate;
+  protected int HitPoint; // ç”Ÿå‘½å€¼
+  protected int blood; // è¡€é‡
+  protected Point point; // åæ ‡
+  protected int width; // å®½åº¦
+  protected int length; // é•¿åº¦
+  protected int cost; // é˜³å…‰èŠ±è´¹
+
+  public Plant(Point point, int width, int length) {
+    this.point = point;
+    this.width = width;
+    this.length = length;
+  }
+
+  // è·å–å›¾ç‰‡
+  public abstract BufferedImage getImage();
+
+  // æ”¾ç½®å›¾ç‰‡
+  public void placeImage(Graphics g) {
+    g.drawImage(getImage(), point.x, point.y, null);
+  }
+
+  public abstract void setBullet();
+
+  // è·å–æ¤ç‰©çŸ©å½¢
+  public Rectangle getPlantRec() {
+    return new Rectangle(point.x, point.y, width, length);
+  }
+
+  public Point getPoint() {
+    return point;
+  }
+
+  public int getWidth() {
+    return this.width;
+  }
+
+  public int getLength() {
+    return this.length;
+  }
+
+  public int getBlood() {
+    return this.blood;
+  }
+
+  public int getcost() {
+    return this.cost;
+  }
+
+  public List<Bullet> getBulletList() {
+    return this.BulletList;
+  }
+
+  // æ¤ç‰©è¢«åƒµå°¸æ”»å‡»
+  public void isAttacked(Zombie z) {
+    blood = blood - z.getAttack();
+  }
 }

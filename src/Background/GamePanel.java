@@ -1,5 +1,14 @@
 package Background;
 
+import Plants.CherryBomb;
+import Plants.PotatoMine;
+import Plants.RepeaterPea;
+import Plants.SnowPeaShooter;
+import Plants.Spikeweed;
+import Zombies.BucketheadZombie;
+import Zombies.ConeheadZombie;
+import Zombies.FootballZombie;
+import Zombies.NewspaperZombie;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,11 +18,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.JPanel;
 
 import Bullet.Bullet;
@@ -28,270 +40,414 @@ import Zombies.FlagZombie;
 import Zombies.NormalZombie;
 import Zombies.Zombie;
 
-public class GamePanel extends JPanel{
-	List<Sun> sunList=new ArrayList<>();		//´æ´¢Ì«Ñô
-	Random rand=new Random();		//Ëæ»úÊı
-	private Integer SunNum=100;		//Ì«ÑôµÄ×ÜÊı
-	private Grass grass[]=new Grass[45];		//Ã¿¿éµØ
-	
-	List<Plant> PlantList=new ArrayList<>();		//Ö²ÎïµÄ¼¯ºÏ
-	List<Zombie> ZombieList=new ArrayList<>();		//½©Ê¬µÄ¼¯ºÏ
-	List<Bullet> BulletLi=new ArrayList<>();
-	
-	int flag=0;		//µã»÷ÊÂ¼ş
-	int Zombiecnt=1;		//½©Ê¬³öÏÖ¸öÊı
-	
-	public GamePanel() {
-		//³õÊ¼»¯Ã¿¸ñµÄ²İµØ
-		for(int i=0;i<9;i++) {
-			for(int j=0;j<5;j++) {
-				grass[i+j*9]=new Grass(250+i*65,70+j*96,65,96);
-			}
-		}
-		Thread t=new MyThread();
-		t.start();
-	}
-	
-	/*public void StartGame() {
-		new MyThread().start();;
-		new PlantTimeThread().start();
+public class GamePanel extends JPanel {
+  private List<Sun> sunList = new ArrayList<>(); // å­˜å‚¨å¤ªé˜³
+  private Random rand = new Random(); // éšæœºæ•°
+  private Integer SunNum = 100; // Ì«å¤ªé˜³çš„æ€»æ•°
+  private Grass[][] grasses = new Grass[5][9]; // æ¯å—åœ°
 
-	}*/
-	
-	
-	//»æÖÆ±³¾°Í¼Æ¬
-	public void drawBackground(Graphics g) {
-		try {
-			BufferedImage BackImage=ImageIO.read(new File("graphics/Items/Background/Background_0.jpg"));
-			g.drawImage(BackImage, 0, 0, this);
-			BufferedImage ChooseRec=ImageIO.read(new File("graphics/Screen/ChooserBackground.png"));
-			g.drawImage(ChooseRec,50,0,this);
-			g.setFont(new Font("Serif",Font.BOLD,32));
-			g.drawString(SunNum.toString(), 59, 70);
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	int BulletTime = 0;
-	//»æÖÆÖ²Îï
-	public void drawPlant(Graphics g) {
-		for(int i=0;i<PlantList.size();i++) {
-			Plant plant=PlantList.get(i);
-			
-			
-			plant.setBullet();
-			plant.placeImage(g);
-				
-			if(plant.getBulletList()!=null&&BulletTime++%5==0)
-				BulletLi.addAll(plant.getBulletList());
-				//×°ÔØ×Óµ¯
-			for(int j=0;null!=plant.getBulletList()&&j<plant.getBulletList().size();j++) {
-				Bullet bullet=plant.getBulletList().get(j);
-				bullet.placeImage(g);
-				bullet.move();
-				//´¦Àí×Óµ¯
-				for(int k=0;k<ZombieList.size();k++) {
-					Zombie zom=ZombieList.get(k);
-					//Èç¹û¶şÕß¾ØÕóÎ»ÖÃÖØºÏ,Ôò´ú±í»÷ÖĞ
-					if(bullet.getBullteRec().intersects(zom.getZombieRec())) {
-						plant.getBulletList().remove(bullet);
-						zom.isAttacked(bullet);
-						if(zom.getBlood()==0) ZombieList.remove(zom);
-					}
-				}
-				if(bullet.isHit()) {
-					plant.getBulletList().remove(bullet);
-					BulletLi.remove(bullet);
-				}
-				if(bullet.getPoint().x>1400) {
-					plant.getBulletList().remove(bullet);
-					BulletLi.remove(bullet);
-				}
-			}
+  private List<Plant> PlantList = new ArrayList<>(); // Ö²æ¤ç‰©çš„é›†åˆ
+  private List<Zombie> ZombieList = new ArrayList<>(); // åƒµå°¸çš„é›†åˆ
+  private List<Bullet> BulletLi = new ArrayList<>();
 
-			
-			//½©Ê¬³ÔÖ²Îï
-			for(int k=0;k<ZombieList.size();k++) {
-				Zombie zom=ZombieList.get(k);
-				//Èç¹û¶şÕß¾ØÕóÎ»ÖÃÖØºÏ£¬Ôò´ú±í½©Ê¬»á³ÔÖ²Îï
-				if(plant.getPlantRec().intersects(zom.getZombieRec())) {
-					zom.setStatus(1);
-					plant.isAttacked(zom);
-					if(plant.getBlood()==0){
-						PlantList.remove(plant);
-						zom.setStatus(0);
-					}
-				}
-			}
-			
-		}
-	}
-		
-	//»æÖÆ½©Ê¬
-	public void drawZombie(Graphics g) {
-		for(int i=0;null!=ZombieList&&i<ZombieList.size();i++) {
-			Zombie zom=ZombieList.get(i);
-			zom.placeImage(g);
-			zom.move();
-			
-			if(zom.getPoint().x<100) {
-				g.setColor(Color.RED);
-				g.setFont(new Font("Setif",Font.BOLD,50));
-				g.drawString("ÄãµÄÄÔ×Ó±»½©Ê¬³ÔµôÁË", 330, 220);
-			}
-		}
-	}
-	
-	//»æÖÆÑô¹â
-	public void drawSun(Graphics g) {
-		for(int i=0;i<sunList.size();i++) {
-			Sun sun=sunList.get(i);
-			sun.placeSun(g);
-		}
-	}
-	
-	//Ñô¹â»ØÊÕ
-	public void moveSun() {
-		for(int i=0;i<sunList.size();i++) {
-			Sun sun=sunList.get(i);
-			if(sun.isIsclick()) {
-				sun.recover();
-				sunList.remove(sun);
-				SunNum+=25;
-			}else sun.move();
-			
-		}
-	}
-	
-	//µã»÷Ñô¹â¡ª¡ªÊó±êÊÂ¼ş
-	public void ClickSun(MouseEvent e) {
-		for(Sun sun:sunList) {
-			Rectangle rec=sun.getSunRec();
-			if(rec.contains(e.getPoint())) {
-				sun.setIsclick(true);
-			}
-		}
-	}
-	
-	
-	//»æÖÆÑ¡Ïî¿¨
-	public void drawCard(Graphics g) {
-		try {
-			BufferedImage card_sunflower=ImageIO.read(new File("graphics/Cards/card_sunflower.png"));
-			g.drawImage(card_sunflower, 130, 11, 46,66,this);
-			BufferedImage card_peashooter=ImageIO.read(new File("graphics/Cards/card_peashooter.png"));
-			g.drawImage(card_peashooter, 180, 11, 46,66,this);
-			BufferedImage card_wallnut=ImageIO.read(new File("graphics/Cards/card_wallnut.png"));
-			g.drawImage(card_wallnut, 235, 11, 46,66,this);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
+  private int flag = 0; // ç‚¹å‡»äº‹ä»¶
+  private int Zombiecnt = 1; // åƒµå°¸å‡ºç°ä¸ªæ•°
 
-	//µã»÷Ñ¡Ïî¿¨¡ª¡ªÊó±êÊÂ¼ş
-	public void clickCard(MouseEvent e) {
-		if(e.getButton()==MouseEvent.BUTTON1) {
-			if(Util.SUNREC.contains(e.getPoint())) {
-				flag=Util.SUNFLOWER_FLAG;
-			}
-			if(Util.PEAREC.contains(e.getPoint())) {
-				flag=Util.PEASHOOTER_FLAG;
-			}
-			if(Util.NUTREC.contains(e.getPoint())) {
-				flag=Util.WALLNUT_FLAG;
-			}
-		}
-	}
-	
-	//½©Ê¬µÄÌí¼Ó·½·¨
-	public void addZombie() {
-		//ÓĞÖ²ÎïÃ»½©Ê¬µÄÇé¿ö
-		if(PlantList.size()>=1&&ZombieList.size()<1) {
-			for(int i=0;i<Zombiecnt;i++) {
-				int type=rand.nextInt(2)+1;		//³öÏÖ½©Ê¬ÖÖÀà
-				if(type==1) ZombieList.add(new NormalZombie());
-				else if(type==2) ZombieList.add(new FlagZombie());
-			}
-		}
-		if(Zombiecnt<5) Zombiecnt++;
-	}
-	
-	//ÖÖÖ²Ö²Îï
-	public void drawImage(int index,int type) {
-		Plant p;
-		
-		if(type==Util.SUNFLOWER_FLAG) p=new SunFlower(new Point(grass[index].x,grass[index].y));
-		else if(type==Util.PEASHOOTER_FLAG) p=new PeaShooter(new Point(grass[index].x,grass[index].y));
-		else if(type==Util.WALLNUT_FLAG) p=new WallNut(new Point(grass[index].x,grass[index].y));
-		else p=new Null_Plant(new Point(-100,-100));
-		
-		grass[index].setPlanted(Util.PLANTED);
-		SunNum-=p.getcost();
-		PlantList.add(p);
-		
-		//Êó±ê¹éÁã
-		flag=Util.PLANTNULL_FLAG;
-		repaint();
-	}
-	
-	//ÖÖÖ²Ö²Îï
-	public void addPlant(MouseEvent e) {
-		for(int i=0;i<9;i++) {
-			for(int j=0;j<5;j++) {
-				if(grass[i+j*9].contains(e.getPoint()) && !grass[i+j*9].getPlanted()) {
-					drawImage(i+j*9,flag);
-				}
-			}
-		}
-	}
-	
-	class MyThread extends Thread{
-		
-		private boolean pause = false;
-		private boolean running = true;
-		public void run() {
-			while(running) {
-				try {
-					if(pause) continue;
-					else {
-						moveSun();
-					    repaint();
-					}
-					
-					Thread.sleep(100);
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-		}
-		public void pause() {
-			this.pause = true;
+  public GamePanel() {
+    // åˆå§‹åŒ–æ¯æ ¼çš„è‰åœ°
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 9; j++) {
+        grasses[i][j] = new Grass(250 + j * 86, 70 + i * 94, 86, 94);
+      }
+    }
+    Thread t = new MyThread();
+    t.start();
+  }
 
-		}
-	}
+  // ç»˜åˆ¶èƒŒæ™¯å›¾ç‰‡
+  public void drawBackground(Graphics g) {
+    try {
 
-	public void paint(Graphics g) {
-		super.paint(g);
-		while(sunList.size()<3) {
-			sunList.add(new Sun(new Point((rand.nextInt(800)+200),-rand.nextInt(100)),rand.nextInt(500)+200));
-		}
-		this.addMouseListener(new MouseAdapter(){
-			public void mousePressed(MouseEvent e) {
-				clickCard(e);
-				ClickSun(e);
-				addPlant(e);
-			}
-		});
-		drawBackground(g);
-		drawCard(g);
-		drawPlant(g);
-		drawSun(g);
-		addZombie();
-		drawZombie(g);
-	}
+      BufferedImage BackImage =
+          ImageIO.read(new File("graphics/Items/Background/Background_1.jpg"));
+      g.drawImage(BackImage, 0, 0, this);
+
+      BufferedImage ChooseRec = ImageIO.read(new File("graphics/Screen/ChooserBackground.png"));
+      g.drawImage(ChooseRec, 50, 0, this);
+      g.setFont(new Font("Serif", Font.BOLD, 28));
+      g.drawString(SunNum.toString(), 70, 76);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  int BulletTime = 0;
+  // ç»˜åˆ¶æ¤ç‰©
+  public void drawPlant(Graphics g) {
+    for (int i = 0; i < PlantList.size(); i++) {
+      Plant plant = PlantList.get(i);
+      if(plant instanceof CherryBomb ||plant instanceof PotatoMine){
+        //æ¨±æ¡ƒè¦ä¸“é—¨å†™ä¸€ä¸ªifè¯­å¥ï¼Œä¸»è¦æ˜¯ç›¸åˆ¤æ–­å¦‚æœæ¨±æ¡ƒå‘¨å›´æ²¡æœ‰å›¾åƒå’Œå‘¨å›´æœ‰åƒµå°¸çš„å›¾åƒä¸ä¸€æ ·
+        for(int k = 0; k < ZombieList.size(); k++) {
+          Zombie zom = ZombieList.get(k);
+          // å¦‚æœäºŒè€…çŸ©é˜µä½ç½®é‡åˆï¼Œåˆ™ä»£è¡¨æ¨±æ¡ƒçˆ†ç‚¸ç‚¸æ‰åƒµå°¸
+          if (plant.getPlantRec().intersects(zom.getZombieRec())) {
+            plant.setStatus(3);
+            zom.setStatus(2);
+            ZombieList.remove(zom);
+          }
+        }
+      }
+      plant.setBullet();
+      plant.placeImage(g);
+
+      if (plant.getBulletList() != null && BulletTime++ % 5 == 0)
+        BulletLi.addAll(plant.getBulletList());
+      // è£…è½½å­å¼¹
+      for (int j = 0; null != plant.getBulletList() && j < plant.getBulletList().size(); j++) {
+        Bullet bullet = plant.getBulletList().get(j);
+        if (ZombieList.size() >= 1) {
+          bullet.placeImage(g);
+          bullet.move();
+        }
+        // å¤„ç†å­å¼¹
+        for (int k = 0; k < ZombieList.size(); k++) {
+          Zombie zom = ZombieList.get(k);
+          // å¦‚æœäºŒè€…çŸ©é˜µä½ç½®é‡åˆï¼Œåˆ™ä»£è¡¨å‡»ä¸­
+          if (zom.getZombieRec().intersects(bullet.getBullteRec())) {
+            plant.getBulletList().remove(bullet);
+            zom.isAttacked(bullet);
+            // if (zom.getBlood() <= 0) ZombieList.remove(zom);
+          }
+          if (zom.getBlood() <= 0) {
+            zom.setStatus(2);
+          }
+        }
+        if (bullet.isHit()) {
+          plant.getBulletList().remove(bullet);
+          BulletLi.remove(bullet);
+        }
+        if (bullet.getPoint().x > 1400) {
+          plant.getBulletList().remove(bullet);
+          BulletLi.remove(bullet);
+        }
+      }
+
+      // åƒµå°¸åƒæ¤ç‰©
+      for (int k = 0; k < ZombieList.size(); k++) {
+        Zombie zom = ZombieList.get(k);
+        // å¦‚æœäºŒè€…çŸ©é˜µä½ç½®é‡åˆï¼Œåˆ™ä»£è¡¨åƒµå°¸ä¼šåƒæ¤ç‰©,åœ°åˆºé™¤å¤–
+        if (!(plant instanceof Spikeweed)
+            && plant.getPlantRec().intersects(zom.getZombieRec())) {
+          zom.setStatus(1);
+          plant.isAttacked(zom);
+          if (plant.getBlood() == 0) {
+            PlantList.remove(plant);
+            zom.setStatus(0);
+          }
+        }
+      }
+    }
+  }
+
+  // ç»˜åˆ¶åƒµå°¸
+  public void drawZombie(Graphics g) {
+    for (int i = 0; null != ZombieList && i < ZombieList.size(); i++) {
+      Zombie zom = ZombieList.get(i);
+      zom.placeImage(g);
+      zom.move();
+
+      if (zom.isDEAD()) {
+        int time = zom.getDeadTime();
+        zom.setDeadTime(time++);
+        ZombieList.remove(zom);
+      }
+      if (zom.getPoint().x < 100) {
+        //g.setColor(Color.RED);
+        //g.setFont(new Font("Setif", Font.BOLD, 50));
+        //g.drawString("ä½ çš„è„‘å­è¢«åƒµå°¸åƒæ‰äº†", 330, 220);
+        File file = new File("graphics/Screen/bg2.jpg");            //è¿™é‡Œæœ‰ä¸€ä¸ªä¿®æ”¹çš„
+        try{
+          g.drawImage(ImageIO.read(file),0,0,null);
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  // ç»˜åˆ¶é˜³å…‰
+  public void drawSun(Graphics g) {
+    for (int i = 0; i < sunList.size(); i++) {
+      Sun sun = sunList.get(i);
+      sun.placeSun(g);
+    }
+  }
+  // ç»˜åˆ¶å‘æ—¥è‘µäº§ç”Ÿçš„é˜³å…‰
+  public void drawFlowerSun(Graphics g) {
+    for (int i = 0; i < PlantList.size(); i++) {
+      Plant flower = PlantList.get(i);
+      if (flower instanceof SunFlower) {
+        int x = ((SunFlower) flower).getFlowerSunX() + 10;
+        int y = ((SunFlower) flower).getFlowerSunY() + 10;
+        for (int j = 0; j < sunList.size(); j++) {
+          Sun sun = sunList.get(j);
+          sun.placeFlowerSun(g, x, y);
+        }
+      }
+    }
+  }
+
+  // é˜³å…‰å›æ”¶
+  public void moveSun() {
+    for (int i = 0; i < sunList.size(); i++) {
+      Sun sun = sunList.get(i);
+      if (sun.isIsclick()) {
+        sun.recover();
+        sunList.remove(sun);
+        SunNum += 25;
+      } else sun.move();
+    }
+  }
+
+  // ç‚¹å‡»é˜³å…‰â€”â€”é¼ æ ‡äº‹ä»¶
+  public void ClickSun(MouseEvent e) {
+    for (Sun sun : sunList) {
+      Rectangle rec = sun.getSunRec();
+      if (rec.contains(e.getPoint())) {
+        sun.setIsclick(true);
+      }
+    }
+  }
+
+  // ç»˜åˆ¶é€‰é¡¹å¡å‘æ—¥è‘µ è±Œè±†å°„æ‰‹ åšæœ å†°é›ªå°„æ‰‹ æ¨±æ¡ƒ
+  public void drawCard(Graphics g) {
+    try {
+      BufferedImage card_sunflower = ImageIO.read(new File("graphics/Cards/card_sunflower.png"));
+      g.drawImage(card_sunflower, 130, 11, 46, 66, this);
+
+      BufferedImage card_peashooter = ImageIO.read(new File("graphics/Cards/card_peashooter.png"));
+      g.drawImage(card_peashooter, 180, 11, 46, 66, this);
+
+      BufferedImage card_wallnut = ImageIO.read(new File("graphics/Cards/card_wallnut.png"));
+      g.drawImage(card_wallnut, 235, 11, 46, 66, this);
+
+      BufferedImage card_snowpeashooter = ImageIO.read(new File("graphics/Cards/card_snowpea.png"));
+      g.drawImage(card_snowpeashooter, 290, 11, 46, 66, this);
+
+      BufferedImage card_cherrybomb = ImageIO.read(new File("graphics/Cards/card_cherrybomb.png"));
+      g.drawImage(card_cherrybomb, 345, 11, 46, 66, this);
+
+      BufferedImage card_potatomine = ImageIO.read(new File("graphics/Cards/card_potatomine.png"));
+      g.drawImage(card_potatomine, 400, 11, 46, 66, this);
+
+      BufferedImage card_repeashooter =
+          ImageIO.read(new File("graphics/Cards/card_repeaterpea.png"));
+      g.drawImage(card_repeashooter, 454, 11, 46, 66, this);
+
+      BufferedImage card_spikeweed = ImageIO.read(new File("graphics/Cards/card_spikeweed.png"));
+      g.drawImage(card_spikeweed, 509, 11, 46, 66, this);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  // ç‚¹å‡»é€‰é¡¹å¡â€”â€”é¼ æ ‡äº‹ä»¶
+  public void clickCard(MouseEvent e) {
+    if (e.getButton() == MouseEvent.BUTTON1) {
+      if (Util.SUNREC.contains(e.getPoint())) {
+        flag = Util.SUNFLOWER_FLAG;
+      }
+      if (Util.PEAREC.contains(e.getPoint())) {
+        flag = Util.PEASHOOTER_FLAG;
+      }
+      if (Util.NUTREC.contains(e.getPoint())) {
+        flag = Util.WALLNUT_FLAG;
+      }
+      if (Util.SNPREC.contains(e.getPoint())) {
+        flag = Util.SNOWPEASHOOT_FLAG;
+      }
+      if (Util.CHERRYEC.contains(e.getPoint())) {
+        flag = Util.CHERRYBOMB_FLAG;
+      }
+      if (Util.POTAEC.contains(e.getPoint())) {
+        flag = Util.POTATO_FLAG;
+      }
+      if (Util.REPEAREC.contains(e.getPoint())) {
+        flag = Util.REPEASHOOTER_FLAG;
+      }
+      if (Util.SPIKREC.contains(e.getPoint())) {
+        flag = Util.SPIKEWEED_FLAG;
+      }
+    }else if (e.getButton() == MouseEvent.BUTTON3){
+      flag = Util.PLANTNULL_FLAG;
+    }
+  }
+
+  // åƒµå°¸çš„æ·»åŠ æ–¹æ³•
+  public void addZombie() {
+    // æœ‰æ¤ç‰©æ²¡åƒµå°¸çš„æƒ…å†µ
+    if (PlantList.size() >= 1 && ZombieList.size() < 1) {
+      for (int i = 0; i < Zombiecnt; i++) {
+        int type = rand.nextInt(6) + 1; // å‡ºç°åƒµå°¸ç§ç±»
+        switch (type) {
+          case 1:
+            ZombieList.add(new NormalZombie());
+            break;
+          case 2:
+            ZombieList.add(new FlagZombie());
+            break;
+          case 3:
+            ZombieList.add(new NewspaperZombie());
+            break;
+          case 4:
+            ZombieList.add(new ConeheadZombie());
+            break;
+          case 5:
+            ZombieList.add(new BucketheadZombie());
+            break;
+          case 6:
+            ZombieList.add(new FootballZombie());
+            break;
+        }
+      }
+    }
+    if (Zombiecnt < 5) Zombiecnt++;
+  }
+
+  // ç§æ¤æ¤ç‰©
+  public void drawImage(Grass grass, int type) {
+    Plant p;
+    switch (type) {
+      case Util.SUNFLOWER_FLAG:
+        p = new SunFlower(new Point(grass.x, grass.y));
+        break;
+      case Util.PEASHOOTER_FLAG:
+        p = new PeaShooter(new Point(grass.x, grass.y));
+        break;
+      case Util.WALLNUT_FLAG:
+        p = new WallNut(new Point(grass.x, grass.y));
+        break;
+      case Util.SNOWPEASHOOT_FLAG:
+        p = new SnowPeaShooter(new Point(grass.x, grass.y));
+        break;
+      case Util.CHERRYBOMB_FLAG:
+        p = new CherryBomb(new Point(grass.x, grass.y));
+        break;
+      case Util.POTATO_FLAG:
+        p = new PotatoMine(new Point(grass.x, grass.y));
+        break;
+      case Util.REPEASHOOTER_FLAG:
+        p = new RepeaterPea(new Point(grass.x, grass.y));
+        break;
+      case Util.SPIKEWEED_FLAG:
+        p = new Spikeweed(new Point(grass.x - 3, grass.y + 60));
+        break;
+      default:
+        p = new Null_Plant(new Point(-100, -100));
+        break;
+    }
+
+    grass.setPlanted(Util.PLANTED);
+    if (SunNum > p.getcost()) {
+      SunNum -= p.getcost();
+      PlantList.add(p);
+    }
+
+    // é¼ æ ‡å½’é›¶
+    flag = Util.PLANTNULL_FLAG;
+    repaint();
+  }
+
+  // ç§æ¤æ¤ç‰©
+  public void addPlant(MouseEvent e) {
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 9; j++) {
+        if (grasses[i][j].contains(e.getPoint()) && !grasses[i][j].getPlanted()) {
+          drawImage(grasses[i][j], flag);
+          return;
+        }
+      }
+    }
+  }
+
+  // åƒµå°¸èµ°åˆ°åœ°åˆºä¸Šæ‰£è¡€
+  public void SpikeRock() {
+    for (Plant p : PlantList) {
+      // å¦‚æœæ¤ç‰©æ˜¯åœ°åˆºç±»å‹å°±å»éå†åƒµå°¸é›†åˆ
+      if (p instanceof Spikeweed) {
+        Iterator<Zombie> it = ZombieList.iterator();
+        while (it.hasNext()) {
+          Zombie z = it.next();
+          // å¦‚æœåƒµå°¸åœ¨åœ°åˆºä¸Šå°±æ‰£è¡€
+          if (z.getZombieRec().intersects(p.getPlantRec())) {
+            z.loseBlood();
+          }
+          //è¡€é‡ä½äº0ï¼ŒæŠ¹æ‰
+          if (z.getBlood() <= 0) {
+            z.setStatus(2);
+            it.remove();
+          }
+        }
+      }
+    }
+  }
+
+  class MyThread extends Thread {
+
+    private boolean pause = false;
+    private boolean running = true;
+
+    public void run() {
+      while (running) {
+        try {
+          if (pause) continue;
+          else {
+            moveSun();
+            repaint();
+          }
+
+          Thread.sleep(100);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    public void pause() {
+      this.pause = true;
+    }
+  }
+
+  public void paint(Graphics g) {
+    super.paint(g);
+    while (sunList.size() < 3) {
+      sunList.add(
+          new Sun(
+              new Point((rand.nextInt(800) + 200), -rand.nextInt(100)), rand.nextInt(500) + 200));
+    }
+    this.addMouseListener(
+        new MouseAdapter() {
+          public void mousePressed(MouseEvent e) {
+            clickCard(e);
+            ClickSun(e);
+            addPlant(e);
+          }
+        });
+    drawBackground(g);
+    drawCard(g);
+    drawPlant(g);
+    drawSun(g);
+    drawFlowerSun(g);
+    addZombie();
+    drawZombie(g);
+    SpikeRock();
+    if(SunNum<0){                                                 //hiè¿™é‡Œæœ‰ä¸€ä¸ªä¿®æ”¹çš„
+      g.setColor(Color.RED);
+      g.setFont(new Font("Setif", Font.BOLD, 32));
+      g.drawString("é˜³å…‰æ•°ä¸è¶³", 330, 220);
+      g.draw3DRect(50,55,30,30,true);
+    }
+  }
 }

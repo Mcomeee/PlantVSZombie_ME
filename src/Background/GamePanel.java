@@ -80,8 +80,8 @@ public class GamePanel extends JPanel {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-  // test
+  }  
+
   int BulletTime = 0;
   int SunTime = 0;
   // 绘制植物
@@ -150,7 +150,9 @@ public class GamePanel extends JPanel {
       for (int k = 0; k < ZombieList.size(); k++) {
         Zombie zom = ZombieList.get(k);
         // 如果二者矩阵位置重合，则代表僵尸会吃植物,地刺除外
+
         if (!(plant instanceof Spikeweed) && plant.getPlantRec().intersects(zom.getZombieRec())) {
+
           zom.setStatus(1);
           plant.isAttacked(zom);
           if (plant.getBlood() == 0) {
@@ -291,7 +293,10 @@ public class GamePanel extends JPanel {
       if (Util.SPIKREC.contains(e.getPoint())) {
         flag = Util.SPIKEWEED_FLAG;
       }
+
     } else if (e.getButton() == MouseEvent.BUTTON3) {
+
+   
       flag = Util.PLANTNULL_FLAG;
     }
   }
@@ -405,7 +410,9 @@ public class GamePanel extends JPanel {
           if (z.getZombieRec().intersects(p.getPlantRec())) {
             z.loseBlood();
           }
+
           // 血量低于0，抹掉
+
           if (z.getBlood() <= 0) {
             z.setStatus(2);
             it.remove();

@@ -36,10 +36,7 @@ public class Spikeweed extends Plant {
     this.blood = this.HitPoint;
   }
 
-
-
-  public void setBullet() {
-  }
+  public void setBullet() {}
 
   int index = 1;
 
@@ -48,6 +45,4 @@ public class Spikeweed extends Plant {
     // TODO 自动生成的方法存根
     return imgs[index++ % 19];
   }
-
-
 }

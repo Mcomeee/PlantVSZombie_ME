@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<FrameData>
+  <Frame name="GameFrame">
+    <width>1200</width>
+    <heigth>600</heigth>
+  </Frame>
+  <Frame name="StartFrame">
+    <width>900</width>
+    <heigth>600</heigth>
+  </Frame>
+</FrameData>

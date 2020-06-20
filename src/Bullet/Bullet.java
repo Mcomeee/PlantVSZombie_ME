@@ -19,15 +19,14 @@ public abstract class Bullet {
 
   public abstract BufferedImage getImage();
 
-  // ����ͼƬ
+  // 放置图片
   public void placeImage(Graphics g) {
     g.drawImage(getImage(), Bulletpoint.x, Bulletpoint.y, null);
   }
 
-
-  // ��ȡ�ӵ�����
+  // 获取子弹矩形
   public Rectangle getBullteRec() {
-    return new Rectangle(Bulletpoint.x+22, Bulletpoint.y, 34, 34);
+    return new Rectangle(Bulletpoint.x + 22, Bulletpoint.y, 34, 34);
   }
 
   // 子弹的移动
@@ -61,7 +60,9 @@ public abstract class Bullet {
     this.speed = s;
   }
 
-  public boolean isHit() { return isHit; }
+  public boolean isHit() {
+    return isHit;
+  }
 
   public void setHit(boolean isHit) {
     this.isHit = isHit;

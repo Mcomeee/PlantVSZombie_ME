@@ -34,9 +34,9 @@ public class CherryBomb extends Plant {
     }
   };
   // 构造方法
-  /*
+	/*
   特殊在它可以没有血量，要有消费
-   */
+	 */
   public CherryBomb(Point point) {
     super(point, 71, 71);
     this.cost = 150;
@@ -59,7 +59,7 @@ public class CherryBomb extends Plant {
       else return imgs[index++ % 15];
     }
 
-    /*if(index==46){
+		/*if(index==46){
       return null;
     }
     return imgs[index++ % 47];*/

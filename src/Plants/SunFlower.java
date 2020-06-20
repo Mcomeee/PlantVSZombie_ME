@@ -1,13 +1,16 @@
 package Plants;
 
+import Sun.Sun;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 
 public class SunFlower extends Plant {
-
+  private List<Sun> SunList = new ArrayList<>();
   private static BufferedImage[] imgs;
 
   static {
@@ -44,13 +47,15 @@ public class SunFlower extends Plant {
     // TODO 自动生成的方法存根
   }
 
-
-  //获取向日葵定点
-  public int getFlowerSunX(){
-    return point.x;
+  public void setSun() {
+    if (this.SunList.size() == 0) {
+      int x = point.x;
+      int y = point.y;
+      this.SunList.add(new Sun(new Point(x + 10, y + 3), y + 20));
+    }
   }
-  public int getFlowerSunY(){
-    return point.y;
-  }
 
+  public List<Sun> getSun() {
+    return SunList;
+  }
 }

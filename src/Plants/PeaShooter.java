@@ -1,18 +1,16 @@
 package Plants;
 
+import ReadXML.FrameDom;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import Bullet.Bullet;
 import Bullet.PeaBullet;
 
 public class PeaShooter extends Plant {
-
+  FrameDom plantTest=new FrameDom();
   private static BufferedImage[] imgs;
 
   static {
@@ -31,7 +29,7 @@ public class PeaShooter extends Plant {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根
     this.cost = 100;
-    this.HitPoint = 300;//生命值
+    this.HitPoint = 300; // 生命值
     this.blood = this.HitPoint;
   }
 

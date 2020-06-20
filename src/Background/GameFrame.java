@@ -16,9 +16,10 @@ import javax.swing.*;
 import Plants.WallNut;
 
 public class GameFrame extends JFrame {
-  FrameDom frameDom = new FrameDom();
+
 
   public GameFrame() {
+    FrameDom frameDom = new FrameDom();
     this.setTitle("PlantVSZombie");
     this.setSize(
         frameDom.findFrame("GameFrame").getFrameWidth(),
@@ -54,8 +55,9 @@ public class GameFrame extends JFrame {
 }
 
 class StartFrame extends JFrame {
-  FrameDom frameDom=new FrameDom();
+
   public StartFrame() {
+    FrameDom frameDom=new FrameDom();
     setSize(frameDom.findFrame("StartFrame").getFrameWidth(), frameDom.findFrame("StartFrame").getFrameHeight());
     setVisible(true);
     setBackground(Color.GRAY);

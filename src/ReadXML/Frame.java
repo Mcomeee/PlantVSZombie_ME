@@ -14,7 +14,7 @@ public class Frame {
     return frameWidth;
   }
 
-  public void setFrameWidth(int frameHeight) {
+  public void setFrameWidth(int frameWidth) {
     this.frameWidth = frameWidth;
   }
 

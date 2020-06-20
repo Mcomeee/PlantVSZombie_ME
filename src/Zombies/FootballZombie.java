@@ -9,7 +9,7 @@ public class FootballZombie extends Zombie {
 
   static {
     try {
-      imgs = new BufferedImage[5 + 6+10];
+      imgs = new BufferedImage[5 + 6 + 10];
       for (int i = 0; i < 5; i++) {
         File file =
             new File("graphics/Zombies/FootballZombie/FootballZombie/FootballZombie_" + i + ".png");
@@ -24,20 +24,16 @@ public class FootballZombie extends Zombie {
         imgs[i + 5] = ImageIO.read(file);
       }
       for (int i = 0; i < 10; i++) {
-        File file =
-            new File(
-                "graphics/Zombies/NormalZombie/ZombieDie/ZombieDie_"
-                    + i
-                    + ".png");
-        imgs[i + 5+6] = ImageIO.read(file);
+        File file = new File("graphics/Zombies/NormalZombie/ZombieDie/ZombieDie_" + i + ".png");
+        imgs[i + 5 + 6] = ImageIO.read(file);
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
   };
 
-  public FootballZombie() {
-    super(166, 144);
+  public FootballZombie(int last) {
+    super(166, 144, last);
 
     this.attack = 100;
     this.HitPoint = 270;
@@ -50,6 +46,7 @@ public class FootballZombie extends Zombie {
   public BufferedImage getImage() {
     if (this.isALIVE()) return imgs[index++ % 5];
     else if (this.isATTACK()) return imgs[(index++ % 6) + 5];
-    else return imgs[(index++%10)+5+6];
+    else return imgs[(index++ % 10) + 5 + 6];
   }
 }
+

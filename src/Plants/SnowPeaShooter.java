@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-
+// 寒冰射手
 public class SnowPeaShooter extends Plant {
 
   private static BufferedImage[] imgs;
@@ -21,7 +21,7 @@ public class SnowPeaShooter extends Plant {
       e.printStackTrace();
     }
   };
-  //test2
+
   public SnowPeaShooter(Point point) {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根

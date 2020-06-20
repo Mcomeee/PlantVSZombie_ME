@@ -7,7 +7,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-
 public class MusicPlayer {
   private Clip clip; // 全局音乐对象
 
@@ -20,7 +19,7 @@ public class MusicPlayer {
       audio = AudioSystem.getAudioInputStream(file);
       clip = AudioSystem.getClip();
       clip.open(audio);
-      FloatControl floatControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+      FloatControl floatControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
       floatControl.setValue(-30.0f);
     } catch (Exception e) {
       e.printStackTrace();

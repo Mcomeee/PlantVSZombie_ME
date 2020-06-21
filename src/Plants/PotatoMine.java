@@ -1,9 +1,12 @@
 package Plants;
 
+import ReadXML.DataDom;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.xml.crypto.Data;
+
 /*
  *土豆比较特殊，她要和僵尸有接触的
  * 然后还有特殊的图像处理
@@ -35,13 +38,14 @@ public class PotatoMine extends Plant {
     }
   };
   // 构造方法
-	/*
+  /*
   特殊在它可以没有血量，要有消费
-	 */
-  public PotatoMine(Point point) {
+  */
+  public PotatoMine(Point point) throws Exception {
     super(point, 71, 71);
-    this.cost = 150;
-    this.HitPoint = 300;
+    DataDom dataDom = new DataDom();
+    this.cost = dataDom.findPlant("PotatoMine").getcost();
+    this.HitPoint = dataDom.findPlant("PotatoMine").getHitPoint();
     this.blood = this.HitPoint;
   }
 
@@ -58,7 +62,7 @@ public class PotatoMine extends Plant {
       if (index >= 15) return null;
       else return imgs[index++ % 15];
     }
-		/*if(index==46){
+    /*if(index==46){
       return null;
     }
     return imgs[index++ % 47];*/

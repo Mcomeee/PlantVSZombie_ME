@@ -1,5 +1,6 @@
 package Zombies;
 
+import ReadXML.DataDom;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -32,13 +33,13 @@ public class FootballZombie extends Zombie {
     }
   };
 
-  public FootballZombie(int last) {
+  public FootballZombie(int last) throws Exception {
     super(166, 144, last);
-
-    this.attack = 100;
-    this.HitPoint = 270;
+    DataDom dataDom = new DataDom();
+    this.attack = dataDom.findZombie("FootballZombie").getAttack();
+    this.HitPoint = dataDom.findZombie("FootballZombie").getHitPoint();
     this.blood = this.HitPoint;
-    this.speed = 2;
+    this.speed = dataDom.findZombie("FootballZombie").getSpeed();
   }
 
   int index = 1;
@@ -49,4 +50,3 @@ public class FootballZombie extends Zombie {
     else return imgs[(index++ % 10) + 5 + 6];
   }
 }
-

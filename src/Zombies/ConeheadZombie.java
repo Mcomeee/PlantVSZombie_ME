@@ -1,5 +1,6 @@
 package Zombies;
 
+import ReadXML.DataDom;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -32,13 +33,13 @@ public class ConeheadZombie extends Zombie {
     }
   };
 
-  public ConeheadZombie(int last) {
+  public ConeheadZombie(int last) throws Exception {
     super(166, 144, last);
-
-    this.attack = 100;
-    this.HitPoint = 270;
+    DataDom dataDom = new DataDom();
+    this.attack = dataDom.findZombie("ConeheadZombie").getAttack();
+    this.HitPoint = dataDom.findZombie("ConeheadZombie").getHitPoint();
     this.blood = this.HitPoint;
-    this.speed = 2;
+    this.speed = dataDom.findZombie("ConeheadZombie").getSpeed();
   }
 
   int index = 1;

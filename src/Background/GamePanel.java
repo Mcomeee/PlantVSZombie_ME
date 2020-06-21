@@ -4,7 +4,7 @@ import Plants.CherryBomb;
 import Plants.PotatoMine;
 import Plants.RepeaterPea;
 import Plants.SnowPeaShooter;
-import Plants.Spikeweed;
+import Plants.SpikeWeed;
 import Zombies.BucketheadZombie;
 import Zombies.ConeheadZombie;
 import Zombies.FootballZombie;
@@ -80,7 +80,7 @@ public class GamePanel extends JPanel {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }  
+  }
 
   int BulletTime = 0;
   int SunTime = 0;
@@ -151,7 +151,7 @@ public class GamePanel extends JPanel {
         Zombie zom = ZombieList.get(k);
         // 如果二者矩阵位置重合，则代表僵尸会吃植物,地刺除外
 
-        if (!(plant instanceof Spikeweed) && plant.getPlantRec().intersects(zom.getZombieRec())) {
+        if (!(plant instanceof SpikeWeed) && plant.getPlantRec().intersects(zom.getZombieRec())) {
 
           zom.setStatus(1);
           plant.isAttacked(zom);
@@ -197,7 +197,7 @@ public class GamePanel extends JPanel {
       sun.placeSun(g);
     }
   }
-	/* 绘制向日葵产生的阳光
+  /* 绘制向日葵产生的阳光
   public void drawFlowerSun(Graphics g) {
     for (int i = 0; i < PlantList.size(); i++) {
       Plant flower = PlantList.get(i);
@@ -296,13 +296,12 @@ public class GamePanel extends JPanel {
 
     } else if (e.getButton() == MouseEvent.BUTTON3) {
 
-   
       flag = Util.PLANTNULL_FLAG;
     }
   }
 
   // 僵尸的添加方法
-  public void addZombie() {
+  public void addZombie() throws Exception {
     // 有植物没僵尸的情况
     if (PlantList.size() >= 1 && ZombieList.size() < 1) {
       int lastZomY = 0;
@@ -343,7 +342,7 @@ public class GamePanel extends JPanel {
   }
 
   // 种植植物
-  public void drawImage(Grass grass, int type) {
+  public void drawImage(Grass grass, int type) throws Exception {
     Plant p;
     switch (type) {
       case Util.SUNFLOWER_FLAG:
@@ -368,7 +367,7 @@ public class GamePanel extends JPanel {
         p = new RepeaterPea(new Point(grass.x, grass.y));
         break;
       case Util.SPIKEWEED_FLAG:
-        p = new Spikeweed(new Point(grass.x - 3, grass.y + 60));
+        p = new SpikeWeed(new Point(grass.x - 3, grass.y + 60));
         break;
       default:
         p = new Null_Plant(new Point(-100, -100));
@@ -387,7 +386,7 @@ public class GamePanel extends JPanel {
   }
 
   // 种植植物
-  public void addPlant(MouseEvent e) {
+  public void addPlant(MouseEvent e) throws Exception {
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 9; j++) {
         if (grasses[i][j].contains(e.getPoint()) && !grasses[i][j].getPlanted()) {
@@ -402,7 +401,7 @@ public class GamePanel extends JPanel {
   public void SpikeRock() {
     for (Plant p : PlantList) {
       // 如果植物是地刺类型就去遍历僵尸集合
-      if (p instanceof Spikeweed) {
+      if (p instanceof SpikeWeed) {
         Iterator<Zombie> it = ZombieList.iterator();
         while (it.hasNext()) {
           Zombie z = it.next();
@@ -460,7 +459,11 @@ public class GamePanel extends JPanel {
           public void mousePressed(MouseEvent e) {
             clickCard(e);
             ClickSun(e);
-            addPlant(e);
+            try {
+              addPlant(e);
+            } catch (Exception exception) {
+              exception.printStackTrace();
+            }
           }
         });
     drawBackground(g);
@@ -468,7 +471,11 @@ public class GamePanel extends JPanel {
     drawPlant(g);
     drawSun(g);
     // drawFlowerSun(g);
-    addZombie();
+    try {
+      addZombie();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     drawZombie(g);
     SpikeRock();
     if (SunNum < 0) { // hi这里有一个修改的

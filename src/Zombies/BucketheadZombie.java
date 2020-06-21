@@ -1,5 +1,6 @@
 package Zombies;
 
+import ReadXML.DataDom;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -35,13 +36,13 @@ public class BucketheadZombie extends Zombie {
     }
   };
 
-  public BucketheadZombie(int last) {
+  public BucketheadZombie(int last) throws Exception {
     super(166, 144, last);
-
-    this.attack = 100;
-    this.HitPoint = 270;
+    DataDom dataDom = new DataDom();
+    this.attack = dataDom.findZombie("BucketheadZombie").getAttack();
+    this.HitPoint = dataDom.findZombie("BucketheadZombie").getHitPoint();
     this.blood = this.HitPoint;
-    this.speed = 2;
+    this.speed = dataDom.findZombie("BucketheadZombie").getSpeed();
   }
 
   int index = 1;

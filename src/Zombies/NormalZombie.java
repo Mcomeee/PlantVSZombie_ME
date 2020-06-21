@@ -1,5 +1,6 @@
 package Zombies;
 
+import ReadXML.DataDom;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -30,14 +31,14 @@ public class NormalZombie extends Zombie {
     }
   };
 
-  public NormalZombie(int last) {
+  public NormalZombie(int last) throws Exception {
     super(166, 144, last);
     // TODO 自动生成的构造函数存根
-
-    this.attack = 100;
-    this.HitPoint = 270;
+    DataDom dataDom = new DataDom();
+    this.attack = dataDom.findZombie("NormalZombie").getAttack();
+    this.HitPoint = dataDom.findZombie("NormalZombie").getHitPoint();
     this.blood = this.HitPoint;
-    this.speed = 1;
+    this.speed = dataDom.findZombie("NormalZombie").getSpeed();
   }
 
   int index = 1;

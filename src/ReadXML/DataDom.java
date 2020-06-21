@@ -1,6 +1,7 @@
 package ReadXML;
 
 import Plants.Plant;
+import Zombies.Zombie;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -132,5 +133,60 @@ public class DataDom implements DataInterface {
     }
 
     return plant;
+  }
+
+  /** 根据name查询Zombie信息 */
+  public static Zombie findZombie(String name) throws Exception {
+    Zombie zombie = null;
+    ;
+
+    try {
+      // 得到Document对象
+      Document document = DocumentUtil.getDocument();
+      if (document == null) {
+        System.out.println("Error:Haven't read XML file");
+      }
+      // 得到所有的Zombie元素
+      NodeList nl = document.getElementsByTagName("Zombie");
+      // 遍历Zombie元素，判断他的name属性的取值是否与参数匹配
+      for (int i = 0; i < nl.getLength(); i++) {
+        Node node = nl.item(i);
+        //                if(node.getNodeType()==Node.ELEMENT_NODE){
+        //                    Element e = (Element)node;
+        if (node instanceof Element) {
+          Element e = (Element) node;
+          if (e.getAttribute("name").equals(name)) {
+            // 如果匹配：说明找到了Zombie；创建Zombie对象
+            zombie =
+                new Zombie() {
+                  @Override
+                  public BufferedImage getImage() {
+                    return null;
+                  }
+                };
+
+            // 设置Zombie对象的各个属性取值
+            zombie.setName(name);
+            zombie.setAttack(
+                Integer.parseInt(e.getElementsByTagName("attack").item(0).getTextContent()));
+            zombie.setHitPoint(
+                Integer.parseInt(e.getElementsByTagName("HitPoint").item(0).getTextContent()));
+            zombie.setSpeed(
+                Integer.parseInt(e.getElementsByTagName("speed").item(0).getTextContent()));
+          }
+        }
+      }
+    } catch (ParserConfigurationException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (SAXException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } finally {
+    }
+
+    return zombie;
   }
 }

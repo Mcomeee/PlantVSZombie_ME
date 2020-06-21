@@ -43,12 +43,15 @@ public abstract class Zombie {
   protected int DeadTime;
   public int frameNum;
 
-  public Zombie(int width, int length) {
+  public Zombie(int width, int length, int last) {
     this.width = width;
     this.length = length;
     Random rand = new Random();
     point.x = 1300;
     point.y = rand.nextInt(600 - length);
+    if (point.y - last < 80) {
+      point.y = rand.nextInt(600 - length);
+    }
   }
 
   // 获取图片
@@ -83,24 +86,26 @@ public abstract class Zombie {
     return this.speed;
   }
 
-  public int getDeadTime(){return DeadTime;}
+  public int getDeadTime() {
+    return DeadTime;
+  }
 
-  public void setDeadTime(int time){
-    this.DeadTime=time;
+  public void setDeadTime(int time) {
+    this.DeadTime = time;
   }
   // 被子弹攻击
   public void isAttacked(Bullet b) {
     this.blood = this.blood - b.getAttack();
     b.setHit(true);
   }
-  //被地刺攻击
+  // 被地刺攻击
   public void loseBlood() {
-    this.blood=this.blood-100;
+    this.blood = this.blood - 100;
   }
 
   // 获取僵尸的矩形
   public Rectangle getZombieRec() {
-    return new Rectangle(point.x+60, point.y, 84, 144);
+    return new Rectangle(point.x + 60, point.y, 84, 144);
   }
 
   // 僵尸行走
@@ -110,7 +115,7 @@ public abstract class Zombie {
     }
   }
 
-  /* 判断僵尸是否活着
+	/* 判断僵尸是否活着
   public boolean isAlive() {
     return status == ALIVE;
   }
@@ -120,5 +125,9 @@ public abstract class Zombie {
     return status == DEAD;
   }
 
-  */
+	 */
+	/* 击中后失血
+  public void loseBlood() {
+    HitPoint--;
+  }*/
 }

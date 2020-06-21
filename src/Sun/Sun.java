@@ -37,7 +37,7 @@ public class Sun {
     this.lastY = y;
   }
 
-  int index = 1;
+  private int index = 1;
 
   public BufferedImage getImage() {
     return images[index++ % 22];
@@ -47,9 +47,9 @@ public class Sun {
     g.drawImage(getImage(), sunPoint.x, sunPoint.y, null);
   }
 
-  public void placeFlowerSun(Graphics g,int x,int y){
+	/*public void placeFlowerSun(Graphics g,int x,int y){
     g.drawImage(getImage(),x,y,null);
-  }
+  }*/
 
   // 获取阳光矩形
   public Rectangle getSunRec() {

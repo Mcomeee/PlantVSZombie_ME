@@ -4,24 +4,33 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-
-public class NewspaperZombie extends Zombie{
+public class NewspaperZombie extends Zombie {
   private static BufferedImage[] imgs;
 
   static {
     try {
-      imgs = new BufferedImage[18+8+11];
+      imgs = new BufferedImage[18 + 8 + 11];
       for (int i = 0; i < 18; i++) {
-        File file = new File("graphics/Zombies/NewspaperZombie/NewspaperZombie/NewspaperZombie_" + i + ".png");
+        File file =
+            new File(
+                "graphics/Zombies/NewspaperZombie/NewspaperZombie/NewspaperZombie_" + i + ".png");
         imgs[i] = ImageIO.read(file);
       }
       for (int i = 0; i < 8; i++) {
-        File file = new File("graphics/Zombies/NewspaperZombie/NewspaperZombieAttack/NewspaperZombieAttack_" + i + ".png");
-        imgs[i+18] = ImageIO.read(file);
+        File file =
+            new File(
+                "graphics/Zombies/NewspaperZombie/NewspaperZombieAttack/NewspaperZombieAttack_"
+                    + i
+                    + ".png");
+        imgs[i + 18] = ImageIO.read(file);
       }
       for (int i = 0; i < 11; i++) {
-        File file = new File("graphics/Zombies/NewspaperZombie/NewspaperZombieDie/NewspaperZombieDie_" + i + ".png");
-        imgs[i+18+8] = ImageIO.read(file);
+        File file =
+            new File(
+                "graphics/Zombies/NewspaperZombie/NewspaperZombieDie/NewspaperZombieDie_"
+                    + i
+                    + ".png");
+        imgs[i + 18 + 8] = ImageIO.read(file);
       }
 
     } catch (Exception e) {
@@ -29,8 +38,8 @@ public class NewspaperZombie extends Zombie{
     }
   };
 
-  public NewspaperZombie() {
-    super(166, 144);
+  public NewspaperZombie(int last) {
+    super(166, 144, last);
 
     this.attack = 100;
     this.HitPoint = 270;
@@ -42,8 +51,8 @@ public class NewspaperZombie extends Zombie{
 
   public BufferedImage getImage() {
 
-    if (this.isALIVE())return imgs[index++ % 18];
-    else if (this.isATTACK()) return imgs[(index++%8)+18];
-    else return imgs[(index++%11)+8+18];
+    if (this.isALIVE()) return imgs[index++ % 18];
+    else if (this.isATTACK()) return imgs[(index++ % 8) + 18];
+    else return imgs[(index++ % 11) + 8 + 18];
   }
 }

@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-
+// 寒冰射手
 public class SnowPeaShooter extends Plant {
 
   private static BufferedImage[] imgs;

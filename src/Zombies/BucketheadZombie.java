@@ -4,31 +4,39 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-public class BucketheadZombie extends Zombie{
+public class BucketheadZombie extends Zombie {
   private static BufferedImage[] imgs;
 
   static {
     try {
-      imgs = new BufferedImage[15+11+10];
+      imgs = new BufferedImage[15 + 11 + 10];
       for (int i = 0; i < 15; i++) {
-        File file = new File("graphics/Zombies/BucketheadZombie/BucketheadZombie/BucketheadZombie_" + i + ".png");
+        File file =
+            new File(
+                "graphics/Zombies/BucketheadZombie/BucketheadZombie/BucketheadZombie_"
+                    + i
+                    + ".png");
         imgs[i] = ImageIO.read(file);
       }
       for (int i = 0; i < 11; i++) {
-        File file = new File("graphics/Zombies/BucketheadZombie/BucketheadZombieAttack/BucketheadZombieAttack_" + i + ".png");
-        imgs[i+15] = ImageIO.read(file);
+        File file =
+            new File(
+                "graphics/Zombies/BucketheadZombie/BucketheadZombieAttack/BucketheadZombieAttack_"
+                    + i
+                    + ".png");
+        imgs[i + 15] = ImageIO.read(file);
       }
       for (int i = 0; i < 10; i++) {
         File file = new File("graphics/Zombies/NormalZombie/ZombieDie/ZombieDie_" + i + ".png");
-        imgs[i+11+15] = ImageIO.read(file);
+        imgs[i + 11 + 15] = ImageIO.read(file);
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
   };
 
-  public BucketheadZombie() {
-    super(166, 144);
+  public BucketheadZombie(int last) {
+    super(166, 144, last);
 
     this.attack = 100;
     this.HitPoint = 270;
@@ -40,8 +48,8 @@ public class BucketheadZombie extends Zombie{
 
   public BufferedImage getImage() {
 
-    if (this.isALIVE())return imgs[index++ % 15];
-    else if (this.isATTACK()) return imgs[(index++%11)+15];
-    else return imgs[(index++%10)+15+11];
+    if (this.isALIVE()) return imgs[index++ % 15];
+    else if (this.isATTACK()) return imgs[(index++ % 11) + 15];
+    else return imgs[(index++ % 10) + 15 + 11];
   }
 }

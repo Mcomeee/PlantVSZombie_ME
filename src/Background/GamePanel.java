@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -40,34 +41,28 @@ import Zombies.NormalZombie;
 import Zombies.Zombie;
 
 public class GamePanel extends JPanel {
-  List<Sun> sunList = new ArrayList<>(); // 存储太阳
-  Random rand = new Random(); // 随机数
+  private List<Sun> sunList = new ArrayList<>(); // 存储太阳
+  private Random rand = new Random(); // 随机数
   private Integer SunNum = 100; // ̫太阳的总数
-  private Grass grass[] = new Grass[45]; // 每块地
+  private Grass[][] grasses = new Grass[5][9]; // 每块地
 
-  List<Plant> PlantList = new ArrayList<>(); // ֲ植物的集合
-  List<Zombie> ZombieList = new ArrayList<>(); // 僵尸的集合
-  List<Bullet> BulletLi = new ArrayList<>();
+  private List<Plant> PlantList = new ArrayList<>(); // ֲ植物的集合
+  private List<Zombie> ZombieList = new ArrayList<>(); // 僵尸的集合
+  private List<Bullet> BulletLi = new ArrayList<>();
 
-  int flag = 0; // 点击事件
-  int Zombiecnt = 1; // 僵尸出现个数
+  private int flag = 0; // 点击事件
+  private int Zombiecnt = 1; // 僵尸出现个数
 
   public GamePanel() {
     // 初始化每格的草地
-    for (int i = 0; i < 9; i++) {
-      for (int j = 0; j < 5; j++) {
-        grass[i + j * 9] = new Grass(250 + i * 86, 70 + j * 94, 86, 94);
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 9; j++) {
+        grasses[i][j] = new Grass(250 + j * 86, 70 + i * 94, 86, 94);
       }
     }
     Thread t = new MyThread();
     t.start();
   }
-
-  /*public void StartGame() {
-  	new MyThread().start();;
-  	new PlantTimeThread().start();
-
-  }*/
 
   // 绘制背景图片
   public void drawBackground(Graphics g) {
@@ -85,16 +80,17 @@ public class GamePanel extends JPanel {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-  //test
+  }  
+
   int BulletTime = 0;
+  int SunTime = 0;
   // 绘制植物
   public void drawPlant(Graphics g) {
     for (int i = 0; i < PlantList.size(); i++) {
       Plant plant = PlantList.get(i);
-      if(plant instanceof CherryBomb ||plant instanceof PotatoMine){
-        //樱桃要专门写一个if语句，主要是相判断如果樱桃周围没有图像和周围有僵尸的图像不一样
-        for(int k = 0; k < ZombieList.size(); k++) {
+      if (plant instanceof CherryBomb || plant instanceof PotatoMine) {
+        // 樱桃，土豆要专门写一个if语句，主要是相判断如果樱桃周围没有图像和周围有僵尸的图像不一样
+        for (int k = 0; k < ZombieList.size(); k++) {
           Zombie zom = ZombieList.get(k);
           // 如果二者矩阵位置重合，则代表樱桃爆炸炸掉僵尸
           if (plant.getPlantRec().intersects(zom.getZombieRec())) {
@@ -106,6 +102,17 @@ public class GamePanel extends JPanel {
       }
       plant.setBullet();
       plant.placeImage(g);
+
+      if (plant instanceof SunFlower) {
+        if (SunTime++ % 30 == 0) {
+          ((SunFlower) plant).setSun();
+          sunList.addAll(((SunFlower) plant).getSun());
+          for (int l = 0; l < ((SunFlower) plant).getSun().size(); l++) {
+            Sun s = ((SunFlower) plant).getSun().get(l);
+            if (s.isIsclick()) ((SunFlower) plant).getSun().remove(s);
+          }
+        }
+      }
 
       if (plant.getBulletList() != null && BulletTime++ % 5 == 0)
         BulletLi.addAll(plant.getBulletList());
@@ -143,8 +150,9 @@ public class GamePanel extends JPanel {
       for (int k = 0; k < ZombieList.size(); k++) {
         Zombie zom = ZombieList.get(k);
         // 如果二者矩阵位置重合，则代表僵尸会吃植物,地刺除外
-        if (plant instanceof Spikeweed == false
-            && plant.getPlantRec().intersects(zom.getZombieRec())) {
+
+        if (!(plant instanceof Spikeweed) && plant.getPlantRec().intersects(zom.getZombieRec())) {
+
           zom.setStatus(1);
           plant.isAttacked(zom);
           if (plant.getBlood() == 0) {
@@ -169,13 +177,13 @@ public class GamePanel extends JPanel {
         ZombieList.remove(zom);
       }
       if (zom.getPoint().x < 100) {
-        //g.setColor(Color.RED);
-        //g.setFont(new Font("Setif", Font.BOLD, 50));
-        //g.drawString("你的脑子被僵尸吃掉了", 330, 220);
-        File file = new File("graphics/Screen/bg2.jpg");            //这里有一个修改的
-        try{
-          g.drawImage(ImageIO.read(file),0,0,null);
-        }catch(IOException e){
+        // g.setColor(Color.RED);
+        // g.setFont(new Font("Setif", Font.BOLD, 50));
+        // g.drawString("你的脑子被僵尸吃掉了", 330, 220);
+        File file = new File("graphics/Screen/bg2.jpg"); // 这里有一个修改的
+        try {
+          g.drawImage(ImageIO.read(file), 0, 0, null);
+        } catch (IOException e) {
           e.printStackTrace();
         }
       }
@@ -189,7 +197,7 @@ public class GamePanel extends JPanel {
       sun.placeSun(g);
     }
   }
-  // 绘制向日葵产生的阳光
+	/* 绘制向日葵产生的阳光
   public void drawFlowerSun(Graphics g) {
     for (int i = 0; i < PlantList.size(); i++) {
       Plant flower = PlantList.get(i);
@@ -202,7 +210,7 @@ public class GamePanel extends JPanel {
         }
       }
     }
-  }
+  }*/
 
   // 阳光回收
   public void moveSun() {
@@ -285,6 +293,11 @@ public class GamePanel extends JPanel {
       if (Util.SPIKREC.contains(e.getPoint())) {
         flag = Util.SPIKEWEED_FLAG;
       }
+
+    } else if (e.getButton() == MouseEvent.BUTTON3) {
+
+   
+      flag = Util.PLANTNULL_FLAG;
     }
   }
 
@@ -292,71 +305,81 @@ public class GamePanel extends JPanel {
   public void addZombie() {
     // 有植物没僵尸的情况
     if (PlantList.size() >= 1 && ZombieList.size() < 1) {
+      int lastZomY = 0;
       for (int i = 0; i < Zombiecnt; i++) {
-        int type = rand.nextInt(6) + 1; // 出现僵尸种类
-        switch (type) {
-          case 1:
-            ZombieList.add(new NormalZombie());
+        int type = rand.nextInt(30) + 1; // 出现僵尸种类
+        int typenum = 0;
+        if (type <= 10) typenum = Util.NORMAL_FLAG;
+        else if (type <= 15) typenum = Util.FLAG_FLAG;
+        else if (type <= 20) typenum = Util.NEWS_FLAG;
+        else if (type <= 24) typenum = Util.CONE_FLAG;
+        else if (type <= 28) typenum = Util.BUCK_FLAG;
+        else typenum = Util.FOOTBALL_FLAG;
+
+        switch (typenum) {
+          case Util.NORMAL_FLAG:
+            ZombieList.add(new NormalZombie(lastZomY));
             break;
-          case 2:
-            ZombieList.add(new FlagZombie());
+          case Util.FLAG_FLAG:
+            ZombieList.add(new FlagZombie(lastZomY));
             break;
-          case 3:
-            ZombieList.add(new NewspaperZombie());
+          case Util.NEWS_FLAG:
+            ZombieList.add(new NewspaperZombie(lastZomY));
             break;
-          case 4:
-            ZombieList.add(new ConeheadZombie());
+          case Util.CONE_FLAG:
+            ZombieList.add(new ConeheadZombie(lastZomY));
             break;
-          case 5:
-            ZombieList.add(new BucketheadZombie());
+          case Util.BUCK_FLAG:
+            ZombieList.add(new BucketheadZombie(lastZomY));
             break;
-          case 6:
-            ZombieList.add(new FootballZombie());
+          case Util.FOOTBALL_FLAG:
+            ZombieList.add(new FootballZombie(lastZomY));
             break;
         }
+        lastZomY = ZombieList.get(i).getPoint().y;
       }
     }
     if (Zombiecnt < 5) Zombiecnt++;
   }
 
   // 种植植物
-  public void drawImage(int index, int type) {
+  public void drawImage(Grass grass, int type) {
     Plant p;
     switch (type) {
       case Util.SUNFLOWER_FLAG:
-        p = new SunFlower(new Point(grass[index].x, grass[index].y));
+        p = new SunFlower(new Point(grass.x, grass.y));
         break;
       case Util.PEASHOOTER_FLAG:
-        p = new PeaShooter(new Point(grass[index].x, grass[index].y));
+        p = new PeaShooter(new Point(grass.x, grass.y));
         break;
       case Util.WALLNUT_FLAG:
-        p = new WallNut(new Point(grass[index].x, grass[index].y));
+        p = new WallNut(new Point(grass.x, grass.y));
         break;
       case Util.SNOWPEASHOOT_FLAG:
-        p = new SnowPeaShooter(new Point(grass[index].x, grass[index].y));
+        p = new SnowPeaShooter(new Point(grass.x, grass.y));
         break;
       case Util.CHERRYBOMB_FLAG:
-        p = new CherryBomb(new Point(grass[index].x, grass[index].y));
+        p = new CherryBomb(new Point(grass.x, grass.y));
         break;
       case Util.POTATO_FLAG:
-        p = new PotatoMine(new Point(grass[index].x, grass[index].y));
+        p = new PotatoMine(new Point(grass.x, grass.y));
         break;
       case Util.REPEASHOOTER_FLAG:
-        p = new RepeaterPea(new Point(grass[index].x, grass[index].y));
+        p = new RepeaterPea(new Point(grass.x, grass.y));
         break;
       case Util.SPIKEWEED_FLAG:
-        p = new Spikeweed(new Point(grass[index].x, grass[index].y));
+        p = new Spikeweed(new Point(grass.x - 3, grass.y + 60));
         break;
       default:
         p = new Null_Plant(new Point(-100, -100));
         break;
     }
 
-    grass[index].setPlanted(Util.PLANTED);
-    //if (SunNum > 0) {
-    SunNum -= p.getcost();
-    PlantList.add(p);
-    //}
+    grass.setPlanted(Util.PLANTED);
+    if (SunNum > p.getcost()) {
+      SunNum -= p.getcost();
+      PlantList.add(p);
+    }
 
     // 鼠标归零
     flag = Util.PLANTNULL_FLAG;
@@ -365,10 +388,11 @@ public class GamePanel extends JPanel {
 
   // 种植植物
   public void addPlant(MouseEvent e) {
-    for (int i = 0; i < 9; i++) {
-      for (int j = 0; j < 5; j++) {
-        if (grass[i + j * 9].contains(e.getPoint()) && !grass[i + j * 9].getPlanted()) {
-          drawImage(i + j * 9, flag);
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 9; j++) {
+        if (grasses[i][j].contains(e.getPoint()) && !grasses[i][j].getPlanted()) {
+          drawImage(grasses[i][j], flag);
+          return;
         }
       }
     }
@@ -379,15 +403,19 @@ public class GamePanel extends JPanel {
     for (Plant p : PlantList) {
       // 如果植物是地刺类型就去遍历僵尸集合
       if (p instanceof Spikeweed) {
-        for (Zombie z : ZombieList) {
+        Iterator<Zombie> it = ZombieList.iterator();
+        while (it.hasNext()) {
+          Zombie z = it.next();
           // 如果僵尸在地刺上就扣血
           if (z.getZombieRec().intersects(p.getPlantRec())) {
             z.loseBlood();
           }
-          //血量低于0，抹掉
-          if(z.getBlood()<=0){
+
+          // 血量低于0，抹掉
+
+          if (z.getBlood() <= 0) {
             z.setStatus(2);
-            ZombieList.remove(z);
+            it.remove();
           }
         }
       }
@@ -439,15 +467,15 @@ public class GamePanel extends JPanel {
     drawCard(g);
     drawPlant(g);
     drawSun(g);
-    drawFlowerSun(g);
+    // drawFlowerSun(g);
     addZombie();
     drawZombie(g);
     SpikeRock();
-    if(SunNum<0){                                                 //hi这里有一个修改的
+    if (SunNum < 0) { // hi这里有一个修改的
       g.setColor(Color.RED);
       g.setFont(new Font("Setif", Font.BOLD, 32));
       g.drawString("阳光数不足", 330, 220);
-      g.draw3DRect(50,55,30,30,true);
+      g.draw3DRect(50, 55, 30, 30, true);
     }
   }
 }

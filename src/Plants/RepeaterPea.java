@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import Bullet.*;
 import Bullet.PeaBullet;
-
+// 双发豌豆
 public class RepeaterPea extends Plant {
 
   private static BufferedImage[] imgs;

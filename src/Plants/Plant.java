@@ -4,12 +4,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
 import Bullet.Bullet;
 import Zombies.Zombie;
@@ -20,8 +16,8 @@ public abstract class Plant {
   public static final int LIFE = 0;
   public static final int ATTACK = 1;
   public static final int DEAD = 2;
-  //增加一个状态量，来判断樱桃周围有没有人
-  protected static int HASZOOBIE=3;
+  // 增加一个状态量，来判断樱桃周围有没有人
+  protected static int HASZOOBIE = 3;
   protected int status = LIFE;
 
   public void setStatus(int s) {
@@ -86,4 +82,6 @@ public abstract class Plant {
   public void isAttacked(Zombie z) {
     blood = blood - z.getAttack();
   }
+
+
 }

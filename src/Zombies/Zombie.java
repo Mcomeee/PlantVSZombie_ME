@@ -17,6 +17,8 @@ public abstract class Zombie {
   public static final int DEAD = 2;
   protected int status = ALIVE;
 
+  public Zombie() {}
+
   public void setStatus(int s) {
     status = s;
   }
@@ -33,6 +35,7 @@ public abstract class Zombie {
     return status == DEAD;
   }
 
+  protected String name;
   protected int attack; // 攻击能力
   protected Point point = new Point(0, 0); // 坐标
   protected int width; // 宽度
@@ -78,6 +81,10 @@ public abstract class Zombie {
     return this.blood;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
   public int getAttack() {
     return this.attack;
   }
@@ -88,6 +95,18 @@ public abstract class Zombie {
 
   public int getSpeed() {
     return this.speed;
+  }
+
+  public void setSpeed(int speed) {
+    this.speed = speed;
+  }
+
+  public int getHitPoint() {
+    return this.HitPoint;
+  }
+
+  public void setHitPoint(int HitPoint) {
+    this.HitPoint = HitPoint;
   }
 
   public int getDeadTime() {

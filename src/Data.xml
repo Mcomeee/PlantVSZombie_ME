@@ -50,6 +50,40 @@
     <Cost>50</Cost>
     <HitPoint>4000</HitPoint>
   </Plant>
-
   <!--Zombie Data-->
+  <Zombie name="BucketheadZombie">
+    <attack>100</attack>
+    <HitPoint>270</HitPoint>
+    <speed>2</speed>
+  </Zombie>
+
+  <Zombie name="ConeheadZombie">
+    <attack>100</attack>
+    <HitPoint>270</HitPoint>
+    <speed>2</speed>
+  </Zombie>
+
+  <Zombie name="FlagZombie">
+    <attack>100</attack>
+    <HitPoint>270</HitPoint>
+    <speed>2</speed>
+  </Zombie>
+
+  <Zombie name="FootballZombie">
+    <attack>100</attack>
+    <HitPoint>270</HitPoint>
+    <speed>2</speed>
+  </Zombie>
+
+  <Zombie name="NewspaperZombie">
+    <attack>100</attack>
+    <HitPoint>270</HitPoint>
+    <speed>2</speed>
+  </Zombie>
+
+  <Zombie name="NormalZombie">
+    <attack>100</attack>
+    <HitPoint>270</HitPoint>
+    <speed>1</speed>
+  </Zombie>
 </Data>

@@ -1,6 +1,7 @@
 package ReadXML;
 
 import Plants.Plant;
+import Zombies.Zombie;
 
 public interface DataInterface {
 
@@ -13,6 +14,10 @@ public interface DataInterface {
   Frame findFrame(String name) throws Exception;
 
   static Plant findPlant(String name) throws Exception {
+    return null;
+  }
+
+  static Zombie findZombie(String name) throws Exception {
     return null;
   }
 }

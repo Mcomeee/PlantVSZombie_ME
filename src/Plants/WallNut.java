@@ -1,5 +1,6 @@
 package Plants;
 
+import ReadXML.DataDom;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,10 +33,11 @@ public class WallNut extends Plant {
     }
   };
 
-  public WallNut(Point point) {
+  public WallNut(Point point) throws Exception {
     super(point, 65, 73);
-    this.cost = 50;
-    this.HitPoint = 4000;
+    DataDom dataDom=new DataDom();
+    this.cost = dataDom.findPlant("WallNut").getcost();
+    this.HitPoint = dataDom.findPlant("WallNut").getHitPoint();
     this.blood = this.HitPoint;
     BulletList = null;
   }

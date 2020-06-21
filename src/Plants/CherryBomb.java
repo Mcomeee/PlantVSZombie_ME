@@ -1,5 +1,7 @@
 package Plants;
 
+import ReadXML.DataDom;
+import java.awt.image.DataBuffer;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,13 +36,14 @@ public class CherryBomb extends Plant {
     }
   };
   // 构造方法
-	/*
+  /*
   特殊在它可以没有血量，要有消费
-	 */
-  public CherryBomb(Point point) {
+  */
+  public CherryBomb(Point point) throws Exception {
     super(point, 71, 71);
-    this.cost = 150;
-    this.HitPoint = 300;
+    DataDom dataDom = new DataDom();
+    this.cost = DataDom.findPlant("CherryBomb").getcost();
+    this.HitPoint = DataDom.findPlant("CherryBomb").getHitPoint();
     this.blood = this.HitPoint;
     BulletList = null;
   }
@@ -59,7 +62,7 @@ public class CherryBomb extends Plant {
       else return imgs[index++ % 15];
     }
 
-		/*if(index==46){
+    /*if(index==46){
       return null;
     }
     return imgs[index++ % 47];*/

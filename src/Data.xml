@@ -1,11 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<FrameData>
+<Data>
+  <!--Frame Data-->
   <Frame name="GameFrame">
     <frameWidth>1200</frameWidth>
     <frameHeight>600</frameHeight>
   </Frame>
+
   <Frame name="StartFrame">
     <frameWidth>900</frameWidth>
     <frameHeight>600</frameHeight>
   </Frame>
-</FrameData>
+  <!--Plant Data-->
+  <Plant name="PeaShooter">
+    <Cost>100</Cost>
+    <HitPoint>300</HitPoint>
+  </Plant>
+
+  <Plant name="RepeaterPea">
+    <Cost>100</Cost>
+    <HitPoint>300</HitPoint>
+  </Plant>
+
+  <Plant name="CherryBomb">
+    <Cost>150</Cost>
+    <HitPoint>300</HitPoint>
+  </Plant>
+
+  <Plant name="PotatoMine">
+    <Cost>150</Cost>
+    <HitPoint>300</HitPoint>
+  </Plant>
+
+  <Plant name="SnowPeaShooter">
+    <Cost>100</Cost>
+    <HitPoint>300</HitPoint>
+  </Plant>
+
+  <Plant name="SpikeWeed">
+    <Cost>100</Cost>
+    <HitPoint>300</HitPoint>
+  </Plant>
+
+  <Plant name="SunFlower">
+    <Cost>50</Cost>
+    <HitPoint>300</HitPoint>
+  </Plant>
+
+  <Plant name="WallNut">
+    <Cost>50</Cost>
+    <HitPoint>4000</HitPoint>
+  </Plant>
+</Data>

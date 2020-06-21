@@ -1,5 +1,6 @@
 package Plants;
 
+import ReadXML.DataDom;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,6 +11,8 @@ import javax.imageio.ImageIO;
 
 import Bullet.*;
 import Bullet.PeaBullet;
+import javax.xml.crypto.Data;
+
 // 双发豌豆
 public class RepeaterPea extends Plant {
 
@@ -27,11 +30,12 @@ public class RepeaterPea extends Plant {
     }
   };
 
-  public RepeaterPea(Point point) {
+  public RepeaterPea(Point point) throws Exception {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根
-    this.cost = 100;
-    this.HitPoint = 300;
+    DataDom dataDom = new DataDom();
+    this.cost = dataDom.findPlant("RepeaterPea").getcost();
+    this.HitPoint = dataDom.findPlant("RepeaterPea").getHitPoint();
     this.blood = this.HitPoint;
   }
 

@@ -1,5 +1,6 @@
 package Plants;
 
+import ReadXML.DataDom;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -11,8 +12,9 @@ import javax.imageio.ImageIO;
 
 import Bullet.*;
 import Bullet.PeaBullet;
+import javax.xml.crypto.Data;
 
-public class Spikeweed extends Plant {
+public class SpikeWeed extends Plant {
 
   private static BufferedImage[] imgs;
 
@@ -20,7 +22,7 @@ public class Spikeweed extends Plant {
     try {
       imgs = new BufferedImage[19];
       for (int i = 0; i < 19; i++) {
-        File file = new File("graphics/Plants/Spikeweed/Spikeweed/Spikeweed_" + i + ".png");
+        File file = new File("graphics/Plants/SpikeWeed/SpikeWeed/Spikeweed_" + i + ".png");
         imgs[i] = ImageIO.read(file);
       }
     } catch (Exception e) {
@@ -28,11 +30,12 @@ public class Spikeweed extends Plant {
     }
   };
 
-  public Spikeweed(Point point) {
+  public SpikeWeed(Point point) throws Exception {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根
-    this.cost = 100;
-    this.HitPoint = 300;
+    DataDom dataDom=new DataDom();
+    this.cost = dataDom.findPlant("SpikeWeed").getcost();
+    this.HitPoint = dataDom.findPlant("SpikeWeed").getHitPoint();
     this.blood = this.HitPoint;
   }
 

@@ -1,5 +1,6 @@
 package Plants;
 
+import ReadXML.DataDom;
 import Sun.Sun;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -25,11 +26,12 @@ public class SunFlower extends Plant {
     }
   };
 
-  public SunFlower(Point point) {
+  public SunFlower(Point point) throws Exception {
     super(point, 73, 74);
     // TODO 自动生成的构造函数存根
-    this.cost = 50;
-    this.HitPoint = 300;
+    DataDom dataDom=new DataDom();
+    this.cost = dataDom.findPlant("SunFlower").getcost();
+    this.HitPoint = dataDom.findPlant("SunFlower").getHitPoint();
     this.blood = this.HitPoint;
     BulletList = null;
   }

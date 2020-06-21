@@ -1,6 +1,7 @@
 package Plants;
 
 import Bullet.SnowPeaBullet;
+import ReadXML.DataDom;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,11 +23,12 @@ public class SnowPeaShooter extends Plant {
     }
   };
 
-  public SnowPeaShooter(Point point) {
+  public SnowPeaShooter(Point point) throws Exception {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根
-    this.cost = 100;
-    this.HitPoint = 300;
+    DataDom dataDom=new DataDom();
+    this.cost = dataDom.findPlant("SnowPeaShooter").getcost();
+    this.HitPoint = dataDom.findPlant("SnowPeaShooter").getHitPoint();
     this.blood = this.HitPoint;
   }
 

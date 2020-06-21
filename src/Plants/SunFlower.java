@@ -29,7 +29,7 @@ public class SunFlower extends Plant {
   public SunFlower(Point point) throws Exception {
     super(point, 73, 74);
     // TODO 自动生成的构造函数存根
-    DataDom dataDom=new DataDom();
+    DataDom dataDom = new DataDom();
     this.cost = dataDom.findPlant("SunFlower").getcost();
     this.HitPoint = dataDom.findPlant("SunFlower").getHitPoint();
     this.blood = this.HitPoint;

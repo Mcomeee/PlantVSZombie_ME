@@ -33,7 +33,7 @@ public class SpikeWeed extends Plant {
   public SpikeWeed(Point point) throws Exception {
     super(point, 71, 71);
     // TODO 自动生成的构造函数存根
-    DataDom dataDom=new DataDom();
+    DataDom dataDom = new DataDom();
     this.cost = dataDom.findPlant("SpikeWeed").getcost();
     this.HitPoint = dataDom.findPlant("SpikeWeed").getHitPoint();
     this.blood = this.HitPoint;

@@ -35,7 +35,7 @@ public class WallNut extends Plant {
 
   public WallNut(Point point) throws Exception {
     super(point, 65, 73);
-    DataDom dataDom=new DataDom();
+    DataDom dataDom = new DataDom();
     this.cost = dataDom.findPlant("WallNut").getcost();
     this.HitPoint = dataDom.findPlant("WallNut").getHitPoint();
     this.blood = this.HitPoint;

@@ -19,13 +19,13 @@ import org.xml.sax.SAXException;
 // 异常：抛的话，上层能解决才行
 // 上一层如果处理不了，自己必须处理。
 
-public class DataDom implements DataInterface{
+public class DataDom implements DataInterface {
 
   /**
    * 根据name查询Frame信息
    *
    * @param name
-   * @return 如果学生不存在，返回null
+   * @return 如果不存在，返回null
    */
   public Frame findFrame(String name) throws Exception {
     Frame frame = null;
@@ -78,11 +78,9 @@ public class DataDom implements DataInterface{
     return frame;
   }
 
-  /**
-   * 根据name查询Plant信息
-   */
+  /** 根据name查询Plant信息 */
   public static Plant findPlant(String name) throws Exception {
-    Plant plant= null;
+    Plant plant = null;
     ;
 
     try {
@@ -91,9 +89,9 @@ public class DataDom implements DataInterface{
       if (document == null) {
         System.out.println("Error:Haven't read XML file");
       }
-      // 得到所有的Frame元素
+      // 得到所有的Plant元素
       NodeList nl = document.getElementsByTagName("Plant");
-      // 遍历Frame元素，判断他的name属性的取值是否与参数匹配
+      // 遍历Plant元素，判断他的name属性的取值是否与参数匹配
       for (int i = 0; i < nl.getLength(); i++) {
         Node node = nl.item(i);
         //                if(node.getNodeType()==Node.ELEMENT_NODE){
@@ -101,25 +99,19 @@ public class DataDom implements DataInterface{
         if (node instanceof Element) {
           Element e = (Element) node;
           if (e.getAttribute("name").equals(name)) {
-            // 如果匹配：说明找到了Frame；创建Frame对象
-            plant = new Plant() {
-              @Override
-              public BufferedImage getImage() {
-                return null;
-              }
+            // 如果匹配：说明找到了Plant；创建Plant对象
+            plant =
+                new Plant() {
+                  @Override
+                  public BufferedImage getImage() {
+                    return null;
+                  }
 
-              @Override
-              public void setBullet() {
+                  @Override
+                  public void setBullet() {}
+                };
 
-              }
-            };
-
-            // 设置Frame对象的各个属性取值
-            // s.setIdcard(e.getAttribute("PeaShooter"));
-            // s.setName(e.getElementsByTagName("name").item(0).getTextContent());
-            // s.setLocation(e.getElementsByTagName("location").item(0).getTextContent());
-            // s.setGrade(Float.parseFloat(e.getElementsByTagName("grade").item(0).getTextContent()));
-            // System.out.println(s.getExamid());
+            // 设置Plant对象的各个属性取值
             plant.setName(name);
             plant.setHitPoint(
                 Integer.parseInt(e.getElementsByTagName("HitPoint").item(0).getTextContent()));

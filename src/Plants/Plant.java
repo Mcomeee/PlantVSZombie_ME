@@ -20,9 +20,7 @@ public abstract class Plant {
   protected static int HASZOOBIE = 3;
   protected int status = LIFE;
 
-  public Plant() {
-
-  }
+  public Plant() {}
 
   public void setStatus(int s) {
     status = s;
@@ -75,17 +73,25 @@ public abstract class Plant {
     return this.blood;
   }
 
-  public void setName(String name){this.name=name;}
+  public void setName(String name) {
+    this.name = name;
+  }
 
   public int getcost() {
     return this.cost;
   }
 
-  public void setCost(int cost){this.cost=cost;}
+  public void setCost(int cost) {
+    this.cost = cost;
+  }
 
-  public int getHitPoint(){return this.HitPoint;}
+  public int getHitPoint() {
+    return this.HitPoint;
+  }
 
-  public void setHitPoint(int Hitpoint){this.HitPoint=Hitpoint;}
+  public void setHitPoint(int Hitpoint) {
+    this.HitPoint = Hitpoint;
+  }
 
   public List<Bullet> getBulletList() {
     return this.BulletList;
@@ -95,6 +101,4 @@ public abstract class Plant {
   public void isAttacked(Zombie z) {
     blood = blood - z.getAttack();
   }
-
-
 }

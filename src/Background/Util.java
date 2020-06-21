@@ -58,5 +58,4 @@ public class Util {
   public static final int FOOTBALL_FLAG = 6;
   // 空点击
   public static final int NULLZOMBIE_FLAG = 0;
-
 }

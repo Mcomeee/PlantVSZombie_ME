@@ -52,6 +52,6 @@ public class WallNut extends Plant {
 
   @Override
   public void setBullet() {
-    // TODO �Զ����ɵķ������
+    // TODO 自动生成的方法存根
   }
 }

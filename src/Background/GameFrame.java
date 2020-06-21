@@ -1,25 +1,20 @@
 package Background;
 
-import ReadXML.FrameDom;
+import ReadXML.DataDom;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Plants.WallNut;
-
 public class GameFrame extends JFrame {
 
-
-  public GameFrame() {
-    FrameDom frameDom = new FrameDom();
+  public GameFrame() throws Exception {
+    DataDom frameDom = new DataDom();
     this.setTitle("PlantVSZombie");
     this.setSize(
         frameDom.findFrame("GameFrame").getFrameWidth(),
@@ -48,7 +43,7 @@ public class GameFrame extends JFrame {
     this.setVisible(true);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     StartFrame startFrame = new StartFrame();
     startFrame.setVisible(true);
   }
@@ -56,9 +51,11 @@ public class GameFrame extends JFrame {
 
 class StartFrame extends JFrame {
 
-  public StartFrame() {
-    FrameDom frameDom=new FrameDom();
-    setSize(frameDom.findFrame("StartFrame").getFrameWidth(), frameDom.findFrame("StartFrame").getFrameHeight());
+  public StartFrame() throws Exception {
+    DataDom frameDom = new DataDom();
+    setSize(
+        frameDom.findFrame("StartFrame").getFrameWidth(),
+        frameDom.findFrame("StartFrame").getFrameHeight());
     setVisible(true);
     setBackground(Color.GRAY);
     this.setResizable(false);
@@ -117,7 +114,11 @@ class BgPanel extends JPanel {
         new ActionListener() {
           public void actionPerformed(ActionEvent e) {
             // 打开另一个窗口
-            new GameFrame();
+            try {
+              new GameFrame();
+            } catch (Exception exception) {
+              exception.printStackTrace();
+            }
           }
         });
   }

@@ -82,6 +82,10 @@ public abstract class Zombie {
     return this.attack;
   }
 
+  public void setAttack(int attack) {
+    this.attack = attack;
+  }
+
   public int getSpeed() {
     return this.speed;
   }
@@ -115,7 +119,7 @@ public abstract class Zombie {
     }
   }
 
-	/* 判断僵尸是否活着
+  /* 判断僵尸是否活着
   public boolean isAlive() {
     return status == ALIVE;
   }
@@ -125,8 +129,8 @@ public abstract class Zombie {
     return status == DEAD;
   }
 
-	 */
-	/* 击中后失血
+  */
+  /* 击中后失血
   public void loseBlood() {
     HitPoint--;
   }*/

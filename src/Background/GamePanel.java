@@ -374,8 +374,8 @@ public class GamePanel extends JPanel {
         break;
     }
 
-    grass.setPlanted(Util.PLANTED);
-    if (SunNum > p.getcost()) {
+    if (SunNum > p.getcost() && !(p instanceof Null_Plant)) {
+      grass.setPlanted(Util.PLANTED);
       SunNum -= p.getcost();
       PlantList.add(p);
     }

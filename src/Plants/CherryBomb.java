@@ -44,8 +44,12 @@ public class CherryBomb extends Plant {
 
     @Override
     public BufferedImage getImage() {
-        if (!exploding) return imgs[cnt % 15];
-        return imgs[(cnt - 15) % 35 + 15];
+        if (!exploding){
+            cnt /= 15;
+            return imgs[cnt];
+        }
+        if (cnt > 35) this.setAlive(false);
+        return imgs[(cnt - 15) % 20 + 15];
     }
 
     public void boom(){

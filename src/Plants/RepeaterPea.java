@@ -16,7 +16,7 @@ import Bullet.PeaBullet;
 import javax.xml.crypto.Data;
 
 // 双发豌豆
-public class RepeaterPea extends Plant {
+public class RepeaterPea extends Plant implements Shooter {
 
     private static BufferedImage[] imgs;
 
@@ -35,27 +35,21 @@ public class RepeaterPea extends Plant {
     ;
 
     public RepeaterPea(Point point) throws Exception {
-        super(point, 71, 71);
-        // TODO 自动生成的构造函数存根
-        DataDom dataDom = new DataDom();
-        this.cost = dataDom.findPlant("RepeaterPea").getcost();
-        this.HitPoint = dataDom.findPlant("RepeaterPea").getHitPoint();
-        this.blood = this.HitPoint;
+        super("RepeaterPea", point, 71, 71);
     }
 
-    public void setBullet() {
-        if (this.BulletList.size() < 1) {
-            int x = point.x;
-            int y = point.y;
-            this.BulletList.add(new RepeaBullet(new Point(x + 50, y + 5)));
-        }
-    }
-
-    int index = 1;
 
     @Override
     public BufferedImage getImage() {
         // TODO 自动生成的方法存根
-        return imgs[index++ % 10];
+        return imgs[cnt % 10];
     }
+
+    @Override
+    public Bullet shoot() {
+        Point point = this.getPoint();
+        Point tar = new Point(point.x + 30, point.y + 30);
+        return new PeaBullet(tar);
+    }
+
 }

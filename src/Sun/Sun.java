@@ -42,9 +42,6 @@ public class Sun {
         g.drawImage(getImage(), sunPoint.x, sunPoint.y, null);
     }
 
-	/*public void placeFlowerSun(Graphics g,int x,int y){
-    g.drawImage(getImage(),x,y,null);
-  }*/
 
     // 获取阳光矩形
     public Rectangle getSunRec() {

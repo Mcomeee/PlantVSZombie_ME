@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import Bullet.Bullet;
+import ReadXML.DataDom;
 
 // 僵尸的抽象父类
 
@@ -18,9 +19,68 @@ public abstract class Zombie {
     public static final int ALIVE = 0;
     public static final int ATTACK = 1;
     public static final int DEAD = 2;
-    protected int status = ALIVE;
 
-    public Zombie() {
+    private int status = ALIVE;
+    private int attack; // 攻击能力
+    private Point point; // 坐标
+    private int blood; // 血量
+    private int speed; // 速度
+    private int DeadTime;
+    private Rectangle rec;
+
+    int cnt;
+
+    public Zombie(String name, int width, int height) {
+        try {
+            this.attack = DataDom.findZombie(name).getAttack();
+            this.blood = DataDom.findZombie(name).getBlood();
+            this.speed = DataDom.findZombie(name).getSpeed();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int row = new Random().nextInt(5);
+        // 存疑
+        point = new Point(1300, row * 100 + 100);
+        rec = new Rectangle(point.x, point.y, width, height);
+    }
+
+    // 获取图片
+    public abstract BufferedImage getImage();
+
+    public void action(){
+        ++cnt;
+        if (this.blood < 0)
+            this.status = DEAD;
+    }
+
+    // 放置图片
+    public void placeImage(Graphics g) {
+        g.drawImage(getImage(), point.x, point.y, null);
+    }
+
+    // 被子弹攻击
+    public void isAttacked(Bullet b) {
+        this.blood = this.blood - b.getAttack();
+        b.setHit(true);
+    }
+
+    // 被地刺攻击
+    public void loseBlood() {
+        this.blood = this.blood - 100;
+    }
+
+    // 获取僵尸的矩形
+    public Rectangle getZombieRec() {
+        return rec;
+    }
+
+    // 僵尸行走
+    public void move() {
+        if (status != ATTACK) {
+            point.x -= speed;
+            rec.x = point.x;
+        }
     }
 
     public void setStatus(int s) {
@@ -39,54 +99,12 @@ public abstract class Zombie {
         return status == DEAD;
     }
 
-    protected String name;
-    protected int attack; // 攻击能力
-    protected Point point = new Point(0, 0); // 坐标
-    protected int width; // 宽度
-    protected int length; // 长度
-    protected int HitPoint; // 生命值
-    protected int blood; // 血量
-    protected int speed; // 速度
-    protected int DeadTime;
-    public int frameNum;
-
-    public Zombie(int width, int length, int last) {
-        this.width = width;
-        this.length = length;
-        Random rand = new Random();
-        point.x = 1300;
-        point.y = rand.nextInt(600 - length);
-        if (point.y - last < 80) {
-            point.y = rand.nextInt(600 - length);
-        }
-    }
-
-    // 获取图片
-    public abstract BufferedImage getImage();
-
-    // 放置图片
-    public void placeImage(Graphics g) {
-        g.drawImage(getImage(), point.x, point.y, null);
-    }
-
     public Point getPoint() {
         return point;
     }
 
-    public int getWidth() {
-        return this.width;
-    }
-
-    public int getLength() {
-        return this.length;
-    }
-
     public int getBlood() {
         return this.blood;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getAttack() {
@@ -105,14 +123,6 @@ public abstract class Zombie {
         this.speed = speed;
     }
 
-    public int getHitPoint() {
-        return this.HitPoint;
-    }
-
-    public void setHitPoint(int HitPoint) {
-        this.HitPoint = HitPoint;
-    }
-
     public int getDeadTime() {
         return DeadTime;
     }
@@ -121,42 +131,4 @@ public abstract class Zombie {
         this.DeadTime = time;
     }
 
-    // 被子弹攻击
-    public void isAttacked(Bullet b) {
-        this.blood = this.blood - b.getAttack();
-        b.setHit(true);
-    }
-
-    // 被地刺攻击
-    public void loseBlood() {
-        this.blood = this.blood - 100;
-    }
-
-    // 获取僵尸的矩形
-    public Rectangle getZombieRec() {
-        return new Rectangle(point.x + 60, point.y, 84, 144);
-    }
-
-    // 僵尸行走
-    public void move() {
-        if (status != ATTACK) {
-            point.x -= speed;
-        }
-    }
-
-  /* 判断僵尸是否活着
-  public boolean isAlive() {
-    return status == ALIVE;
-  }
-
-  /* 判断僵尸是否挂了
-  public boolean isDead() {
-    return status == DEAD;
-  }
-
-  */
-  /* 击中后失血
-  public void loseBlood() {
-    HitPoint--;
-  }*/
 }

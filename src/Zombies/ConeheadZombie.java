@@ -34,23 +34,14 @@ public class ConeheadZombie extends Zombie {
         }
     }
 
-    ;
-
     public ConeheadZombie(int last) throws Exception {
-        super(166, 144, last);
-        DataDom dataDom = new DataDom();
-        this.attack = dataDom.findZombie("ConeheadZombie").getAttack();
-        this.HitPoint = dataDom.findZombie("ConeheadZombie").getHitPoint();
-        this.blood = this.HitPoint;
-        this.speed = dataDom.findZombie("ConeheadZombie").getSpeed();
+        super("ConeheadZombie", 166, 144);
     }
-
-    int index = 1;
 
     public BufferedImage getImage() {
 
-        if (this.isALIVE()) return imgs[index++ % 21];
-        else if (this.isATTACK()) return imgs[(index++ % 11) + 21];
-        else return imgs[(index++ % 10) + 32];
+        if (this.isALIVE()) return imgs[cnt % 21];
+        else if (this.isATTACK()) return imgs[(cnt % 11) + 21];
+        return imgs[(cnt % 10) + 32];
     }
 }

@@ -32,25 +32,15 @@ public class FlagZombie extends Zombie {
         }
     }
 
-    ;
-
     public FlagZombie(int last) throws Exception {
-        super(166, 144, last);
-        // TODO 自动生成的构造函数存根
-        DataDom dataDom = new DataDom();
-        this.attack = dataDom.findZombie("FlagZombie").getAttack();
-        this.HitPoint = dataDom.findZombie("FlagZombie").getHitPoint();
-        this.blood = this.HitPoint;
-        this.speed = dataDom.findZombie("FlagZombie").getSpeed();
+        super("FlagZombie", 166, 144);
     }
-
-    int index = 1;
 
     @Override
     public BufferedImage getImage() {
         // TODO 自动生成的方法存根
-        if (this.isALIVE()) return imgs[index++ % 12];
-        else if (this.isATTACK()) return imgs[(index++ % 10) + 12];
-        else return imgs[(index++ % 10) + 22];
+        if (this.isALIVE()) return imgs[cnt % 12];
+        else if (this.isATTACK()) return imgs[(cnt % 10) + 12];
+        return imgs[(cnt % 10) + 22];
     }
 }

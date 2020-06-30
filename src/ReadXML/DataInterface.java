@@ -3,6 +3,8 @@ package ReadXML;
 import Plants.Plant;
 import Zombies.Zombie;
 
+import java.util.Map;
+
 public interface DataInterface {
 
     /**
@@ -11,13 +13,9 @@ public interface DataInterface {
      * @param name
      * @return 如果不存在，返回null
      */
-    Frame findFrame(String name) throws Exception;
+    Map findFrame(String name);
 
-    static Plant findPlant(String name) throws Exception {
-        return null;
-    }
+    Map findPlant(String name);
 
-    static Zombie findZombie(String name) throws Exception {
-        return null;
-    }
+    Map findZombie(String name);
 }

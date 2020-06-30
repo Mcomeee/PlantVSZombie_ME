@@ -54,7 +54,7 @@ public class GamePanel extends JPanel {
                 }
         });
 
-        long interval = 20;
+        long interval = 50;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -108,6 +108,12 @@ public class GamePanel extends JPanel {
                 if (bullet != null) bulletList.add(bullet);
             }
 
+        }
+    }
+
+    private void drawBullet(Graphics g){
+        for (Bullet bullet : bulletList) {
+            bullet.placeImage(g);
         }
     }
 
@@ -332,10 +338,9 @@ public class GamePanel extends JPanel {
 
                 zombie.setStatus(1);
                 plant.isAttacked(zombie);
-                if (plant.getBlood() <= 0) {
-                    plantList.remove(plant);
+                if (plant.getBlood() <= 0)
                     zombie.setStatus(0);
-                }
+
             }
 
             // 子弹打僵尸
@@ -353,7 +358,7 @@ public class GamePanel extends JPanel {
 
         zombieList.removeIf(Zombie::isDEAD);
         plantList.removeIf(plant -> !plant.isAlive());
-        bulletList.removeIf(bullet -> bullet.isHit());
+        bulletList.removeIf(bullet -> bullet.isHit() || bullet.getPoint().y > 1200);
 
         for (Zombie zombie : zombieList) zombie.action();
         for (Plant plant : plantList) plant.action();
@@ -374,6 +379,6 @@ public class GamePanel extends JPanel {
         plantAction(g);
         drawSun(g);
         drawZombie(g);
-
+        drawBullet(g);
     }
 }

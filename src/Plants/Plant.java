@@ -48,6 +48,7 @@ public abstract class Plant {
     // 植物被僵尸攻击
     public void isAttacked(Zombie z) {
         blood = blood - z.getAttack();
+        if (blood < 0) this.setAlive(false);
     }
 
     public Rectangle getRec() {

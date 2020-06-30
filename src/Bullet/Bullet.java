@@ -6,69 +6,69 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public abstract class Bullet {
-  protected Point Bulletpoint;
-  protected static int typeNum;
-  protected boolean isHit;
-  protected int attack;
-  protected int speed;
+    protected Point Bulletpoint;
+    protected static int typeNum;
+    protected boolean isHit;
+    protected int attack;
+    protected int speed;
 
-  public Bullet(Point point) {
-    super();
-    this.Bulletpoint = point;
-  }
-
-  public abstract BufferedImage getImage();
-
-  // 放置图片
-  public void placeImage(Graphics g) {
-    g.drawImage(getImage(), Bulletpoint.x, Bulletpoint.y, null);
-  }
-
-  // 获取子弹矩形
-  public Rectangle getBullteRec() {
-    return new Rectangle(Bulletpoint.x + 22, Bulletpoint.y, 34, 34);
-  }
-
-  // 子弹的移动
-  public void move() {
-    if (Bulletpoint.x < 1400) {
-      Bulletpoint.x += speed;
+    public Bullet(Point point) {
+        super();
+        this.Bulletpoint = point;
     }
-  }
 
-  public Point getPoint() {
-    return Bulletpoint;
-  }
+    public abstract BufferedImage getImage();
 
-  public void setPoint(Point point) {
-    this.Bulletpoint = point;
-  }
+    // 放置图片
+    public void placeImage(Graphics g) {
+        g.drawImage(getImage(), Bulletpoint.x, Bulletpoint.y, null);
+    }
 
-  public int getTypeNum() {
-    return typeNum;
-  }
+    // 获取子弹矩形
+    public Rectangle getBullteRec() {
+        return new Rectangle(Bulletpoint.x + 22, Bulletpoint.y, 34, 34);
+    }
 
-  public void setTypeNum(int typeNum) {
-    this.typeNum = typeNum;
-  }
+    // 子弹的移动
+    public void move() {
+        if (Bulletpoint.x < 1400) {
+            Bulletpoint.x += speed;
+        }
+    }
 
-  public int getSpeed() {
-    return this.speed;
-  }
+    public Point getPoint() {
+        return Bulletpoint;
+    }
 
-  public void setSpeed(int s) {
-    this.speed = s;
-  }
+    public void setPoint(Point point) {
+        this.Bulletpoint = point;
+    }
 
-  public boolean isHit() {
-    return isHit;
-  }
+    public int getTypeNum() {
+        return typeNum;
+    }
 
-  public void setHit(boolean isHit) {
-    this.isHit = isHit;
-  }
+    public void setTypeNum(int typeNum) {
+        this.typeNum = typeNum;
+    }
 
-  public int getAttack() {
-    return attack;
-  }
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    public void setSpeed(int s) {
+        this.speed = s;
+    }
+
+    public boolean isHit() {
+        return isHit;
+    }
+
+    public void setHit(boolean isHit) {
+        this.isHit = isHit;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
 }

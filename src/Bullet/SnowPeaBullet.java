@@ -7,24 +7,24 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class SnowPeaBullet extends Bullet {
-  private static BufferedImage imgs;
+    private static BufferedImage imgs;
 
-  static {
-    try {
-      imgs = ImageIO.read(new File("graphics/Bullets/PeaIce/PeaIce_0.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
+    static {
+        try {
+            imgs = ImageIO.read(new File("graphics/Bullets/PeaIce/PeaIce_0.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-  }
 
-  public SnowPeaBullet(Point point) {
-    super(point);
-    this.attack = 100;
-    this.speed = 10;
-    this.isHit = false;
-  }
+    public SnowPeaBullet(Point point) {
+        super(point);
+        this.attack = 100;
+        this.speed = 10;
+        this.isHit = false;
+    }
 
-  public BufferedImage getImage() {
-    return imgs;
-  }
+    public BufferedImage getImage() {
+        return imgs;
+    }
 }

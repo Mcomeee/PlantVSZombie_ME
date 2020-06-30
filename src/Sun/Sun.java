@@ -10,100 +10,92 @@ import javax.imageio.ImageIO;
 
 public class Sun {
 
-  private Point sunPoint; // 阳光位置
-  private int num;
-  private int lastY; // 掉落位置
-  private boolean isclick; // 是否被点到
+    private Point sunPoint; // 当前位置
+    private int num;
+    private Point tarPoint; // 目标位置
+    private boolean isClicked; // 是否被点到
+    private int cnt = 1; // 计数器
 
-  private static BufferedImage images[] = new BufferedImage[22];
+    private static BufferedImage images[] = new BufferedImage[22];
 
-  static {
-    try {
-      for (int i = 0; i < 22; i++) {
-        File file = new File("graphics/Plants/Sun/Sun_" + i + ".png");
-        images[i] = ImageIO.read(file);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+    static {
+        try {
+            for (int i = 0; i < 22; i++) {
+                File file = new File("graphics/Plants/Sun/Sun_" + i + ".png");
+                images[i] = ImageIO.read(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-  }
 
-  public Sun(Point p) {
-    this.sunPoint = p;
-  }
+    public Sun(Point sunPoint, Point tarPoint) {
+        this.sunPoint = sunPoint;
+        this.tarPoint = tarPoint;
+    }
 
-  public Sun(Point p, int y) {
-    this.sunPoint = p;
-    this.lastY = y;
-  }
+    public BufferedImage getImage() {
+        return images[cnt++ % 22];
+    }
 
-  private int index = 1;
-
-  public BufferedImage getImage() {
-    return images[index++ % 22];
-  }
-
-  public void placeSun(Graphics g) {
-    g.drawImage(getImage(), sunPoint.x, sunPoint.y, null);
-  }
+    public void placeSun(Graphics g) {
+        g.drawImage(getImage(), sunPoint.x, sunPoint.y, null);
+    }
 
 	/*public void placeFlowerSun(Graphics g,int x,int y){
     g.drawImage(getImage(),x,y,null);
   }*/
 
-  // 获取阳光矩形
-  public Rectangle getSunRec() {
-    return new Rectangle(sunPoint.x, sunPoint.y, 78, 78);
-  }
-
-  // 阳光回收
-  public void recover() {
-    if (sunPoint.x > 50) {
-      sunPoint.x -= 70;
-      sunPoint.y -= 70;
+    // 获取阳光矩形
+    public Rectangle getSunRec() {
+        return new Rectangle(sunPoint.x, sunPoint.y, 78, 78);
     }
-  }
 
-  // 阳光掉落
-  public void move() {
-    if (sunPoint.y < lastY) {
-      sunPoint.y += 3;
+    // 阳光回收
+    public void recover() {
+        this.tarPoint.x = 50;
+        this.tarPoint.y = 50;
     }
-  }
 
-  public void setImages(BufferedImage[] images) {
-    this.images = images;
-  }
+    // 阳光掉落
+    public void move() {
+        int dx = tarPoint.x - sunPoint.x;
+        int dy = tarPoint.y - sunPoint.y;
+        int absDx = Math.abs(dx);
+        int absDy = Math.abs(dy);
+        if (absDx > 3) {
+            sunPoint.x += dx / absDx * 3;
+        }
+        if (absDy > 3) {
+            sunPoint.y += dy / absDy * 3;
+        }
+    }
 
-  public Point getSunPoint() {
-    return sunPoint;
-  }
+    public void setImages(BufferedImage[] images) {
+        this.images = images;
+    }
 
-  public void setSunPoint(Point sunPoint) {
-    this.sunPoint = sunPoint;
-  }
+    public Point getSunPoint() {
+        return sunPoint;
+    }
 
-  public int getNum() {
-    return num;
-  }
+    public void setSunPoint(Point sunPoint) {
+        this.sunPoint = sunPoint;
+    }
 
-  public void setNum(int num) {
-    this.num = num;
-  }
+    public int getNum() {
+        return num;
+    }
 
-  public int getLastY() {
-    return lastY;
-  }
+    public void setNum(int num) {
+        this.num = num;
+    }
 
-  public void setLastY(int lastY) {
-    this.lastY = lastY;
-  }
+    public boolean isClicked() {
+        return isClicked;
+    }
 
-  public boolean isIsclick() {
-    return isclick;
-  }
-
-  public void setIsclick(boolean isclick) {
-    this.isclick = isclick;
-  }
+    public void setClicked(boolean clicked) {
+        this.isClicked = clicked;
+    }
 }

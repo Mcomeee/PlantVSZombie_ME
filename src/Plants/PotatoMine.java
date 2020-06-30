@@ -39,18 +39,8 @@ public class PotatoMine extends Plant {
         }
     }
 
-    ;
-
-    // 构造方法
-  /*
-  特殊在它可以没有血量，要有消费
-  */
-    public PotatoMine(Point point) throws Exception {
-        super(point, 71, 71);
-        DataDom dataDom = new DataDom();
-        this.cost = dataDom.findPlant("PotatoMine").getcost();
-        this.HitPoint = dataDom.findPlant("PotatoMine").getHitPoint();
-        this.blood = this.HitPoint;
+    public PotatoMine(Point point) {
+        super("PotatoMine", point, 71, 71);
     }
 
     int index = 1;
@@ -66,14 +56,7 @@ public class PotatoMine extends Plant {
             if (index >= 15) return null;
             else return imgs[index++ % 15];
         }
-    /*if(index==46){
-      return null;
-    }
-    return imgs[index++ % 47];*/
+
     }
 
-    @Override
-    // 效果
-    public void setBullet() {
-    }
 }

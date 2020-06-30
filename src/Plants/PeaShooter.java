@@ -1,7 +1,6 @@
 package Plants;
 
-import Bullet.Bullet;
-
+import Bullet.*;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -38,6 +37,8 @@ public class PeaShooter extends Plant implements Shooter {
 
     @Override
     public Bullet shoot() {
-        return null;
+        Point point = this.getPoint();
+        Point tar = new Point(point.x + 30, point.y + 30);
+        return new PeaBullet(tar);
     }
 }

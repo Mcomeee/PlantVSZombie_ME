@@ -63,7 +63,7 @@ public class DataDom implements DataInterface {
             if (e.getAttribute("name").equals(name)) {
                 // 如果匹配：说明找到了Plant；创建Plant对象
                 // 设置Plant对象的各个属性取值
-                int blood = Integer.parseInt(e.getElementsByTagName("HitPoint").item(0).getTextContent());
+                int blood = Integer.parseInt(e.getElementsByTagName("Blood").item(0).getTextContent());
                 int cost = Integer.parseInt(e.getElementsByTagName("Cost").item(0).getTextContent());
                 res.put("blood", blood);
                 res.put("cost", cost);
@@ -87,7 +87,7 @@ public class DataDom implements DataInterface {
             Element e = (Element) node;
             if (e.getAttribute("name").equals(name)) {
                 int attack = Integer.parseInt(e.getElementsByTagName("attack").item(0).getTextContent());
-                int blood = Integer.parseInt(e.getElementsByTagName("HitPoint").item(0).getTextContent());
+                int blood = Integer.parseInt(e.getElementsByTagName("Blood").item(0).getTextContent());
                 int speed = Integer.parseInt(e.getElementsByTagName("speed").item(0).getTextContent());
                 res.put("attack", attack);
                 res.put("blood", blood);

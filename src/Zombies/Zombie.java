@@ -28,16 +28,15 @@ public abstract class Zombie {
     private int DeadTime;
     private Rectangle rec;
 
+    private static DataDom dataDom = new DataDom();
+
     int cnt;
 
     public Zombie(String name, int width, int height) {
-        try {
-            this.attack = DataDom.findZombie(name).getAttack();
-            this.blood = DataDom.findZombie(name).getBlood();
-            this.speed = DataDom.findZombie(name).getSpeed();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        this.attack = dataDom.findZombie(name).get("attack");
+        this.blood = dataDom.findZombie(name).get("blood");
+        this.speed = dataDom.findZombie(name).get("speed");
 
         int row = new Random().nextInt(5);
         // 存疑
@@ -60,14 +59,16 @@ public abstract class Zombie {
     }
 
     // 被子弹攻击
-    public void isAttacked(Bullet b) {
-        this.blood = this.blood - b.getAttack();
-        b.setHit(true);
+    public void isAttacked(Bullet bullet) {
+        this.blood = this.blood - bullet.getAttack();
+        bullet.setHit(true);
+        if (this.blood < 0) this.setStatus(DEAD);
     }
 
     // 被地刺攻击
     public void loseBlood() {
         this.blood = this.blood - 100;
+        if (this.blood < 0) this.setStatus(DEAD);
     }
 
     // 获取僵尸的矩形
@@ -109,6 +110,14 @@ public abstract class Zombie {
 
     public int getAttack() {
         return this.attack;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setBlood(int blood) {
+        this.blood = blood;
     }
 
     public void setAttack(int attack) {

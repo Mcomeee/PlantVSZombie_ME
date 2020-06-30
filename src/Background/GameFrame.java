@@ -19,8 +19,8 @@ public class GameFrame extends JFrame {
         this.setTitle("PlantVSZombie");
         try{
             this.setSize(
-                    frameDom.findFrame("GameFrame").getFrameWidth(),
-                    frameDom.findFrame("GameFrame").getFrameHeight()
+                    frameDom.findFrame("GameFrame").get("width"),
+                    frameDom.findFrame("GameFrame").get("height")
             );
         } catch (Exception e) {
             e.printStackTrace();

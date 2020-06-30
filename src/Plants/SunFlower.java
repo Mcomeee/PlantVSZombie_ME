@@ -45,6 +45,7 @@ public class SunFlower extends Plant implements Producer {
 
     @Override
     public Sun produce() {
+        if (cnt % 73 != 0) return null;
         Point point = this.getPoint();
         return new Sun(
                 new Point(point.x + 10, point.y + 3),

@@ -40,7 +40,7 @@ public class NewspaperZombie extends Zombie {
         }
     }
 
-    public NewspaperZombie(int last) throws Exception {
+    public NewspaperZombie(){
         super("NewspaperZombie",166, 144);
     }
 

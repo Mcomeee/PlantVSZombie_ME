@@ -65,8 +65,8 @@ public class CherryBomb extends Plant implements Bomb{
         if (exploding) return;
         for (Zombie zombie : zombies){
             if (this.getRec().intersects(zombie.getZombieRec())){
+                zombie.setStatus(Zombie.DEAD);
                 this.boom();
-                break;
             }
         }
     }

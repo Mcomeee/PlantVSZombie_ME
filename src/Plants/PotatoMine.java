@@ -68,6 +68,7 @@ public class PotatoMine extends Plant implements Bomb{
         for (Zombie zombie : zombies){
             if (this.getRec().intersects(zombie.getZombieRec())){
                 this.boom();
+                zombie.setStatus(Zombie.DEAD);
                 break;
             }
         }

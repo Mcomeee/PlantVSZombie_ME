@@ -34,7 +34,7 @@ public class ConeheadZombie extends Zombie {
         }
     }
 
-    public ConeheadZombie(int last) throws Exception {
+    public ConeheadZombie() {
         super("ConeheadZombie", 166, 144);
     }
 

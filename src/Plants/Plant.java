@@ -21,16 +21,14 @@ public abstract class Plant {
     private boolean isAlive; // 是否仍然存活
     int cnt;
 
+    private static DataDom dataDom = new DataDom();
+
     public Plant(String name, Point point, int width, int height) {
         this.point = point;
         this.rec = new Rectangle(point.x, point.y, width, height);
         this.isAlive = true;
-        try {
-            this.setCost(DataDom.findPlant(name).getCost());
-            this.setBlood(DataDom.findPlant(name).getBlood());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.cost = dataDom.findPlant(name).get("cost");
+        this.blood = dataDom.findPlant(name).get("blood");
     }
 
     // 获取图片

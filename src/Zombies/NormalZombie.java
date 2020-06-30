@@ -32,7 +32,7 @@ public class NormalZombie extends Zombie {
         }
     }
 
-    public NormalZombie(int last) throws Exception {
+    public NormalZombie() {
         super("NormalZombie", 166, 144);
     }
 

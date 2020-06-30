@@ -41,12 +41,12 @@ public class RepeaterPea extends Plant implements Shooter {
 
     @Override
     public BufferedImage getImage() {
-        // TODO 自动生成的方法存根
         return imgs[cnt % 10];
     }
 
     @Override
     public Bullet shoot() {
+        if (cnt % 47 != 0) return null;
         Point point = this.getPoint();
         Point tar = new Point(point.x + 30, point.y + 30);
         return new RepeaBullet(tar);

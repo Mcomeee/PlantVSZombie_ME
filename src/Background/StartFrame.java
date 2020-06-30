@@ -7,11 +7,11 @@ import java.awt.*;
 
 public class StartFrame extends JFrame {
 
-    StartFrame() throws Exception {
+    StartFrame(){
         DataDom frameDom = new DataDom();
         setSize(
-                frameDom.findFrame("StartFrame").getFrameWidth(),
-                frameDom.findFrame("StartFrame").getFrameHeight()
+                frameDom.findFrame("StartFrame").get("width"),
+                frameDom.findFrame("StartFrame").get("height")
         );
         setVisible(true);
         setBackground(Color.GRAY);

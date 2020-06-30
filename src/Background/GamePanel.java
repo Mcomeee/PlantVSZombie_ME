@@ -12,10 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -32,7 +30,7 @@ public class GamePanel extends JPanel {
     private List<Zombie> zombieList = new ArrayList<>(); // 僵尸的集合
     private List<Bullet> bulletList = new ArrayList<>();
 
-    private int flag = 0; // 点击事件
+    private int flag = 0; // 选中植物的种类
     private int zombieCnt = 1; // 僵尸出现个数
 
     GamePanel() {
@@ -42,8 +40,30 @@ public class GamePanel extends JPanel {
                 grasses[i][j] = new Grass(250 + j * 86, 70 + i * 94, 86, 94);
             }
         }
-        Thread t = new MyThread();
-        t.start();
+
+        this.addMouseListener(
+            new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    clickCard(e);
+                    clickSun(e);
+                    try {
+                        addPlant(e);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                }
+        });
+
+        long interval = 20;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                action();
+                repaint();
+            }
+        }, interval, interval);
+
     }
 
     // 绘制背景图片
@@ -68,86 +88,26 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private int bulletTime = 0;
-    private int sunTime = 0;
+    // 植物动作
+    private void plantAction(Graphics g) {
+        for (Plant plant : plantList) {
 
-    // 绘制植物
-    private void drawPlant(Graphics g) {
-        for (int i = 0; i < plantList.size(); i++) {
-            Plant plant = plantList.get(i);
-            if (plant instanceof Bomb) {
-                // 樱桃，土豆要专门写一个if语句，主要是相判断如果樱桃周围没有图像和周围有僵尸的图像不一样
-                for (int k = 0; k < zombieList.size(); k++) {
-                    Zombie zom = zombieList.get(k);
-                    // 如果二者矩阵位置重合，则代表樱桃爆炸炸掉僵尸
-                    if (plant.getPlantRec().intersects(zom.getZombieRec())) {
-                        plant.setStatus(3);
-                        zom.setStatus(2);
-                        zombieList.remove(zom);
-                    }
-                }
-            }
-            plant.setBullet();
             plant.placeImage(g);
 
-            if (plant instanceof SunFlower) {
-                if (sunTime++ % 30 == 0) {
-                    ((SunFlower) plant).setSun();
-                    sunList.addAll(((SunFlower) plant).getSun());
-                    for (int l = 0; l < ((SunFlower) plant).getSun().size(); l++) {
-                        Sun s = ((SunFlower) plant).getSun().get(l);
-                        if (s.isClicked()) ((SunFlower) plant).getSun().remove(s);
-                    }
-                }
+            if (plant instanceof Bomb) {
+                ((Bomb) plant).judgeToBoom(zombieList);
             }
 
-            if (plant.getBulletList() != null && bulletTime++ % 5 == 0)
-                bulletList.addAll(plant.getBulletList());
-            // 装载子弹
-            for (int j = 0; null != plant.getBulletList() && j < plant.getBulletList().size(); j++) {
-                Bullet bullet = plant.getBulletList().get(j);
-                if (zombieList.size() >= 1) {
-                    bullet.placeImage(g);
-                    bullet.move();
-                }
-                // 处理子弹
-                for (int k = 0; k < zombieList.size(); k++) {
-                    Zombie zom = zombieList.get(k);
-                    // 如果二者矩阵位置重合，则代表击中
-                    if (zom.getZombieRec().intersects(bullet.getBullteRec())) {
-                        plant.getBulletList().remove(bullet);
-                        zom.isAttacked(bullet);
-                        // if (zom.getBlood() <= 0) ZombieList.remove(zom);
-                    }
-                    if (zom.getBlood() <= 0) {
-                        zom.setStatus(2);
-                    }
-                }
-                if (bullet.isHit()) {
-                    plant.getBulletList().remove(bullet);
-                    bulletList.remove(bullet);
-                }
-                if (bullet.getPoint().x > 1400) {
-                    plant.getBulletList().remove(bullet);
-                    bulletList.remove(bullet);
-                }
+            if (plant instanceof Producer) {
+                Sun sun = ((Producer) plant).produce();
+                if (sun != null) sunList.add(sun);
             }
 
-            // 僵尸吃植物
-            for (int k = 0; k < zombieList.size(); k++) {
-                Zombie zom = zombieList.get(k);
-                // 如果二者矩阵位置重合，则代表僵尸会吃植物,地刺除外
-
-                if (!(plant instanceof SpikeWeed) && plant.getPlantRec().intersects(zom.getZombieRec())) {
-
-                    zom.setStatus(1);
-                    plant.isAttacked(zom);
-                    if (plant.getBlood() == 0) {
-                        plantList.remove(plant);
-                        zom.setStatus(0);
-                    }
-                }
+            if (plant instanceof Shooter){
+                Bullet bullet = ((Shooter) plant).shoot();
+                if (bullet != null) bulletList.add(bullet);
             }
+
         }
     }
 
@@ -240,115 +200,95 @@ public class GamePanel extends JPanel {
     }
 
     // 点击选项卡——鼠标事件
-    public void clickCard(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            if (Util.SUNREC.contains(e.getPoint())) {
-                flag = Util.SUNFLOWER_FLAG;
-            }
-            if (Util.PEAREC.contains(e.getPoint())) {
-                flag = Util.PEASHOOTER_FLAG;
-            }
-            if (Util.NUTREC.contains(e.getPoint())) {
-                flag = Util.WALLNUT_FLAG;
-            }
-            if (Util.SNPREC.contains(e.getPoint())) {
-                flag = Util.SNOWPEASHOOT_FLAG;
-            }
-            if (Util.CHERRYEC.contains(e.getPoint())) {
-                flag = Util.CHERRYBOMB_FLAG;
-            }
-            if (Util.POTAEC.contains(e.getPoint())) {
-                flag = Util.POTATO_FLAG;
-            }
-            if (Util.REPEAREC.contains(e.getPoint())) {
-                flag = Util.REPEASHOOTER_FLAG;
-            }
-            if (Util.SPIKREC.contains(e.getPoint())) {
-                flag = Util.SPIKEWEED_FLAG;
-            }
-
-        } else if (e.getButton() == MouseEvent.BUTTON3) {
-
+    private void clickCard(MouseEvent e) {
+        if (e.getButton() != MouseEvent.BUTTON1) {
             flag = Util.PLANTNULL_FLAG;
+            return;
         }
+
+        if (Util.SUNREC.contains(e.getPoint()))
+            flag = Util.SUNFLOWER_FLAG;
+
+        if (Util.PEAREC.contains(e.getPoint()))
+            flag = Util.PEASHOOTER_FLAG;
+
+        if (Util.NUTREC.contains(e.getPoint()))
+            flag = Util.WALLNUT_FLAG;
+
+        if (Util.SNPREC.contains(e.getPoint()))
+            flag = Util.SNOWPEASHOOT_FLAG;
+
+        if (Util.CHERRYEC.contains(e.getPoint()))
+            flag = Util.CHERRYBOMB_FLAG;
+
+        if (Util.POTAEC.contains(e.getPoint()))
+            flag = Util.POTATO_FLAG;
+
+        if (Util.REPEAREC.contains(e.getPoint()))
+            flag = Util.REPEASHOOTER_FLAG;
+
+        if (Util.SPIKREC.contains(e.getPoint()))
+            flag = Util.SPIKEWEED_FLAG;
+
     }
 
     // 僵尸的添加方法
-    public void addZombie() throws Exception {
-        // 有植物没僵尸的情况
-        if (plantList.size() >= 1 && zombieList.size() < 1) {
-            int lastZomY = 0;
-            for (int i = 0; i < zombieCnt; i++) {
-                int type = rand.nextInt(30) + 1; // 出现僵尸种类
-                int typenum = 0;
-                if (type <= 10) typenum = Util.NORMAL_FLAG;
-                else if (type <= 15) typenum = Util.FLAG_FLAG;
-                else if (type <= 20) typenum = Util.NEWS_FLAG;
-                else if (type <= 24) typenum = Util.CONE_FLAG;
-                else if (type <= 28) typenum = Util.BUCK_FLAG;
-                else typenum = Util.FOOTBALL_FLAG;
+    private void addZombie(){
 
-                switch (typenum) {
-                    case Util.NORMAL_FLAG:
-                        zombieList.add(new NormalZombie(lastZomY));
-                        break;
-                    case Util.FLAG_FLAG:
-                        zombieList.add(new FlagZombie(lastZomY));
-                        break;
-                    case Util.NEWS_FLAG:
-                        zombieList.add(new NewspaperZombie(lastZomY));
-                        break;
-                    case Util.CONE_FLAG:
-                        zombieList.add(new ConeheadZombie(lastZomY));
-                        break;
-                    case Util.BUCK_FLAG:
-                        zombieList.add(new BucketheadZombie(lastZomY));
-                        break;
-                    case Util.FOOTBALL_FLAG:
-                        zombieList.add(new FootballZombie(lastZomY));
-                        break;
-                }
-                lastZomY = zombieList.get(i).getPoint().y;
-            }
-        }
         if (zombieCnt < 5) zombieCnt++;
+        // 有植物没僵尸的情况
+        if (plantList.size() < 1 || zombieList.size() >= 1) return;
+
+        Zombie zombie;
+        for (int i = 0; i < zombieCnt; i++) {
+            int type = rand.nextInt(30) + 1; // 出现僵尸种类
+            if (type <= 10) zombie = new NormalZombie();
+            else if (type <= 15) zombie = new FlagZombie();
+            else if (type <= 20) zombie = new NewspaperZombie();
+            else if (type <= 24) zombie = new ConeheadZombie();
+            else if (type <= 28) zombie = new BucketheadZombie();
+            else zombie = new FootballZombie();
+
+            zombieList.add(zombie);
+        }
+
     }
 
     // 种植植物
-    private void drawImage(Grass grass, int type){
-        Plant p = null;
+    private void drawImage(Grass grass, int type){ // 这里可以用反射,但是拿不准,怕出事
+        Plant plant = null;
         switch (type) {
             case Util.SUNFLOWER_FLAG:
-                p = new SunFlower(new Point(grass.x, grass.y));
+                plant = new SunFlower(new Point(grass.x, grass.y));
                 break;
             case Util.PEASHOOTER_FLAG:
-                p = new PeaShooter(new Point(grass.x, grass.y));
+                plant = new PeaShooter(new Point(grass.x, grass.y));
                 break;
             case Util.WALLNUT_FLAG:
-                p = new WallNut(new Point(grass.x, grass.y));
+                plant = new WallNut(new Point(grass.x, grass.y));
                 break;
             case Util.SNOWPEASHOOT_FLAG:
-                p = new SnowPeaShooter(new Point(grass.x, grass.y));
+                plant = new SnowPeaShooter(new Point(grass.x, grass.y));
                 break;
             case Util.CHERRYBOMB_FLAG:
-                p = new CherryBomb(new Point(grass.x, grass.y));
+                plant = new CherryBomb(new Point(grass.x, grass.y));
                 break;
             case Util.POTATO_FLAG:
-                p = new PotatoMine(new Point(grass.x, grass.y));
+                plant = new PotatoMine(new Point(grass.x, grass.y));
                 break;
             case Util.REPEASHOOTER_FLAG:
-                p = new RepeaterPea(new Point(grass.x, grass.y));
+                plant = new RepeaterPea(new Point(grass.x, grass.y));
                 break;
             case Util.SPIKEWEED_FLAG:
-                p = new SpikeWeed(new Point(grass.x - 3, grass.y + 60));
+                plant = new SpikeWeed(new Point(grass.x - 3, grass.y + 60));
                 break;
         }
 
-        if (p == null || sumNum < p.getCost()) return;
+        if (plant == null || sumNum < plant.getCost()) return;
 
         grass.setPlanted(true);
-        sumNum -= p.getCost();
-        plantList.add(p);
+        sumNum -= plant.getCost();
+        plantList.add(plant);
         // 鼠标归零
         flag = Util.PLANTNULL_FLAG;
         repaint();
@@ -381,68 +321,59 @@ public class GamePanel extends JPanel {
         }
     }
 
-    class MyThread extends Thread {
+    // 攻击判定
+    private void judgeAttack(){
 
-        private boolean pause = false;
+        for (Zombie zombie : zombieList) {
+            // 僵尸吃植物
+            for (Plant plant : plantList) {
+                if (plant instanceof SpikeWeed || !plant.getRec().intersects(zombie.getZombieRec()))
+                    continue;
 
-        public void run() {
-            boolean running = true;
-            while (running) {
-                try {
-                    if (pause) continue;
-                    else {
-                        moveSun();
-                        repaint();
-                    }
+                zombie.setStatus(1);
+                plant.isAttacked(zombie);
+                if (plant.getBlood() <= 0) {
+                    plantList.remove(plant);
+                    zombie.setStatus(0);
+                }
+            }
 
-                    Thread.sleep(100);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            // 子弹打僵尸
+            for (Bullet bullet : bulletList) {
+                if (bullet.isHit()) continue;
+                if (zombie.getZombieRec().intersects(bullet.getBulletRec())) {
+                    zombie.isAttacked(bullet);
+                    bullet.setHit(true);
                 }
             }
         }
+    }
 
-        public void pause() {
-            this.pause = true;
-        }
+    private void action(){
+
+        zombieList.removeIf(Zombie::isDEAD);
+        plantList.removeIf(plant -> !plant.isAlive());
+        bulletList.removeIf(bullet -> bullet.isHit());
+
+        for (Zombie zombie : zombieList) zombie.action();
+        for (Plant plant : plantList) plant.action();
+        for (Bullet bullet : bulletList) bullet.move();
+
+
+        addZombie();
+        SpikeRock();
+        judgeAttack();
+        moveSun();
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        while (sunList.size() < 3) {
-            sunList.add(
-                    new Sun(
-                            new Point((rand.nextInt(800) + 200), -rand.nextInt(100)), rand.nextInt(500) + 200));
-        }
-        this.addMouseListener(
-            new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    clickCard(e);
-                    clickSun(e);
-                    try {
-                        addPlant(e);
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
-                }
-            });
         drawBackground(g);
         drawCard(g);
-        drawPlant(g);
+        plantAction(g);
         drawSun(g);
-        try {
-            addZombie();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         drawZombie(g);
-        SpikeRock();
-        if (sumNum < 0) { // hi这里有一个修改的
-            g.setColor(Color.RED);
-            g.setFont(new Font("Setif", Font.BOLD, 32));
-            g.drawString("阳光数不足", 330, 220);
-            g.draw3DRect(50, 55, 30, 30, true);
-        }
+
     }
 }

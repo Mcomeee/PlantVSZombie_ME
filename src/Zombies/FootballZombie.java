@@ -32,7 +32,7 @@ public class FootballZombie extends Zombie {
         }
     }
 
-    public FootballZombie(int last) throws Exception {
+    public FootballZombie() {
         super("FootballZombie",166, 144);
     }
 

@@ -34,7 +34,7 @@ public class RepeaterPea extends Plant implements Shooter {
 
     ;
 
-    public RepeaterPea(Point point) throws Exception {
+    public RepeaterPea(Point point){
         super("RepeaterPea", point, 71, 71);
     }
 

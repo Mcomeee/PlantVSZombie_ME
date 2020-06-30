@@ -28,7 +28,7 @@ public class SnowPeaShooter extends Plant implements Shooter {
 
     ;
 
-    public SnowPeaShooter(Point point) throws Exception {
+    public SnowPeaShooter(Point point){
         super("SnowPeaShooter", point, 71, 71);
     }
 

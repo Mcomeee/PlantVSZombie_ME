@@ -4,8 +4,7 @@ import java.awt.Rectangle;
 
 public class Grass extends Rectangle {
 
-    //
-    private boolean planted = Util.NOPLANT;
+    private boolean planted;
 
     public Grass(int x, int y, int width, int height) {
         super.x = x;
@@ -14,7 +13,7 @@ public class Grass extends Rectangle {
         super.width = width;
     }
 
-    public boolean getPlanted() {
+    public boolean isPlanted() {
         return planted;
     }
 

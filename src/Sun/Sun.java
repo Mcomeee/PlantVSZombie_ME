@@ -1,19 +1,17 @@
 package Sun;
 
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
-import javax.imageio.ImageIO;
 
 public class Sun {
 
     private Point sunPoint; // 当前位置
     private int num;
     private Point tarPoint; // 目标位置
-    private boolean isClicked; // 是否被点到
+    private boolean clicked; // 是否被点到
+    private boolean recovered;
     private int cnt = 1; // 计数器
 
     private static BufferedImage images[] = new BufferedImage[22];
@@ -60,16 +58,13 @@ public class Sun {
         int dy = tarPoint.y - sunPoint.y;
         int absDx = Math.abs(dx);
         int absDy = Math.abs(dy);
-        if (absDx > 3) {
-            sunPoint.x += dx / absDx * 3;
-        }
-        if (absDy > 3) {
-            sunPoint.y += dy / absDy * 3;
-        }
+        if (absDx > 3) sunPoint.x += dx / absDx * 3;
+        if (absDy > 3) sunPoint.y += dy / absDy * 3;
+
     }
 
-    public void setImages(BufferedImage[] images) {
-        this.images = images;
+    public boolean isRecovered() {
+        return recovered;
     }
 
     public Point getSunPoint() {
@@ -89,10 +84,10 @@ public class Sun {
     }
 
     public boolean isClicked() {
-        return isClicked;
+        return clicked;
     }
 
     public void setClicked(boolean clicked) {
-        this.isClicked = clicked;
+        this.clicked = clicked;
     }
 }

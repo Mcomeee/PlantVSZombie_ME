@@ -29,9 +29,6 @@ public class Util {
     public static final Rectangle REPEAREC = new Rectangle(454, 11, 46, 80);
     // 地刺
     public static final Rectangle SPIKREC = new Rectangle(509, 11, 46, 80);
-    // 是否被种植
-    public static final boolean PLANTED = true;
-    public static final boolean NOPLANT = false;
 
     // ֲ植物的标记
     public static final int SUNFLOWER_FLAG = 1;

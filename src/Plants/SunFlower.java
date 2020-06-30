@@ -1,56 +1,54 @@
 package Plants;
 
+import ReadXML.DataDom;
+import Sun.Sun;
+
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 
-public class SunFlower extends Plant {
+public class SunFlower extends Plant implements Producer {
+    private List<Sun> SunList = new ArrayList<>();
+    private static BufferedImage[] imgs;
+    private int cnt; // 计数器
 
-  private static BufferedImage[] imgs;
-
-  static {
-    try {
-      imgs = new BufferedImage[18];
-      for (int i = 0; i < 18; i++) {
-        File file = new File("graphics/Plants/SunFlower/SunFlower_" + i + ".png");
-        imgs[i] = ImageIO.read(file);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+    static {
+        try {
+            imgs = new BufferedImage[18];
+            for (int i = 0; i < 18; i++) {
+                File file = new File("graphics/Plants/SunFlower/SunFlower_" + i + ".png");
+                imgs[i] = ImageIO.read(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-  };
 
-  public SunFlower(Point point) {
-    super(point, 73, 74);
-    // TODO 自动生成的构造函数存根
-    this.cost = 50;
-    this.HitPoint = 300;
-    this.blood = this.HitPoint;
-    BulletList = null;
-  }
+    public SunFlower(Point point) {
+        super("SunFlower", point, 73, 74);
+    }
 
-  int index = 1;
+    @Override
+    public BufferedImage getImage() {
+        // TODO 自动生成的方法存根
+        return imgs[cnt % 18];
+    }
 
-  @Override
-  public BufferedImage getImage() {
-    // TODO 自动生成的方法存根
-    return imgs[index++ % 18];
-  }
+    @Override
+    public void action() {
+        ++cnt;
+    }
 
-  @Override
-  public void setBullet() {
-    // TODO 自动生成的方法存根
-  }
-
-
-  //获取向日葵定点
-  public int getFlowerSunX(){
-    return point.x;
-  }
-  public int getFlowerSunY(){
-    return point.y;
-  }
-
+    @Override
+    public Sun produce() {
+        Point point = this.getPoint();
+        return new Sun(
+                new Point(point.x + 10, point.y + 3),
+                new Point(point.x + 15, point.y + 20)
+        );
+    }
 }

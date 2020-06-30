@@ -4,86 +4,88 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-
 import Bullet.Bullet;
+import ReadXML.DataDom;
 import Zombies.Zombie;
 
 // ֲ植物的抽象父类
 public abstract class Plant {
-  // 对象的状态
-  public static final int LIFE = 0;
-  public static final int ATTACK = 1;
-  public static final int DEAD = 2;
-  //增加一个状态量，来判断樱桃周围有没有人
-  protected static int HASZOOBIE=3;
-  protected int status = LIFE;
 
-  public void setStatus(int s) {
-    status = s;
-  }
+    private int blood; // 血量
+    private Point point; // 坐标
+    private Rectangle rec;
+    private int cost; // 阳光花费
+    private boolean isAlive; // 是否仍然存活
+    int cnt;
 
-  protected List<Bullet> BulletList = new ArrayList<>();
-  // protected boolean ate;
-  protected int HitPoint; // 生命值
-  protected int blood; // 血量
-  protected Point point; // 坐标
-  protected int width; // 宽度
-  protected int length; // 长度
-  protected int cost; // 阳光花费
+    public Plant(String name, Point point, int width, int height) {
+        this.point = point;
+        this.rec = new Rectangle(point.x, point.y, width, height);
+        this.isAlive = true;
+        try {
+            this.setCost(DataDom.findPlant(name).getCost());
+            this.setBlood(DataDom.findPlant(name).getBlood());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-  public Plant(Point point, int width, int length) {
-    this.point = point;
-    this.width = width;
-    this.length = length;
-  }
+    // 获取图片
+    public abstract BufferedImage getImage();
 
-  // 获取图片
-  public abstract BufferedImage getImage();
+    // 放置图片
+    public void placeImage(Graphics g) {
+        g.drawImage(getImage(), point.x, point.y, null);
+    }
 
-  // 放置图片
-  public void placeImage(Graphics g) {
-    g.drawImage(getImage(), point.x, point.y, null);
-  }
+    public void action(){
+        if (this.getBlood() <= 0)
+            this.isAlive = false;
+        ++ cnt;
+    };
 
-  public abstract void setBullet();
+    // 植物被僵尸攻击
+    public void isAttacked(Zombie z) {
+        blood = blood - z.getAttack();
+    }
 
-  // 获取植物矩形
-  public Rectangle getPlantRec() {
-    return new Rectangle(point.x, point.y, width, length);
-  }
+    public Rectangle getRec() {
+        return rec;
+    }
 
-  public Point getPoint() {
-    return point;
-  }
+    public void setRec(Rectangle rec) {
+        this.rec = rec;
+    }
 
-  public int getWidth() {
-    return this.width;
-  }
+    public Point getPoint() {
+        return point;
+    }
 
-  public int getLength() {
-    return this.length;
-  }
+    public void setBlood(int blood) {
+        this.blood = blood;
+    }
 
-  public int getBlood() {
-    return this.blood;
-  }
+    public int getBlood() {
+        return this.blood;
+    }
 
-  public int getcost() {
-    return this.cost;
-  }
+    public int getCost() {
+        return this.cost;
+    }
 
-  public List<Bullet> getBulletList() {
-    return this.BulletList;
-  }
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 
-  // 植物被僵尸攻击
-  public void isAttacked(Zombie z) {
-    blood = blood - z.getAttack();
-  }
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
 }

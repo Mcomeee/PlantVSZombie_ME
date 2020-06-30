@@ -13,77 +13,79 @@
     <!--Plant Data-->
     <Plant name="PeaShooter">
         <Cost>100</Cost>
-        <HitPoint>300</HitPoint>
+        <Blood>300</Blood>
     </Plant>
 
     <Plant name="RepeaterPea">
         <Cost>100</Cost>
-        <HitPoint>300</HitPoint>
+        <Blood>300</Blood>
     </Plant>
 
     <Plant name="CherryBomb">
         <Cost>150</Cost>
-        <HitPoint>300</HitPoint>
+        <Blood>300</Blood>
     </Plant>
 
     <Plant name="PotatoMine">
         <Cost>150</Cost>
-        <HitPoint>300</HitPoint>
+        <Blood>300</Blood>
     </Plant>
 
     <Plant name="SnowPeaShooter">
         <Cost>100</Cost>
-        <HitPoint>300</HitPoint>
+        <Blood>300</Blood>
     </Plant>
 
     <Plant name="SpikeWeed">
         <Cost>100</Cost>
-        <HitPoint>300</HitPoint>
+        <Blood>300</Blood>
     </Plant>
 
     <Plant name="SunFlower">
         <Cost>50</Cost>
-        <HitPoint>300</HitPoint>
+        <Blood>300</Blood>
     </Plant>
 
     <Plant name="WallNut">
         <Cost>50</Cost>
-        <HitPoint>4000</HitPoint>
+        <Blood>4000</Blood>
     </Plant>
+
+
     <!--Zombie Data-->
     <Zombie name="BucketheadZombie">
         <attack>100</attack>
-        <HitPoint>270</HitPoint>
+        <Blood>270</Blood>
         <speed>2</speed>
     </Zombie>
 
     <Zombie name="ConeheadZombie">
         <attack>100</attack>
-        <HitPoint>270</HitPoint>
+        <Blood>270</Blood>
         <speed>2</speed>
     </Zombie>
 
     <Zombie name="FlagZombie">
         <attack>100</attack>
-        <HitPoint>270</HitPoint>
+        <Blood>270</Blood>
         <speed>2</speed>
     </Zombie>
 
     <Zombie name="FootballZombie">
         <attack>100</attack>
-        <HitPoint>270</HitPoint>
+        <Blood>270</Blood>
         <speed>2</speed>
     </Zombie>
 
     <Zombie name="NewspaperZombie">
         <attack>100</attack>
-        <HitPoint>270</HitPoint>
+        <Blood>270</Blood>
         <speed>2</speed>
     </Zombie>
 
     <Zombie name="NormalZombie">
         <attack>100</attack>
-        <HitPoint>270</HitPoint>
+        <Blood>270</Blood>
         <speed>1</speed>
     </Zombie>
 </Data>

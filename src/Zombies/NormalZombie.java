@@ -32,25 +32,14 @@ public class NormalZombie extends Zombie {
         }
     }
 
-    ;
-
-    public NormalZombie(int last) throws Exception {
-        super(166, 144, last);
-        // TODO 自动生成的构造函数存根
-        DataDom dataDom = new DataDom();
-        this.attack = dataDom.findZombie("NormalZombie").getAttack();
-        this.HitPoint = dataDom.findZombie("NormalZombie").getHitPoint();
-        this.blood = this.HitPoint;
-        this.speed = dataDom.findZombie("NormalZombie").getSpeed();
+    public NormalZombie() {
+        super("NormalZombie", 166, 144);
     }
-
-    int index = 1;
 
     @Override
     public BufferedImage getImage() {
-        // TODO 自动生成的方法存根
-        if (this.isALIVE()) return imgs[index++ % 22];
-        else if (this.isATTACK()) return imgs[(index++ % 21) + 22];
-        else return imgs[(index++ % 10) + 43];
+        if (this.isALIVE()) return imgs[cnt % 22];
+        else if (this.isATTACK()) return imgs[(cnt % 21) + 22];
+        return imgs[(cnt % 10) + 43];
     }
 }

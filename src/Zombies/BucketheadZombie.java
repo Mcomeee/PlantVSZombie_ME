@@ -37,23 +37,13 @@ public class BucketheadZombie extends Zombie {
         }
     }
 
-    ;
-
-    public BucketheadZombie(int last) throws Exception {
-        super(166, 144, last);
-        DataDom dataDom = new DataDom();
-        this.attack = dataDom.findZombie("BucketheadZombie").getAttack();
-        this.HitPoint = dataDom.findZombie("BucketheadZombie").getHitPoint();
-        this.blood = this.HitPoint;
-        this.speed = dataDom.findZombie("BucketheadZombie").getSpeed();
+    public BucketheadZombie() {
+        super("BucketheadZombie", 166, 144);
     }
 
-    int index = 1;
-
     public BufferedImage getImage() {
-
-        if (this.isALIVE()) return imgs[index++ % 15];
-        else if (this.isATTACK()) return imgs[(index++ % 11) + 15];
-        else return imgs[(index++ % 10) + 15 + 11];
+        if (this.isALIVE()) return imgs[cnt % 15];
+        else if (this.isATTACK()) return imgs[(cnt % 11) + 15];
+        return imgs[(cnt % 10) + 15 + 11];
     }
 }

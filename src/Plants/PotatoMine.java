@@ -1,19 +1,22 @@
 package Plants;
 
 import ReadXML.DataDom;
+import Zombies.Zombie;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 import javax.xml.crypto.Data;
 
 /*
  *土豆比较特殊，她要和僵尸有接触的
  * 然后还有特殊的图像处理
  */
-public class PotatoMine extends Plant {
+public class PotatoMine extends Plant implements Bomb{
     private static BufferedImage[] imgs;
+    private boolean exploding;
 
     // 7个图像呈连续
     static {
@@ -43,20 +46,37 @@ public class PotatoMine extends Plant {
         super("PotatoMine", point, 71, 71);
     }
 
-    int index = 1;
-
     @Override
     public BufferedImage getImage() {
-        // TODO 自动生成的方法存根
-        if (status == 3) {
-            if (index >= 35) {
-                return null;
-            } else return imgs[index++ % 35];
-        } else {
-            if (index >= 15) return null;
-            else return imgs[index++ % 15];
+        if (!exploding){
+            cnt /= 15;
+            return imgs[cnt];
         }
-
+        return imgs[(cnt - 15) % 20 + 15];
     }
 
+    @Override
+    public void action() {
+        super.action();
+        if (!exploding) cnt %= 15;
+        if (cnt > 34) this.setAlive(false);
+    }
+
+    @Override
+    public void judgeToBoom(List<Zombie> zombies) {
+        if (exploding) return;
+        for (Zombie zombie : zombies){
+            if (this.getRec().intersects(zombie.getZombieRec())){
+                this.boom();
+                zombie.setStatus(Zombie.DEAD);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void boom() {
+        exploding = true;
+        this.setAlive(false);
+    }
 }

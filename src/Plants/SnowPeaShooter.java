@@ -1,5 +1,6 @@
 package Plants;
 
+import Bullet.Bullet;
 import Bullet.SnowPeaBullet;
 import ReadXML.DataDom;
 
@@ -9,7 +10,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 // 寒冰射手
-public class SnowPeaShooter extends Plant {
+public class SnowPeaShooter extends Plant implements Shooter {
 
     private static BufferedImage[] imgs;
 
@@ -27,27 +28,20 @@ public class SnowPeaShooter extends Plant {
 
     ;
 
-    public SnowPeaShooter(Point point) throws Exception {
-        super(point, 71, 71);
-        // TODO 自动生成的构造函数存根
-        DataDom dataDom = new DataDom();
-        this.cost = dataDom.findPlant("SnowPeaShooter").getcost();
-        this.HitPoint = dataDom.findPlant("SnowPeaShooter").getHitPoint();
-        this.blood = this.HitPoint;
+    public SnowPeaShooter(Point point){
+        super("SnowPeaShooter", point, 71, 71);
     }
 
-    public void setBullet() {
-        if (this.BulletList.size() < 1) {
-            int x = point.x;
-            int y = point.y;
-            this.BulletList.add(new SnowPeaBullet(new Point(x + 50, y + 5)));
-        }
+    @Override
+    public Bullet shoot() {
+        Point point = this.getPoint();
+        Point tar = new Point(point.x + 30, point.y + 30);
+        return new SnowPeaBullet(tar);
     }
 
-    int index = 1;
-
+    @Override
     public BufferedImage getImage() {
         // TODO 自动生成的方法存根
-        return imgs[index++ % 10];
+        return imgs[cnt % 10];
     }
 }

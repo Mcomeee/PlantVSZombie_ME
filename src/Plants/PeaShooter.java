@@ -37,6 +37,7 @@ public class PeaShooter extends Plant implements Shooter {
 
     @Override
     public Bullet shoot() {
+        if (cnt % 43 != 0) return null;
         Point point = this.getPoint();
         Point tar = new Point(point.x + 30, point.y + 30);
         return new PeaBullet(tar);

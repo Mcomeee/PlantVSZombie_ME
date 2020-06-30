@@ -36,25 +36,15 @@ public class WallNut extends Plant {
 
     ;
 
-    public WallNut(Point point) throws Exception {
-        super(point, 65, 73);
-        DataDom dataDom = new DataDom();
-        this.cost = dataDom.findPlant("WallNut").getcost();
-        this.HitPoint = dataDom.findPlant("WallNut").getHitPoint();
-        this.blood = this.HitPoint;
-        BulletList = null;
+    public WallNut(Point point){
+        super("WallNut", point, 65, 73);
     }
-
-    int index = 1;
 
     public BufferedImage getImage() {
-        if (this.blood > 3000) return imgs[index++ % 16];
-        else if (this.blood > 1500) return imgs[(index++ % 11) + 16];
-        else return imgs[(index++ % 15) + 27];
+        int blood = getBlood();
+        if (blood > 3000) return imgs[cnt % 16];
+        else if (blood > 1500) return imgs[(cnt % 11) + 16];
+        return imgs[(cnt % 15) + 27];
     }
 
-    @Override
-    public void setBullet() {
-        // TODO 自动生成的方法存根
-    }
 }

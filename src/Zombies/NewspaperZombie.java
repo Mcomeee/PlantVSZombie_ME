@@ -40,23 +40,13 @@ public class NewspaperZombie extends Zombie {
         }
     }
 
-    ;
-
-    public NewspaperZombie(int last) throws Exception {
-        super(166, 144, last);
-        DataDom dataDom = new DataDom();
-        this.attack = dataDom.findZombie("NewspaperZombie").getAttack();
-        this.HitPoint = dataDom.findZombie("NewspaperZombie").getHitPoint();
-        this.blood = this.HitPoint;
-        this.speed = dataDom.findZombie("NewspaperZombie").getSpeed();
+    public NewspaperZombie(){
+        super("NewspaperZombie",166, 144);
     }
 
-    int index = 1;
-
     public BufferedImage getImage() {
-
-        if (this.isALIVE()) return imgs[index++ % 18];
-        else if (this.isATTACK()) return imgs[(index++ % 8) + 18];
-        else return imgs[(index++ % 11) + 8 + 18];
+        if (this.isALIVE()) return imgs[cnt % 18];
+        else if (this.isATTACK()) return imgs[(cnt % 8) + 18];
+        return imgs[(cnt % 11) + 26];
     }
 }

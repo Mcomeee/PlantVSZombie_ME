@@ -1,17 +1,19 @@
 package Plants;
 
 import ReadXML.DataDom;
+import Zombies.Zombie;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 
 /*
  *樱桃炸弹比较特殊，她要和僵尸有接触的
  * 然后还有特殊的图像处理
  */
-public class CherryBomb extends Plant {
+public class CherryBomb extends Plant implements Bomb{
     private static BufferedImage[] imgs;
     private boolean exploding;
 
@@ -48,10 +50,28 @@ public class CherryBomb extends Plant {
             cnt /= 15;
             return imgs[cnt];
         }
-        if (cnt > 35) this.setAlive(false);
         return imgs[(cnt - 15) % 20 + 15];
     }
 
+    @Override
+    public void action() {
+        super.action();
+        if (!exploding) cnt %= 15;
+        if (cnt > 34) this.setAlive(false);
+    }
+
+    @Override
+    public void judgeToBoom(List<Zombie> zombies) {
+        if (exploding) return;
+        for (Zombie zombie : zombies){
+            if (this.getRec().intersects(zombie.getZombieRec())){
+                zombie.setStatus(Zombie.DEAD);
+                this.boom();
+            }
+        }
+    }
+
+    @Override
     public void boom(){
         exploding = true;
     }

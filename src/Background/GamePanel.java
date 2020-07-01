@@ -88,7 +88,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    // 植物动作
+    // 植物动作(包括绘制植物图片)
     private void plantAction(Graphics g) {
         for (Plant plant : plantList) {
 
@@ -111,6 +111,7 @@ public class GamePanel extends JPanel {
         }
     }
 
+    // 绘制子弹
     private void drawBullet(Graphics g){
         for (Bullet bullet : bulletList) {
             bullet.placeImage(g);
@@ -238,7 +239,7 @@ public class GamePanel extends JPanel {
 
     }
 
-    // 僵尸的添加方法
+        // 僵尸的添加方法
     private void addZombie(){
 
         if (zombieCnt < 5) zombieCnt++;

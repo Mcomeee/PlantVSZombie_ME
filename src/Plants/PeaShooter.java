@@ -24,8 +24,6 @@ public class PeaShooter extends Plant implements Shooter {
         }
     }
 
-    ;
-
     public PeaShooter(Point point){
         super("PeaShooter", point, 71, 71);
     }

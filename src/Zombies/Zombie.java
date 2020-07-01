@@ -40,7 +40,7 @@ public abstract class Zombie {
 
         int row = new Random().nextInt(5);
         // 存疑
-        point = new Point(1300, row * 100 + 100);
+        point = new Point(1300, 70 + row * 94);
         rec = new Rectangle(point.x, point.y, width, height);
     }
 

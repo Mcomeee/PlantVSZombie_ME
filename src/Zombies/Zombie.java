@@ -78,7 +78,7 @@ public abstract class Zombie {
 
     // 僵尸行走
     public void move() {
-        if (status != ATTACK) {
+        if (status != ATTACK && cnt % 2 == 0) {
             point.x -= speed;
             rec.x = point.x;
         }

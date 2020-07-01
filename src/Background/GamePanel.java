@@ -54,7 +54,7 @@ public class GamePanel extends JPanel {
                 }
         });
 
-        long interval = 50;
+        long interval = 80;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

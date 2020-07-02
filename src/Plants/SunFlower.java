@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 public class SunFlower extends Plant implements Producer {
     private List<Sun> SunList = new ArrayList<>();
     private static BufferedImage[] imgs;
-    private int cnt; // 计数器
 
     static {
         try {
@@ -39,14 +38,10 @@ public class SunFlower extends Plant implements Producer {
     }
 
     @Override
-    public void action() {
-        ++cnt;
-    }
-
-    @Override
     public Sun produce() {
         if (cnt % 73 != 0) return null;
         Point point = this.getPoint();
+        System.out.println(1);
         return new Sun(
                 new Point(point.x + 10, point.y + 3),
                 new Point(point.x + 15, point.y + 20)
